@@ -2,18 +2,16 @@ import Avatar from './avatar'
 import DateFormatter from './date-formatter'
 import CoverImage from './cover-image'
 import Link from 'next/link'
-import Author from '../types/author'
+
+import Post from 'types/post'
 
 type Props = {
-  title: string
-  coverImage: string
-  date: string
-  excerpt: string
-  author: Author
-  slug: string
+  post: Post
 }
 
-const HeroPost = ({title, coverImage, date, excerpt, author, slug}: Props) => {
+const HeroPost = ({post}: Props) => {
+  const {title, coverImage, slug, date, excerpt, author} = post
+
   return (
     <section>
       <div className="mb-8 md:mb-16">
