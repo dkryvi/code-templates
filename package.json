@@ -5,7 +5,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "prepare": "husky install"
   },
   "dependencies": {
     "classnames": "2.3.1",
@@ -24,8 +25,14 @@
     "@types/react": "^17.0.6",
     "@types/react-dom": "^17.0.5",
     "autoprefixer": "^10.2.5",
+    "husky": ">=6",
+    "lint-staged": ">=10",
     "postcss": "^8.3.0",
+    "prettier": "^2.3.0",
     "tailwindcss": "^2.1.2"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
+  }
 }
