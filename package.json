@@ -7,9 +7,10 @@
     "start": "next start",
     "typecheck": "tsc",
     "prepare": "husky install",
-    "lint": "eslint . --cache-location node_modules/.cache/eslint",
+    "lint": "eslint .",
     "lint:write": "npm run lint --fix",
-    "format": "prettier -w ."
+    "format": "prettier -w .",
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "classnames": "2.3.1",
@@ -32,7 +33,7 @@
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "husky": ">=6",
+    "husky": "^6.0.0",
     "lint-staged": ">=10",
     "postcss": "^8.3.0",
     "prettier": "^2.3.0",
@@ -41,7 +42,8 @@
   },
   "license": "MIT",
   "lint-staged": {
-    "*.{tsx,ts,js,css,md}": [
+    "**/*.{js,jsx,tsx,ts,css,md}": [
+      "bash -c tsc --noEmit",
       "npm run format",
       "npm run lint:write"
     ]

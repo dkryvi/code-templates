@@ -10,17 +10,17 @@ export function getPostSlugs(): Array<string> {
   return fs.readdirSync(postsDirectory)
 }
 
-export function getPostBySlug(slug: string, fields: string[] = []): Post {
+type SlugPost = Post & {
+  [key: string]: string
+}
+
+export function getPostBySlug(slug: string, fields: string[] = []): SlugPost {
   const realSlug = slug.replace(/\.md$/, '')
   const fullPath = join(postsDirectory, `${realSlug}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const {data, content} = matter(fileContents)
 
-  type Items = {
-    [key: string]: string
-  }
-
-  const items: Items = {}
+  const items = {} as SlugPost
 
   // Ensure only the minimal needed data is exposed
   fields.forEach((field) => {
