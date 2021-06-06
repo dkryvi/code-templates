@@ -5,7 +5,11 @@ type Props = {
 }
 
 const Container: FC = ({children}: Props) => {
-  return <div className="container mx-auto px-5">{children}</div>
+  return (
+    <div className="container mx-auto px-5 sm:px-24 md:px-44 lg:px-52">
+      {children}
+    </div>
+  )
 }
 
 export default Container

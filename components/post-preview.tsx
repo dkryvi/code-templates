@@ -12,6 +12,7 @@ type Props = {
   date: string
   excerpt: string
   author: Author
+  tags: Array<string>
   slug: string
 }
 
@@ -21,24 +22,32 @@ const PostPreview = ({
   date,
   excerpt,
   author,
+  tags,
   slug
 }: Props) => {
   return (
-    <div>
-      <div className="mb-5">
-        <CoverImage slug={slug} title={title} src={coverImage} />
-      </div>
-      <h3 className="text-3xl mb-3 leading-snug">
+    <article>
+      <CoverImage title={title} src={coverImage} slug={slug} />
+      <h3 className="mt-8 md:mt-16 text-3xl leading-snug">
         <Link as={`/posts/${slug}`} href="/posts/[slug]">
           <a className="hover:underline">{title}</a>
         </Link>
       </h3>
-      <div className="text-lg mb-4">
+      <ul className="mt-4 flex space-x-2">
+        {tags.map((tag, index) => (
+          <li key={index} className="px-2 py-0.5 bg-black text-white rounded">
+            {tag}
+          </li>
+        ))}
+      </ul>
+      <div className="text-lg mt-4">
         <DateFormatter dateString={date} />
       </div>
-      <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
-      <Avatar name={author.name} picture={author.picture} />
-    </div>
+      <p className="text-lg leading-relaxed mt-4">{excerpt}</p>
+      <div className="mt-4">
+        <Avatar name={author.name} picture={author.picture} />
+      </div>
+    </article>
   )
 }
 
