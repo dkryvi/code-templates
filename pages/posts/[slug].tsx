@@ -1,9 +1,10 @@
+import {GetStaticPaths, GetStaticProps} from 'next'
 import {useRouter} from 'next/router'
 import ErrorPage from 'next/error'
 import Head from 'next/head'
+import {ParsedUrlQuery} from 'querystring'
 
 import {getPostBySlug, getAllPosts} from 'lib/api'
-import {CMS_NAME} from 'lib/constants'
 import markdownToHtml from 'lib/markdownToHtml'
 import PostType from 'types/post'
 
@@ -16,11 +17,10 @@ import PostTitle from 'components/post-title'
 
 type Props = {
   post: PostType
-  morePosts: PostType[]
   preview?: boolean
 }
 
-const Post = ({post, morePosts, preview}: Props) => {
+const Post: React.FC<Props> = ({post, preview}) => {
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
@@ -35,9 +35,7 @@ const Post = ({post, morePosts, preview}: Props) => {
           <>
             <article className="mb-32">
               <Head>
-                <title>
-                  {post.title} | Next.js Blog Example with {CMS_NAME}
-                </title>
+                <title>{post.title} | Code Templates</title>
                 <meta property="og:image" content={post.ogImage.url} />
               </Head>
               <PostHeader
@@ -58,14 +56,13 @@ const Post = ({post, morePosts, preview}: Props) => {
 
 export default Post
 
-type Params = {
-  params: {
-    slug: string
-  }
+interface IParams extends ParsedUrlQuery {
+  slug: string
 }
 
-export async function getStaticProps({params}: Params) {
-  const post = getPostBySlug(params.slug, [
+export const getStaticProps: GetStaticProps = async (context) => {
+  const {slug} = context.params as IParams
+  const post = getPostBySlug(slug, [
     'title',
     'date',
     'slug',
@@ -87,7 +84,7 @@ export async function getStaticProps({params}: Params) {
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const posts = getAllPosts(['slug'])
 
   return {

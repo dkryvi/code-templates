@@ -1,9 +1,11 @@
-import Avatar from './avatar'
-import DateFormatter from './date-formatter'
-import CoverImage from './cover-image'
 import Link from 'next/link'
 
 import Author from 'types/author'
+
+import Avatar from './avatar'
+import DateFormatter from './date-formatter'
+import CoverImage from './cover-image'
+import Tags from './tags'
 
 type Props = {
   title: string
@@ -15,7 +17,7 @@ type Props = {
   slug: string
 }
 
-const HeroPost = ({
+const HeroPost: React.FC<Props> = ({
   title,
   coverImage,
   tags,
@@ -23,7 +25,7 @@ const HeroPost = ({
   excerpt,
   author,
   slug
-}: Props) => {
+}) => {
   return (
     <section className="mb-20 md:mb-28">
       <CoverImage title={title} src={coverImage} slug={slug} />
@@ -32,13 +34,9 @@ const HeroPost = ({
           <a className="hover:underline">{title}</a>
         </Link>
       </h3>
-      <ul className="mt-4 flex space-x-2">
-        {tags.map((tag, index) => (
-          <li key={index} className="px-2 py-0.5 bg-black text-white rounded">
-            {tag}
-          </li>
-        ))}
-      </ul>
+      <div className="mt-4">
+        <Tags tags={tags} />
+      </div>
       <div className="mt-4 md:mb-0 text-lg">
         <DateFormatter dateString={date} />
       </div>

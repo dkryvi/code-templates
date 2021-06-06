@@ -14,7 +14,13 @@ type Props = {
   tags: Array<string>
 }
 
-const PostHeader = ({title, coverImage, date, author, tags}: Props) => {
+const PostHeader: React.FC<Props> = ({
+  title,
+  coverImage,
+  date,
+  author,
+  tags
+}) => {
   return (
     <>
       <PostTitle>{title}</PostTitle>

@@ -7,6 +7,8 @@
     "start": "next start",
     "typecheck": "tsc",
     "prepare": "husky install",
+    "lint": "eslint . --cache-location node_modules/.cache/eslint",
+    "lint:write": "npm run lint --fix",
     "format": "prettier -w ."
   },
   "dependencies": {
@@ -17,23 +19,31 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "remark": "13.0.0",
-    "remark-html": "13.0.1",
-    "typescript": "^4.2.4"
+    "remark-html": "13.0.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/node": "^15.6.0",
     "@types/react": "^17.0.6",
     "@types/react-dom": "^17.0.5",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
     "autoprefixer": "^10.2.5",
+    "eslint": "^7.28.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "husky": ">=6",
     "lint-staged": ">=10",
     "postcss": "^8.3.0",
     "prettier": "^2.3.0",
-    "tailwindcss": "^2.1.2"
+    "tailwindcss": "^2.1.2",
+    "typescript": "^4.3.2"
   },
   "license": "MIT",
   "lint-staged": {
-    "*.{js,css,md}": "npm run format"
+    "*.{tsx,ts,js,css,md}": [
+      "npm run format",
+      "npm run lint:write"
+    ]
   }
 }

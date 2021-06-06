@@ -17,7 +17,7 @@ type Props = {
   slug: string
 }
 
-const PostPreview = ({
+const PostPreview: React.FC<Props> = ({
   title,
   coverImage,
   date,
@@ -25,7 +25,7 @@ const PostPreview = ({
   author,
   tags,
   slug
-}: Props) => {
+}) => {
   return (
     <article>
       <CoverImage title={title} src={coverImage} slug={slug} />

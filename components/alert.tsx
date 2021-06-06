@@ -7,7 +7,7 @@ type Props = {
   preview?: boolean
 }
 
-const Alert = ({preview}: Props) => {
+const Alert: React.FC<Props> = ({preview}) => {
   return (
     <div
       className={cn('border-b', {

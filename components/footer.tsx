@@ -2,7 +2,7 @@ import {REPOSITORY_URL} from 'lib/constants'
 
 import Container from './container'
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="bg-accent-1 border-t border-accent-2">
       <Container>
