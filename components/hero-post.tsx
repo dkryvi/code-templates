@@ -3,15 +3,18 @@ import DateFormatter from './date-formatter'
 import CoverImage from './cover-image'
 import Link from 'next/link'
 
-import Post from 'types/post'
+import Author from 'types/author'
 
 type Props = {
-  post: Post
+  title: string
+  coverImage: string
+  date: string
+  excerpt: string
+  author: Author
+  slug: string
 }
 
-const HeroPost = ({post}: Props) => {
-  const {title, coverImage, slug, date, excerpt, author} = post
-
+const HeroPost = ({title, coverImage, date, excerpt, author, slug}: Props) => {
   return (
     <section>
       <div className="mb-8 md:mb-16">
