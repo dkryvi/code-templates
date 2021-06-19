@@ -10,10 +10,13 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "prettier",
+    "next"
   ],
   "rules": {
     "no-console": 1, // Means warning
-    "prettier/prettier": 2 // Means error
+    "prettier/prettier": 2, // Means error,
+    "@typescript-eslint/ban-ts-comment": 0,
+    "@typescript-eslint/no-explicit-any": 0
   }
 }
