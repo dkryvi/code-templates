@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "generate-content": "npx ts-node ./scripts/develop.ts",
-    "prestart": "npm run generate-content",
+    "prebuild": "npm run generate-content",
     "predev": "npm run generate-content",
     "dev": "next",
     "build": "next build",
