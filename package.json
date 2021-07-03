@@ -1,18 +1,14 @@
 {
-  "name": "blog-starter-typescript",
+  "name": "code-templates",
   "version": "1.0.0",
   "scripts": {
-    "generate-content": "npx ts-node ./scripts/develop.ts",
-    "prebuild": "npm run generate-content",
-    "predev": "npm run generate-content",
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc",
     "prepare": "husky install",
-    "lint": "next lint",
-    "lint:write": "npm run lint --fix",
-    "format": "prettier -w .",
+    "check-types": "tsc --noEmit",
+    "check-format": "prettier -w .",
+    "check-lint": "next lint --no-ignore --fix",
     "pre-commit": "lint-staged"
   },
   "dependencies": {
@@ -45,15 +41,9 @@
     "lint-staged": ">=10",
     "postcss": "^8.3.0",
     "prettier": "^2.3.0",
+    "shell-quote": "^1.7.2",
     "tailwindcss": "^2.2.2",
     "typescript": "^4.3.2"
   },
-  "license": "MIT",
-  "lint-staged": {
-    "**/*.{js,jsx,tsx,ts,css,md}": [
-      "bash -c tsc --noEmit",
-      "npm run format",
-      "npm run lint:write"
-    ]
-  }
+  "license": "MIT"
 }

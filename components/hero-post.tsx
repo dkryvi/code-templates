@@ -42,7 +42,9 @@ const HeroPost: React.FC<Props> = ({
       </div>
       <div>
         <p className="text-lg leading-relaxed mt-4">{excerpt}</p>
-        <Avatar name={author.name} picture={author.picture} />
+        <div className="mt-4">
+          <Avatar name={author.name} picture={author.picture} />
+        </div>
       </div>
     </section>
   )
