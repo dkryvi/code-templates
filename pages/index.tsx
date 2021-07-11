@@ -41,15 +41,7 @@ const Index: React.FC<Props> = ({allPosts}) => {
 export default Index
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPosts = getAllPosts([
-    'title',
-    'date',
-    'slug',
-    'author',
-    'tags',
-    'coverImage',
-    'excerpt'
-  ])
+  const allPosts = getAllPosts()
 
   return {
     props: {allPosts}
