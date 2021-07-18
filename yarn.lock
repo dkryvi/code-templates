@@ -2,6 +2,40 @@
 # yarn lockfile v1
 
 
+"@algolia/autocomplete-core@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-core/-/autocomplete-core-1.2.1.tgz#95fc07cfa40b5a38e3f80acd75d1fb94968215a8"
+  integrity sha512-/SLS6636Wpl7eFiX7eEy0E3wBo60sUm1qRYybJBDt1fs8reiJ1+OSy+dZgrLBfLL4mSFqRIIUHXbVp25QdZ+iw==
+  dependencies:
+    "@algolia/autocomplete-shared" "1.2.1"
+
+"@algolia/autocomplete-js@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-js/-/autocomplete-js-1.2.1.tgz#5911034c42e65b0c72f166f9c8c115f3ae0db6e3"
+  integrity sha512-xINvXjxWP0xDOE5udGWh5N4T8XmTAFJ/gr8q9Bp+UTYnEofDQ61EoDKNOFzqsNfjRKZOoI7qjIoavZtU9fxIzg==
+  dependencies:
+    "@algolia/autocomplete-core" "1.2.1"
+    "@algolia/autocomplete-preset-algolia" "1.2.1"
+    "@algolia/autocomplete-shared" "1.2.1"
+    preact "^10.0.0"
+
+"@algolia/autocomplete-preset-algolia@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-preset-algolia/-/autocomplete-preset-algolia-1.2.1.tgz#bda1741823268ff76ba78306259036f000198e01"
+  integrity sha512-Lf4PpPVgHNXm1ytrnVdrZYV7hAYSCpAI/TrebF8UC6xflPY6sKb1RL/2OfrO9On7SDjPBtNd+6MArSar5JmK0g==
+  dependencies:
+    "@algolia/autocomplete-shared" "1.2.1"
+
+"@algolia/autocomplete-shared@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-shared/-/autocomplete-shared-1.2.1.tgz#96f869fb2285ed6a34a5ac2509722c065df93016"
+  integrity sha512-RHCwcXAYFwDXTlomstjWRFIzOfyxtQ9KmViacPE5P5hxUSSjkmG3dAb77xdydift1PaZNbho5TNTCi5UZe0RpA==
+
+"@algolia/autocomplete-theme-classic@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-theme-classic/-/autocomplete-theme-classic-1.2.1.tgz#07431dc68cada8f7767f6a024a3320861e696929"
+  integrity sha512-DsSdJmWHFWuSxiVFqXojtIcfGT4S9YlmKwHq0XPApsNvS/CdWKddUbzcya07kz6mcC28ZK6gMekkbWsT2HlNYg==
+
 "@algolia/cache-browser-local-storage@4.10.3":
   version "4.10.3"
   resolved "https://registry.yarnpkg.com/@algolia/cache-browser-local-storage/-/cache-browser-local-storage-4.10.3.tgz#3bf81e0f66a4a1079a75914a987eb1ef432c7c68"
@@ -57,7 +91,7 @@
     "@algolia/requester-common" "4.10.3"
     "@algolia/transporter" "4.10.3"
 
-"@algolia/client-search@4.10.3":
+"@algolia/client-search@4.10.3", "@algolia/client-search@^4.10.3":
   version "4.10.3"
   resolved "https://registry.yarnpkg.com/@algolia/client-search/-/client-search-4.10.3.tgz#aa6b02c2d528cb264830f276739b7f68b58988ef"
   integrity sha512-Zwnp2G94IrNFKWCG/k7epI5UswRkPvL9FCt7/slXe2bkjP2y/HA37gzRn+9tXoLVRwd7gBzrtOA4jFKIyjrtVw==
@@ -3388,6 +3422,11 @@ postcss@^8.1.6, postcss@^8.2.1, postcss@^8.3.0:
     colorette "^1.2.2"
     nanoid "^3.1.23"
     source-map-js "^0.6.2"
+
+preact@^10.0.0:
+  version "10.5.14"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.14.tgz#0b14a2eefba3c10a57116b90d1a65f5f00cd2701"
+  integrity sha512-KojoltCrshZ099ksUZ2OQKfbH66uquFoxHSbnwKbTJHeQNvx42EmC7wQVWNuDt6vC5s3nudRHFtKbpY4ijKlaQ==
 
 prelude-ls@^1.2.1:
   version "1.2.1"

@@ -5,7 +5,7 @@ import Author from 'types/author'
 import Avatar from './avatar'
 import DateFormatter from './date-formatter'
 import CoverImage from './cover-image'
-import Tags from './tags'
+import TagList from './tag-list'
 
 type Props = {
   title: string
@@ -35,7 +35,7 @@ const HeroPost: React.FC<Props> = ({
         </Link>
       </h3>
       <div className="mt-4">
-        <Tags tags={tags} />
+        <TagList tags={tags} />
       </div>
       <div className="mt-4 md:mb-0 text-lg">
         <DateFormatter dateString={date} />
