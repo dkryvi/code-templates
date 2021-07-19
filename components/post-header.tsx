@@ -4,7 +4,7 @@ import Avatar from './avatar'
 import DateFormatter from './date-formatter'
 import CoverImage from './cover-image'
 import PostTitle from './post-title'
-import Tags from './tags'
+import TagList from './tag-list'
 
 type Props = {
   title: string
@@ -37,7 +37,7 @@ const PostHeader: React.FC<Props> = ({
         <div className="mb-6 text-lg">
           <DateFormatter dateString={date} />
         </div>
-        <Tags tags={tags} />
+        <TagList tags={tags} />
       </div>
     </>
   )

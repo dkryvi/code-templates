@@ -13,3 +13,6 @@
 /* Stop purging. */
 
 /* Your own custom utilities */
+
+/* Algolia styles */
+@import '@algolia/autocomplete-theme-classic';

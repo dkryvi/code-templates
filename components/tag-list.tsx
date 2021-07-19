@@ -4,13 +4,13 @@ type Props = {
   tags: Array<string>
 }
 
-const Tags: React.FC<Props> = ({tags}) => {
+const TagList: React.FC<Props> = ({tags}) => {
   return (
-    <ul className="flex flex-wrap -mx-2 -my-1">
+    <ul className="flex flex-wrap -mx-1 -my-1">
       {tags.map((tag, index) => (
         <li
           key={index}
-          className="mx-2 my-1 px-2 py-0.5 bg-black text-white rounded"
+          className="mx-1 my-1 px-2 py-0.5 bg-black text-white rounded"
         >
           {tag}
         </li>
@@ -19,4 +19,4 @@ const Tags: React.FC<Props> = ({tags}) => {
   )
 }
 
-export default Tags
+export default TagList
