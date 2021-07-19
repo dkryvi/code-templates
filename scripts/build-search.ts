@@ -40,7 +40,7 @@ async function build() {
     `🎉 Sucessfully added ${
       algoliaResponse.objectIDs.length
     } records to Algolia search. Object IDs:\n${algoliaResponse.objectIDs.join(
-      '\n'
+      ', '
     )}`
   )
 }

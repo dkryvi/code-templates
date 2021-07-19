@@ -1,7 +1,8 @@
 import {useEffect, createElement, Fragment} from 'react'
 import {render} from 'react-dom'
-
 import Link from 'next/link'
+import {RouterContext} from 'next/dist/next-server/lib/router-context'
+import {useRouter} from 'next/router'
 import algoliasearch from 'algoliasearch'
 import {Hit} from '@algolia/client-search'
 import {
@@ -25,12 +26,10 @@ type HitPropsT = {
 }
 
 const HitComponent: React.FC<HitPropsT> = ({hit, components}) => {
-  const {Highlight} = components
-
   return (
     <Link href={`/posts/${hit.slug}`}>
       <a className="hover:bg-gray-100" aria-label={hit.title}>
-        <Highlight
+        <components.Highlight
           // @ts-ignore
           highlightProperty="_highlightResult"
           attribute="title"
@@ -46,6 +45,8 @@ const HitComponent: React.FC<HitPropsT> = ({hit, components}) => {
 }
 
 const Autocomplete: React.FC = () => {
+  const router = useRouter()
+
   useEffect(() => {
     const search = autocomplete<PostHitT>({
       container: '#autocomplete',
@@ -75,7 +76,11 @@ const Autocomplete: React.FC = () => {
             },
             templates: {
               item({item, components}) {
-                return <HitComponent hit={item} components={components} />
+                return (
+                  <RouterContext.Provider value={router}>
+                    <HitComponent hit={item} components={components} />
+                  </RouterContext.Provider>
+                )
               },
               noResults() {
                 return 'No posts for this query.'
