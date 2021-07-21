@@ -94,7 +94,7 @@ const Autocomplete: React.FC = () => {
     return () => {
       search.destroy()
     }
-  }, [])
+  }, [router])
 
   return <div id="autocomplete" />
 }

@@ -8,6 +8,7 @@ module.exports = {
   '**/*.{tsx,ts}': ["bash -c 'npm run check-types'"],
   '**/*.{js,jsx,tsx,ts,css,md}': (filenames) => {
     const escapedFileNames = filenames
+      .filter((file) => !eslint.isPathIgnored(file))
       .map((filename) => `"${isWin ? filename : escape([filename])}"`)
       .join(' ')
 

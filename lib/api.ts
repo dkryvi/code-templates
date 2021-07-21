@@ -2,6 +2,7 @@ import fs from 'fs'
 import {join} from 'path'
 import matter from 'gray-matter'
 
+import {intersection} from 'lib/utils'
 import Post from 'types/post'
 
 const postsDirectory = join(process.cwd(), '_posts')
@@ -39,22 +40,42 @@ export function getPostBySlug(slug: string, fields: string[] = []): SlugPost {
   return items
 }
 
-const DEFAULT_FIELDS = [
-  'title',
-  'date',
-  'slug',
-  'author',
-  'tags',
-  'coverImage',
-  'excerpt'
-]
+type GetPostsParams = {
+  limit?: number
+  offset?: number
+  fields?: Array<string>
+  tags?: Array<string>
+  excludedSlugs?: Array<string>
+}
 
-export function getAllPosts(fields: string[] = DEFAULT_FIELDS): Array<Post> {
+export function getPosts(params: GetPostsParams): Array<Post> {
+  const {
+    limit = Infinity,
+    offset = 0,
+    fields = [
+      'title',
+      'date',
+      'slug',
+      'author',
+      'tags',
+      'coverImage',
+      'excerpt'
+    ],
+    tags = [],
+    excludedSlugs = []
+  } = params
+
   const slugs = getPostSlugs()
   const posts = slugs
+    .filter((slug) => !excludedSlugs.includes(slug.split('.')[0]))
     .map((slug) => getPostBySlug(slug, fields))
-    // sort posts by date in descending order
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
 
-  return posts
+  if (tags.length > 0) {
+    return posts
+      .filter((post) => intersection(post.tags, tags).length > 0)
+      .slice(offset, limit)
+  }
+
+  return posts.slice(offset, limit)
 }
