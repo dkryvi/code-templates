@@ -1,40 +1,23 @@
 import {GetStaticProps} from 'next'
 
-import {getAllPosts} from 'lib/api'
+import {getPosts} from 'lib/api'
 import Post from 'types/post'
 
 import Container from 'components/container'
-import MoreStories from 'components/more-stories'
+import PostList from 'components/post-list'
 import AppBar from 'components/app-bar'
-import HeroPost from 'components/hero-post'
-import Intro from 'components/intro'
 import Layout from 'components/layout'
 
 type Props = {
-  allPosts: Post[]
+  posts: Post[]
 }
 
-const Index: React.FC<Props> = ({allPosts}) => {
-  const heroPost = allPosts[0]
-  const morePosts = allPosts.slice(1)
-
+const Index: React.FC<Props> = ({posts}) => {
   return (
     <Layout>
       <Container>
         <AppBar />
-        <Intro />
-        {heroPost && (
-          <HeroPost
-            title={heroPost.title}
-            coverImage={heroPost.coverImage}
-            tags={heroPost.tags}
-            date={heroPost.date}
-            author={heroPost.author}
-            slug={heroPost.slug}
-            excerpt={heroPost.excerpt}
-          />
-        )}
-        {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+        {posts.length > 0 && <PostList title="Latest Posts" posts={posts} />}
       </Container>
     </Layout>
   )
@@ -43,9 +26,9 @@ const Index: React.FC<Props> = ({allPosts}) => {
 export default Index
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPosts = getAllPosts()
+  const posts = getPosts({limit: 6})
 
   return {
-    props: {allPosts}
+    props: {posts}
   }
 }

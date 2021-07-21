@@ -3,16 +3,15 @@ import Footer from './footer'
 import Meta from './meta'
 
 type Props = {
-  preview?: boolean
   children: React.ReactNode
 }
 
-const Layout: React.FC<Props> = ({preview, children}) => {
+const Layout: React.FC<Props> = ({children}) => {
   return (
     <>
       <Meta />
       <div className="min-h-screen">
-        <Alert preview={preview} />
+        <Alert />
         <main>{children}</main>
       </div>
       <Footer />

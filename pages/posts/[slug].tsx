@@ -4,7 +4,7 @@ import ErrorPage from 'next/error'
 import Head from 'next/head'
 import {ParsedUrlQuery} from 'querystring'
 
-import {getPostBySlug, getAllPosts} from 'lib/api'
+import {getPostBySlug, getPosts} from 'lib/api'
 import markdownToHtml from 'lib/markdownToHtml'
 import PostType from 'types/post'
 
@@ -14,19 +14,20 @@ import Header from 'components/header'
 import PostHeader from 'components/post-header'
 import Layout from 'components/layout'
 import PostTitle from 'components/post-title'
+import PostList from 'components/post-list'
 
 type Props = {
   post: PostType
-  preview?: boolean
+  similarPosts: Array<PostType>
 }
 
-const Post: React.FC<Props> = ({post, preview}) => {
+const Post: React.FC<Props> = ({post, similarPosts}) => {
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
   return (
-    <Layout preview={preview}>
+    <Layout>
       <Container>
         <Header />
         {router.isFallback ? (
@@ -48,6 +49,9 @@ const Post: React.FC<Props> = ({post, preview}) => {
               <PostBody content={post.content} />
             </article>
           </>
+        )}
+        {similarPosts.length > 0 && (
+          <PostList title="Similar Posts" posts={similarPosts} />
         )}
       </Container>
     </Layout>
@@ -73,19 +77,25 @@ export const getStaticProps: GetStaticProps = async (context) => {
     'tags'
   ])
   const content = await markdownToHtml(post.content || '')
+  const similarPosts = getPosts({
+    limit: 6,
+    tags: post.tags,
+    excludedSlugs: [post.slug]
+  })
 
   return {
     props: {
       post: {
         ...post,
         content
-      }
+      },
+      similarPosts
     }
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = getAllPosts(['slug'])
+  const posts = getPosts({fields: ['slug']})
 
   return {
     paths: posts.map((posts) => {
