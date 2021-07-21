@@ -96,7 +96,7 @@ const Autocomplete: React.FC = () => {
     }
   }, [router])
 
-  return <div id="autocomplete" />
+  return <div id="autocomplete" className="mb-8 focus-within:shadow-md" />
 }
 
 export default Autocomplete

@@ -16,3 +16,12 @@
 
 /* Algolia styles */
 @import '@algolia/autocomplete-theme-classic';
+
+.aa-Label svg,
+.aa-DetachedSearchButtonIcon svg {
+  @apply text-black;
+}
+
+.aa-Form:focus-within {
+  @apply border-black shadow-none;
+}
