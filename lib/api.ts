@@ -49,7 +49,7 @@ type GetPostsParams = {
   excludedSlugs?: Array<string>
 }
 
-export function getPosts(params: GetPostsParams): Array<Post> {
+export function getPosts(params: GetPostsParams = {}): Array<Post> {
   const {
     limit = Infinity,
     offset = 0,
