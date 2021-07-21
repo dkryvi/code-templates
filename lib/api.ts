@@ -2,8 +2,9 @@ import fs from 'fs'
 import {join} from 'path'
 import matter from 'gray-matter'
 
-import {intersection} from 'lib/utils'
 import Post from 'types/post'
+
+import {intersection} from './utils'
 
 const postsDirectory = join(process.cwd(), '_posts')
 
