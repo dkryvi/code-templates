@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "postbuild": "ts-node ./scripts/build-search",
+    "postbuild": "ts-node ./scripts/build",
     "start": "next start",
     "prepare": "husky install",
     "check-types": "tsc --noEmit",

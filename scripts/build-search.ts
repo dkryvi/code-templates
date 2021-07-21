@@ -21,7 +21,7 @@ function transformPostsToSearchObjects(posts: Array<Post>) {
   })
 }
 
-async function build() {
+export async function buildSearch(): void {
   dotenv.config()
 
   const posts = getPosts()
@@ -44,5 +44,3 @@ async function build() {
     )}`
   )
 }
-
-build()
