@@ -2,7 +2,6 @@
 import dotenv from 'dotenv'
 import algoliasearch from 'algoliasearch/lite'
 
-import {getPosts} from '../lib/api'
 import Post from '../types/post'
 
 function transformPostsToSearchObjects(posts: Array<Post>) {
@@ -21,10 +20,13 @@ function transformPostsToSearchObjects(posts: Array<Post>) {
   })
 }
 
-export async function buildSearch(): void {
+type BuildSearchProps = {
+  posts: Array<Post>
+}
+
+export async function buildSearch({posts}: BuildSearchProps): void {
   dotenv.config()
 
-  const posts = getPosts()
   const transformed = transformPostsToSearchObjects(posts)
 
   const client = algoliasearch(

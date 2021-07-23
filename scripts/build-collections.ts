@@ -1,4 +1,3 @@
-import {getPosts} from '../lib/api'
 import {serializeToFile} from '../lib/utils'
 import Post from '../types/post'
 
@@ -32,9 +31,13 @@ function getUniquePostsTags(posts: Array<Post>): Array<string> {
   return [...Array.from(new Set(allTags))]
 }
 
-export async function buildCollections(): Promise<void> {
-  const posts = getPosts()
+type BuildCollectionsProps = {
+  posts: Array<Post>
+}
 
+export async function buildCollections({
+  posts
+}: BuildCollectionsProps): Promise<void> {
   const groupedPosts = groupPostsByPrimaryTag(posts)
 
   const collections = Object.keys(groupedPosts).map((title) => ({
