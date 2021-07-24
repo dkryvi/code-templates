@@ -1,3 +1,5 @@
+import logger from 'loglevel'
+
 import {serializeToFile} from '../lib/utils'
 import Post from '../types/post'
 
@@ -55,4 +57,6 @@ export async function buildCollections({
       flag: 'w+'
     }
   )
+
+  logger.info(`🎉 Successfully build ${collections.length} collections`)
 }
