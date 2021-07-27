@@ -27,7 +27,7 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
             key={collection.title}
             className="rounded border-black border-2 p-2 transition ease-in-out transform hover:scale-105 hover:shadow-xl"
           >
-            <Link href={`/${collection.title}/p/1`}>
+            <Link href={`/collections/${collection.title}?p=1`}>
               <a
                 className="grid grid-cols-12 place-items-center "
                 aria-label={collection.title}

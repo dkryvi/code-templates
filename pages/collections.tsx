@@ -3,7 +3,9 @@ import {GetStaticProps} from 'next'
 import {getCollections} from 'lib/api'
 import Collection from 'types/collection'
 
+import CollectionPreview from 'components/collection-preview'
 import Container from 'components/container'
+import Header from 'components/header'
 import Layout from 'components/layout'
 
 type Props = {
@@ -14,9 +16,20 @@ const Index: React.FC<Props> = ({collections}) => {
   return (
     <Layout>
       <Container>
-        <ul>
+        <Header />
+        <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
+          Collections
+        </h2>
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-4">
           {collections.map((collection, index) => (
-            <li key={index}>{collection.title}</li>
+            <li key={index}>
+              <CollectionPreview
+                title={collection.title}
+                excerpt={collection.excerpt}
+                coverImage={collection.coverImage}
+                tags={collection.tags}
+              />
+            </li>
           ))}
         </ul>
       </Container>
