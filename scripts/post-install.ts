@@ -1,5 +1,8 @@
 import logger from 'loglevel'
+import fs from 'fs-extra'
 
+import {CONTENT_FOLDER} from '../lib/constants'
+import {getPosts} from '../lib/api'
 import {serializeToFile, getSettings} from '../lib/utils'
 import Post from '../types/post'
 
@@ -33,19 +36,16 @@ function getUniquePostsTags(posts: Array<Post>): Array<string> {
   return [...Array.from(new Set(allTags))]
 }
 
-type BuildCollectionsProps = {
-  posts: Array<Post>
-  outputPath: string
-}
+async function build() {
+  logger.setLevel('info')
+  const contentOutputPath = `${process.cwd()}/${CONTENT_FOLDER}`
 
-export async function buildCollections({
-  posts,
-  outputPath
-}: BuildCollectionsProps): Promise<void> {
+  fs.ensureDirSync(contentOutputPath)
+
+  const posts = getPosts()
   const groupedPosts = groupPostsByPrimaryTag(posts)
 
   const collectionsDictionary = await getSettings('collections')
-
   const collections = Object.keys(groupedPosts).map((title) => ({
     title,
     excerpt: collectionsDictionary[title]?.excerpt,
@@ -54,9 +54,11 @@ export async function buildCollections({
     slugs: groupedPosts[title].map((post) => post.slug)
   }))
 
-  await serializeToFile(`${outputPath}/collections.json`, collections, {
+  await serializeToFile(`${contentOutputPath}/collections.json`, collections, {
     flag: 'w+'
   })
 
   logger.info(`🎉 Successfully build ${collections.length} collections`)
 }
+
+build()

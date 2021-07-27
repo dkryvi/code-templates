@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "postbuild": "ts-node ./scripts/build",
+    "postinstall": "ts-node ./scripts/post-install",
+    "postbuild": "ts-node ./scripts/post-build",
     "start": "next start",
     "prepare": "husky install",
     "check-types": "tsc --noEmit",
@@ -53,7 +54,7 @@
     "typescript": "^4.3.2"
   },
   "engines": {
-    "node": "12.22.3"
+    "node": "14.17.3"
   },
   "license": "MIT"
 }

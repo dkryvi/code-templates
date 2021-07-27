@@ -1,7 +1,9 @@
 // @ts-nocheck
+import dotenv from 'dotenv'
 import logger from 'loglevel'
 import algoliasearch from 'algoliasearch/lite'
 
+import {getPosts} from '../lib/api'
 import Post from '../types/post'
 
 function transformPostsToSearchObjects(posts: Array<Post>) {
@@ -20,11 +22,11 @@ function transformPostsToSearchObjects(posts: Array<Post>) {
   })
 }
 
-type BuildSearchProps = {
-  posts: Array<Post>
-}
+async function build() {
+  dotenv.config()
+  logger.setLevel('info')
 
-export async function buildSearch({posts}: BuildSearchProps): void {
+  const posts = getPosts()
   const transformed = transformPostsToSearchObjects(posts)
 
   const client = algoliasearch(
@@ -40,3 +42,5 @@ export async function buildSearch({posts}: BuildSearchProps): void {
     `🎉 Sucessfully added ${algoliaResponse.objectIDs.length} records to Algolia search.`
   )
 }
+
+build()
