@@ -20,7 +20,7 @@ const CollectionPreview: React.FC<Props> = ({
     excerpt && excerpt.length > 100 ? `${excerpt.slice(0, 100)}...` : excerpt
 
   return (
-    <Link as={`/collections/${title}?p=1`} href="/posts/[slug]">
+    <Link as={`/collections/${title}?p=1`} href="/collections/[slug]">
       <a>
         <article className="h-full rounded transition ease-in-out transform hover:scale-105 hover:shadow-xl border-black border-2 p-4">
           <div className="flex mb-4">

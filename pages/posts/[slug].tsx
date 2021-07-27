@@ -13,8 +13,8 @@ import PostBody from 'components/post-body'
 import Header from 'components/header'
 import PostHeader from 'components/post-header'
 import Layout from 'components/layout'
-import PostTitle from 'components/post-title'
 import PostList from 'components/post-list'
+import Title from 'components/title'
 
 type Props = {
   post: PostType
@@ -31,7 +31,7 @@ const Post: React.FC<Props> = ({post, similarPosts}) => {
       <Container>
         <Header />
         {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
+          <Title>Loading…</Title>
         ) : (
           <>
             <article className="mb-32">
@@ -98,10 +98,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const posts = getPosts({fields: ['slug']})
 
   return {
-    paths: posts.map((posts) => {
+    paths: posts.map((post) => {
       return {
         params: {
-          slug: posts.slug
+          slug: post.slug
         }
       }
     }),
