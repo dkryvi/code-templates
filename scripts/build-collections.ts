@@ -36,10 +36,12 @@ function getUniquePostsTags(posts: Array<Post>): Array<string> {
 
 type BuildCollectionsProps = {
   posts: Array<Post>
+  outputPath: string
 }
 
 export async function buildCollections({
-  posts
+  posts,
+  outputPath
 }: BuildCollectionsProps): Promise<void> {
   const groupedPosts = groupPostsByPrimaryTag(posts)
 
@@ -51,13 +53,9 @@ export async function buildCollections({
     slugs: groupedPosts[title].map((post) => post.slug)
   }))
 
-  await serializeToFile(
-    `${process.cwd()}/.content/collections.json`,
-    collections,
-    {
-      flag: 'w+'
-    }
-  )
+  await serializeToFile(`${outputPath}/collections.json`, collections, {
+    flag: 'w+'
+  })
 
   logger.info(`🎉 Successfully build ${collections.length} collections`)
 }
