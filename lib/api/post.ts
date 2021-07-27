@@ -4,7 +4,7 @@ import matter from 'gray-matter'
 
 import Post from 'types/post'
 
-import {intersection} from './utils'
+import {intersection} from '../utils'
 
 const postsDirectory = join(process.cwd(), '_posts')
 

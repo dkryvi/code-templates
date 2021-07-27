@@ -1,7 +1,10 @@
 import util from 'util'
 import fs from 'fs-extra'
+import {join} from 'path'
 
 const writeFile = util.promisify(fs.writeFile)
+
+const readJson = util.promisify(fs.readJson)
 
 export function serializeToFile(
   filePath: string,
@@ -10,6 +13,17 @@ export function serializeToFile(
 ): Promise<unknown> {
   // @ts-ignore
   return writeFile(filePath, JSON.stringify(data, null, 2), options)
+}
+
+const contentDirectory = join(process.cwd(), '.content')
+
+export function getContentData(contentFile: string): Promise<any> {
+  return new Promise((resolve, reject) =>
+    // @ts-ignore
+    readJson(`${contentDirectory}/${contentFile}.json`)
+      .then(resolve)
+      .catch(reject)
+  )
 }
 
 export function intersection<T>(arr1: Array<T>, arr2: Array<T>): Array<T> {

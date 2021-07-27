@@ -1,5 +1,6 @@
 import logger from 'loglevel'
 
+import {COLLECTION_DICTIONARY} from '../lib/constants'
 import {serializeToFile} from '../lib/utils'
 import Post from '../types/post'
 
@@ -44,8 +45,8 @@ export async function buildCollections({
 
   const collections = Object.keys(groupedPosts).map((title) => ({
     title,
-    excerpt: 'Collection excerpt', // TODO: add mapping for collection excerpt by title
-    coverImage: null, // TODO: add mapping for collection image by title
+    excerpt: COLLECTION_DICTIONARY[title]?.excerpt,
+    coverImage: COLLECTION_DICTIONARY[title]?.coverImage,
     tags: getUniquePostsTags(groupedPosts[title]),
     slugs: groupedPosts[title].map((post) => post.slug)
   }))
