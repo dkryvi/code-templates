@@ -24,21 +24,27 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-4">
         {collections.map((collection) => (
           <li
-            //  TODO: add link to the collection detail
             key={collection.title}
-            className="grid grid-cols-12 place-items-center rounded border-black border-2 p-2"
+            className="rounded border-black border-2 p-2 transition ease-in-out transform hover:scale-105 hover:shadow-xl"
           >
-            <div className="col-span-3 relative h-16 w-16">
-              <Image
-                className="rounded"
-                src={collection.coverImage ?? COLLECTION_IMAGE_FALLBACK}
-                alt={collection.title}
-                layout="fill"
-              />
-            </div>
-            <p className="col-span-9 text-center text-xl font-semibold">
-              {toTitleCase(collection.title)}
-            </p>
+            <Link href={`/${collection.title}/p/1`}>
+              <a
+                className="grid grid-cols-12 place-items-center "
+                aria-label={collection.title}
+              >
+                <div className="col-span-3 relative h-16 w-16">
+                  <Image
+                    className="rounded"
+                    src={collection.coverImage ?? COLLECTION_IMAGE_FALLBACK}
+                    alt={collection.title}
+                    layout="fill"
+                  />
+                </div>
+                <p className="col-span-9 text-center text-xl font-semibold">
+                  {toTitleCase(collection.title)}
+                </p>
+              </a>
+            </Link>
           </li>
         ))}
       </ul>

@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import logger from 'loglevel'
 import fs from 'fs-extra'
 
+import {CONTENT_FOLDER} from '../lib/constants'
 import {getPosts} from '../lib/api'
 import {buildSearch} from './build-search'
 import {buildCollections} from './build-collections'
@@ -9,7 +10,7 @@ import {buildCollections} from './build-collections'
 async function build() {
   const posts = getPosts()
 
-  const contentOutputPath = `${process.cwd()}/.content`
+  const contentOutputPath = `${process.cwd()}/${CONTENT_FOLDER}`
 
   fs.ensureDirSync(contentOutputPath)
 

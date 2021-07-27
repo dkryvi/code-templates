@@ -2,6 +2,8 @@ import util from 'util'
 import fs from 'fs-extra'
 import {join} from 'path'
 
+import {CONTENT_FOLDER, SETTINGS_FOLDER} from './constants'
+
 const writeFile = util.promisify(fs.writeFile)
 
 const readJson = util.promisify(fs.readJson)
@@ -15,14 +17,21 @@ export function serializeToFile(
   return writeFile(filePath, JSON.stringify(data, null, 2), options)
 }
 
-const contentDirectory = join(process.cwd(), '.content')
+const contentDirectory = join(process.cwd(), CONTENT_FOLDER)
 
-export function getContentData(contentFile: string): Promise<any> {
+export function getContentData(file: string): Promise<any> {
   return new Promise((resolve, reject) =>
     // @ts-ignore
-    readJson(`${contentDirectory}/${contentFile}.json`)
-      .then(resolve)
-      .catch(reject)
+    readJson(`${contentDirectory}/${file}.json`).then(resolve).catch(reject)
+  )
+}
+
+const settingsDirectory = join(process.cwd(), SETTINGS_FOLDER)
+
+export function getSettings(file: string): Promise<any> {
+  return new Promise((resolve, reject) =>
+    // @ts-ignore
+    readJson(`${settingsDirectory}/${file}.json`).then(resolve).catch(reject)
   )
 }
 

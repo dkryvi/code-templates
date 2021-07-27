@@ -1,7 +1,6 @@
 import logger from 'loglevel'
 
-import {COLLECTION_DICTIONARY} from '../lib/constants'
-import {serializeToFile} from '../lib/utils'
+import {serializeToFile, getSettings} from '../lib/utils'
 import Post from '../types/post'
 
 type GroupedPosts = {
@@ -45,10 +44,12 @@ export async function buildCollections({
 }: BuildCollectionsProps): Promise<void> {
   const groupedPosts = groupPostsByPrimaryTag(posts)
 
+  const collectionsDictionary = await getSettings('collections')
+
   const collections = Object.keys(groupedPosts).map((title) => ({
     title,
-    excerpt: COLLECTION_DICTIONARY[title]?.excerpt,
-    coverImage: COLLECTION_DICTIONARY[title]?.coverImage,
+    excerpt: collectionsDictionary[title]?.excerpt,
+    coverImage: collectionsDictionary[title]?.coverImage,
     tags: getUniquePostsTags(groupedPosts[title]),
     slugs: groupedPosts[title].map((post) => post.slug)
   }))
