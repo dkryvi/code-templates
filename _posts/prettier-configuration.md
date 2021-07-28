@@ -1,7 +1,7 @@
 ---
 title: '.prettierrc'
 excerpt: 'Base configuration for prettier'
-tags: ['linters', 'prettier']
+tags: ['javascript', 'linting', 'prettier']
 coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1627307205/Code%20Templates/covers/cover_ittvun.png'
 date: '2020-07-03'
 author:

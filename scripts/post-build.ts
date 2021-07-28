@@ -1,5 +1,6 @@
 // @ts-nocheck
 import dotenv from 'dotenv'
+import logger from 'loglevel'
 import algoliasearch from 'algoliasearch/lite'
 
 import {getPosts} from '../lib/api'
@@ -23,6 +24,7 @@ function transformPostsToSearchObjects(posts: Array<Post>) {
 
 async function build() {
   dotenv.config()
+  logger.setLevel('info')
 
   const posts = getPosts()
   const transformed = transformPostsToSearchObjects(posts)
@@ -36,12 +38,8 @@ async function build() {
 
   const algoliaResponse = await index.saveObjects(transformed)
 
-  console.log(
-    `🎉 Sucessfully added ${
-      algoliaResponse.objectIDs.length
-    } records to Algolia search. Object IDs:\n${algoliaResponse.objectIDs.join(
-      ', '
-    )}`
+  logger.info(
+    `🎉 Sucessfully added ${algoliaResponse.objectIDs.length} records to Algolia search.`
   )
 }
 

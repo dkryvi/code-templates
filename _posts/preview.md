@@ -5,7 +5,7 @@ excerpt:
   tempor incididunt ut labore et dolore magna aliqua. Praesent elementum
   facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan
   sit amet nulla facilities morbi tempus.'
-tags: ['javascript', 'react', 'components']
+tags: ['react', 'components']
 coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1627307206/Code%20Templates/covers/cover_oqmmmx.jpg'
 date: '2020-03-16T05:35:07.322Z'
 author:

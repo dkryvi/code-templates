@@ -3,8 +3,8 @@ import Author from 'types/author'
 import Avatar from './avatar'
 import DateFormatter from './date-formatter'
 import CoverImage from './cover-image'
-import PostTitle from './post-title'
 import TagList from './tag-list'
+import Title from './title'
 
 type Props = {
   title: string
@@ -23,7 +23,7 @@ const PostHeader: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <PostTitle>{title}</PostTitle>
+      <Title>{title}</Title>
       <div className="hidden md:block md:mb-12">
         <Avatar name={author.name} picture={author.picture} />
       </div>
