@@ -15,7 +15,7 @@ function toTitleCase(title: string): string {
 
 const CollectionList: React.FC<Props> = ({title, collections}) => {
   return (
-    <section className="mb-32">
+    <section className="mb-16">
       {title && (
         <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
           {title}
