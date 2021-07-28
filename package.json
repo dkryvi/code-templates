@@ -18,6 +18,7 @@
     "@algolia/autocomplete-theme-classic": "^1.2.1",
     "@algolia/client-search": "^4.10.3",
     "algoliasearch": "^4.10.3",
+    "clsx": "^1.1.1",
     "date-fns": "2.21.3",
     "dotenv": "^10.0.0",
     "gray-matter": "4.0.3",

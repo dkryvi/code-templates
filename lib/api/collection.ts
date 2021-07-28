@@ -1,6 +1,6 @@
 import Collection from 'types/collection'
 
-import {getContentData} from '../utils'
+import {getContentData} from '../utils/fs'
 
 const bySlugsCount = (col1: Collection, col2: Collection) =>
   col2.slugs.length - col1.slugs.length

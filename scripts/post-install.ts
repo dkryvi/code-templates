@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 
 import {CONTENT_FOLDER} from '../lib/constants'
 import {getPosts} from '../lib/api'
-import {serializeToFile, getSettings} from '../lib/utils'
+import {serializeToFile, getSettings} from '../lib/utils/fs'
 import Post from '../types/post'
 
 type GroupedPosts = {

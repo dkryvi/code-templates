@@ -5,7 +5,7 @@ import Head from 'next/head'
 import {ParsedUrlQuery} from 'querystring'
 
 import {getPostBySlug, getPosts} from 'lib/api'
-import markdownToHtml from 'lib/markdownToHtml'
+import markdownToHtml from 'lib/utils/markdownToHtml'
 import PostType from 'types/post'
 
 import Container from 'components/container'

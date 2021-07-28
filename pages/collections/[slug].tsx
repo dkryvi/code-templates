@@ -1,13 +1,15 @@
+import {useState} from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import {useRouter} from 'next/router'
 import ErrorPage from 'next/error'
 import Head from 'next/head'
 import {ParsedUrlQuery} from 'querystring'
 
-import {getCollections, getCollectionBySlug, getPostBySlug} from 'lib/api'
 import Collection from 'types/collection'
 import Post from 'types/post'
+import {getCollections, getCollectionBySlug, getPostBySlug} from 'lib/api'
 
+import CollectionTags from 'components/collection-tags'
 import Container from 'components/container'
 import Header from 'components/header'
 import Layout from 'components/layout'
@@ -21,23 +23,41 @@ type Props = {
 
 const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
   const router = useRouter()
+  const [activeTag, setActiveTag] = useState<string | undefined>()
+
+  const handleTagClick = (tag: string) => {
+    setActiveTag(activeTag === tag ? undefined : tag)
+  }
+
   if (!router.isFallback && !collection?.title) {
     return <ErrorPage statusCode={404} />
   }
+
+  const filteredPosts = activeTag
+    ? posts.filter((post) => post.tags.includes(activeTag))
+    : posts
+
   return (
-    <Layout>
-      <Container>
-        <Header />
-        <article className="mb-32">
-          <Head>
-            <title>{collection.title} | Code Templates</title>
-            <meta property="og:image" content={collection.coverImage} />
-          </Head>
-          <Title>{collection.title}</Title>
-          <PostList posts={posts} />
-        </article>
-      </Container>
-    </Layout>
+    <>
+      <Head>
+        <title>{collection.title} | Code Templates</title>
+        <meta property="og:image" content={collection.coverImage} />
+      </Head>
+      <Layout>
+        <Container>
+          <Header />
+          <article className="mb-32">
+            <Title>{collection.title}</Title>
+            <CollectionTags
+              tags={collection.tags}
+              activeTag={activeTag}
+              onTagClick={handleTagClick}
+            />
+            <PostList posts={filteredPosts} />
+          </article>
+        </Container>
+      </Layout>
+    </>
   )
 }
 
