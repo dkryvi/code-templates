@@ -14,6 +14,9 @@
 
 /* Your own custom utilities */
 
+/* Prism styles */
+@import './prism-holi-theme.css';
+
 /* Algolia styles */
 @import '@algolia/autocomplete-theme-classic';
 

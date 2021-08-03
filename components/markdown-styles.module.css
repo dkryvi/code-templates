@@ -18,5 +18,5 @@
 }
 
 .markdown pre {
-  @apply bg-gray-700 text-gray-50 p-4 my-4 rounded overflow-auto;
+  @apply bg-gray-900 text-gray-50 p-4 my-4 rounded overflow-auto;
 }

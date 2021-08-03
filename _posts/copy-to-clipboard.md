@@ -11,22 +11,22 @@ ogImage:
   url: 'https://res.cloudinary.com/dkryvi/image/upload/v1627307206/Code%20Templates/covers/cover_wyom8x.jpg'
 ---
 
-```
+```js
 function copyToClipboard(link) {
-  const textarea = document.createElement('textarea');
-  textarea.textContent = link;
-  document.body.appendChild(textarea);
+  const textarea = document.createElement('textarea')
+  textarea.textContent = link
+  document.body.appendChild(textarea)
 
-  const selection = document.getSelection();
-  const range = document.createRange();
+  const selection = document.getSelection()
+  const range = document.createRange()
 
-  range.selectNode(textarea);
-  selection.removeAllRanges();
-  selection.addRange(range);
+  range.selectNode(textarea)
+  selection.removeAllRanges()
+  selection.addRange(range)
 
-  document.execCommand('copy');
-  selection.removeAllRanges();
+  document.execCommand('copy')
+  selection.removeAllRanges()
 
-  document.body.removeChild(textarea);
+  document.body.removeChild(textarea)
 }
 ```
