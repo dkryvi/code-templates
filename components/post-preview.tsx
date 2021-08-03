@@ -20,12 +20,12 @@ const PostPreview: React.FC<Props> = ({title, excerpt, author, tags, slug}) => {
   return (
     <Link as={`/posts/${slug}`} href="/posts/[slug]">
       <a>
-        <article className="h-full rounded transition ease-in-out transform hover:scale-105 hover:shadow-xl border-black border-2">
+        <article className="h-full rounded hover:shadow-xl border-black border-2">
           <div className="p-4">
-            <h3 className="text-3xl leading-snug mb-4">{title}</h3>
-            <TagList tags={tags} />
-            <p className="text-lg leading-relaxed my-4">{slicedExcerpt}</p>
             <Avatar name={author.name} picture={author.picture} />
+            <h3 className="text-3xl leading-snug my-4">{title}</h3>
+            <TagList tags={tags} />
+            <p className="text-lg leading-relaxed mt-4">{slicedExcerpt}</p>
           </div>
         </article>
       </a>

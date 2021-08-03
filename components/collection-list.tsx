@@ -17,7 +17,7 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
   return (
     <section className="mb-16">
       {title && (
-        <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
+        <h2 className="mb-8 text-6xl lg:text-7xl font-bold tracking-tighter leading-tight">
           {title}
         </h2>
       )}
@@ -25,7 +25,7 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
         {collections.map((collection) => (
           <li
             key={collection.title}
-            className="rounded border-black border-2 p-2 transition ease-in-out transform hover:scale-105 hover:shadow-xl"
+            className="rounded border-black border-2 p-2 transform hover:shadow-xl"
           >
             <Link href={`/collections/${collection.title}?p=1`}>
               <a

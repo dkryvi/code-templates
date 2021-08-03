@@ -26,6 +26,7 @@ const Post: React.FC<Props> = ({post, similarPosts}) => {
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
+
   return (
     <Layout>
       <Container>

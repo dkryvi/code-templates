@@ -22,7 +22,7 @@ const CollectionPreview: React.FC<Props> = ({
   return (
     <Link as={`/collections/${title}?p=1`} href="/collections/[slug]">
       <a>
-        <article className="h-full rounded transition ease-in-out transform hover:scale-105 hover:shadow-xl border-black border-2 p-4">
+        <article className="h-full rounded hover:shadow-xl border-black border-2 p-4">
           <div className="flex mb-4">
             {coverImage && (
               <div className="h-12 mr-4">

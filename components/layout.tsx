@@ -22,7 +22,6 @@ const Layout: React.FC<Props> = ({children}) => {
     <>
       <Meta />
       <main className="min-h-screen">
-        <Alert />
         {children}
         <div className="fixed right-8 bottom-8 flex flex-col space-y-4">
           <button
@@ -40,6 +39,7 @@ const Layout: React.FC<Props> = ({children}) => {
         </div>
       </main>
       <Footer />
+      <Alert />
     </>
   )
 }
