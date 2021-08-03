@@ -11,7 +11,7 @@ ogImage:
   url: 'https://res.cloudinary.com/dkryvi/image/upload/v1627307205/Code%20Templates/covers/cover_ittvun.png'
 ---
 
-```
+```json
 {
   "arrowParens": "always",
   "bracketSpacing": false,

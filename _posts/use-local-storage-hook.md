@@ -1,7 +1,7 @@
 ---
 title: 'Use local storage'
 excerpt: 'React hook to use sync local storage value by key'
-tags: ['react', 'hook', 'local-storage']
+tags: ['react', 'hooks', 'local-storage']
 coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1627307206/Code%20Templates/covers/cover_oqmmmx.jpg'
 date: '2020-07-30'
 author:
@@ -11,13 +11,11 @@ ogImage:
   url: 'https://res.cloudinary.com/dkryvi/image/upload/v1627307206/Code%20Templates/covers/cover_oqmmmx.jpg'
 ---
 
-```
-import React from 'react'
-
+```js
 function useLocalStorageState(
   key,
   defaultValue = '',
-  {serialize = JSON.stringify, deserialize = JSON.parse} = {},
+  {serialize = JSON.stringify, deserialize = JSON.parse} = {}
 ) {
   const [state, setState] = React.useState(() => {
     const valueInLocalStorage = window.localStorage.getItem(key)

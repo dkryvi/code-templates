@@ -1,7 +1,7 @@
 ---
 title: 'Use async'
 excerpt: 'React hook to work with async function call'
-tags: ['react', 'hook', 'async']
+tags: ['react', 'hooks', 'async']
 coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1627307206/Code%20Templates/covers/cover_mkiayd.jpg'
 date: '2020-07-30'
 author:
@@ -11,68 +11,67 @@ ogImage:
   url: 'https://res.cloudinary.com/dkryvi/image/upload/v1627307206/Code%20Templates/covers/cover_mkiayd.jpg'
 ---
 
-```
-import React from 'react';
-
+```js
 function useSafeDispatch(dispatch) {
-  const mounted = React.useRef(false);
+  const mounted = React.useRef(false)
   React.useLayoutEffect(() => {
-    mounted.current = true;
-    return () => (mounted.current = false);
-  }, []);
+    mounted.current = true
+    return () => (mounted.current = false)
+  }, [])
   return React.useCallback(
     (...args) => (mounted.current ? dispatch(...args) : void 0),
-    [dispatch],
-  );
+    [dispatch]
+  )
 }
 
-const defaultInitialState = {status: 'idle', data: null, error: null};
+const defaultInitialState = {status: 'idle', data: null, error: null}
 
 function useAsync(initialState) {
   const initialStateRef = React.useRef({
     ...defaultInitialState,
-    ...initialState,
-  });
+    ...initialState
+  })
   const [{status, data, error}, setState] = React.useReducer(
     (s, a) => ({...s, ...a}),
-    initialStateRef.current,
-  );
+    initialStateRef.current
+  )
 
-  const safeSetState = useSafeDispatch(setState);
+  const safeSetState = useSafeDispatch(setState)
 
   const setData = React.useCallback(
     (data) => safeSetState({data, status: 'resolved'}),
-    [safeSetState],
-  );
+    [safeSetState]
+  )
   const setError = React.useCallback(
     (error) => safeSetState({error, status: 'rejected'}),
-    [safeSetState],
-  );
-  const reset = React.useCallback(() => safeSetState(initialStateRef.current), [
-    safeSetState,
-  ]);
+    [safeSetState]
+  )
+  const reset = React.useCallback(
+    () => safeSetState(initialStateRef.current),
+    [safeSetState]
+  )
 
   const run = React.useCallback(
     (promise) => {
       if (!promise || !promise.then) {
         throw new Error(
-          `The argument passed to useAsync().run must be a promise. Maybe a function that's passed isn't returning anything?`,
-        );
+          `The argument passed to useAsync().run must be a promise. Maybe a function that's passed isn't returning anything?`
+        )
       }
-      safeSetState({status: 'pending'});
+      safeSetState({status: 'pending'})
       return promise.then(
         (data) => {
-          setData(data);
-          return data;
+          setData(data)
+          return data
         },
         (error) => {
-          setError(error);
-          return Promise.reject(error);
-        },
-      );
+          setError(error)
+          return Promise.reject(error)
+        }
+      )
     },
-    [safeSetState, setData, setError],
-  );
+    [safeSetState, setData, setError]
+  )
 
   return {
     isIdle: status === 'idle',
@@ -86,9 +85,7 @@ function useAsync(initialState) {
     status,
     data,
     run,
-    reset,
-  };
+    reset
+  }
 }
-
-export default useAsync;
 ```
