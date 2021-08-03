@@ -36,7 +36,9 @@ async function build() {
 
   const index = client.initIndex('blog_posts')
 
-  const algoliaResponse = await index.saveObjects(transformed)
+  const algoliaResponse = await index.replaceAllObjects(transformed, {
+    safe: true
+  })
 
   logger.info(
     `🎉 Sucessfully added ${algoliaResponse.objectIDs.length} records to Algolia search.`
