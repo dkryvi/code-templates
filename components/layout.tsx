@@ -1,7 +1,8 @@
+import {ArrowUpIcon, ClipboardCopyIcon} from '@heroicons/react/outline'
+
 import Alert from 'components/alert'
 import Footer from 'components/footer'
 import Meta from 'components/meta'
-import {ArrowUpIcon, CopyIcon} from 'icons'
 import copyToClipboard from 'lib/utils/copy-to-clipboard'
 
 type Props = {
@@ -28,13 +29,13 @@ const Layout: React.FC<Props> = ({children}) => {
             className="p-4 rounded-full bg-white shadow-md hover:shadow-xl"
             onClick={scrollToTop}
           >
-            <ArrowUpIcon />
+            <ArrowUpIcon className="w-6 h-6" />
           </button>
           <button
             className="p-4 rounded-full bg-white shadow-md hover:shadow-xl"
             onClick={copyLink}
           >
-            <CopyIcon />
+            <ClipboardCopyIcon className="w-6 h-6" />
           </button>
         </div>
       </main>
