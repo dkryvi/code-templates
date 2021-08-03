@@ -25,7 +25,7 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
         {collections.map((collection) => (
           <li
             key={collection.title}
-            className="rounded border-black border-2 p-2 transition ease-in-out transform hover:scale-105 hover:shadow-xl"
+            className="rounded border-black border-2 p-2 transform hover:shadow-xl"
           >
             <Link href={`/collections/${collection.title}?p=1`}>
               <a
