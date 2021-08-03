@@ -1,6 +1,5 @@
 import {useEffect, createElement, Fragment} from 'react'
 import {render} from 'react-dom'
-import Link from 'next/link'
 import {RouterContext} from 'next/dist/next-server/lib/router-context'
 import {useRouter} from 'next/router'
 import algoliasearch from 'algoliasearch'
@@ -27,20 +26,18 @@ type HitPropsT = {
 
 const HitComponent: React.FC<HitPropsT> = ({hit, components}) => {
   return (
-    <Link href={`/posts/${hit.slug}`}>
-      <a className="hover:bg-gray-100" aria-label={hit.title}>
-        <components.Highlight
-          // @ts-ignore
-          highlightProperty="_highlightResult"
-          attribute="title"
-          hit={hit}
-          tagName="b"
-        />
-        <div className="mt-2">
-          <TagList tags={hit.tags} />
-        </div>
-      </a>
-    </Link>
+    <div>
+      <components.Highlight
+        // @ts-ignore
+        highlightProperty="_highlightResult"
+        attribute="title"
+        hit={hit}
+        tagName="b"
+      />
+      <div className="mt-2">
+        <TagList tags={hit.tags} />
+      </div>
+    </div>
   )
 }
 
@@ -74,6 +71,9 @@ const Autocomplete: React.FC = () => {
                 ]
               })
             },
+            getItemUrl({item}) {
+              return `/posts/${item.slug}`
+            },
             templates: {
               item({item, components}) {
                 return (
@@ -96,7 +96,7 @@ const Autocomplete: React.FC = () => {
     }
   }, [router])
 
-  return <div id="autocomplete" className="mb-8 focus-within:shadow-md" />
+  return <div id="autocomplete" className="w-full focus-within:shadow-md" />
 }
 
 export default Autocomplete

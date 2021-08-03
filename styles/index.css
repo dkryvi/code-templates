@@ -17,6 +17,14 @@
 /* Algolia styles */
 @import '@algolia/autocomplete-theme-classic';
 
+.aa-Panel {
+  @apply z-50;
+}
+
+.aa-Item {
+  @apply p-2;
+}
+
 .aa-Label svg,
 .aa-DetachedSearchButtonIcon svg {
   @apply text-black;

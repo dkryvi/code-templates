@@ -6,8 +6,8 @@ import Post from 'types/post'
 
 import Container from 'components/container'
 import CollectionList from 'components/collection-list'
+import Header from 'components/header'
 import PostList from 'components/post-list'
-import AppBar from 'components/app-bar'
 import Layout from 'components/layout'
 
 type Props = {
@@ -19,7 +19,10 @@ const Index: React.FC<Props> = ({collections, posts}) => {
   return (
     <Layout>
       <Container>
-        <AppBar />
+        <Header />
+        <h1 className="text-6xl lg:text-8xl font-bold tracking-tighter leading-tight mb-8">
+          Code Templates.
+        </h1>
         {collections.length > 0 && (
           <CollectionList
             title="Popular collections"
