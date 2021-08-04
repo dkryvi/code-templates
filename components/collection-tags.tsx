@@ -24,7 +24,7 @@ const CollectionTags: React.FC<Props> = ({tags, activeTag, onTagClick}) => {
           ])}
           onClick={handleClick(tag)}
         >
-          {tag}
+          #{tag}
         </li>
       ))}
     </ul>

@@ -13,10 +13,7 @@ ogImage:
 
 ```jsx
 function EventsBlocker({children}) {
-  const stopPropagation = React.useCallback(
-    (event) => event.stopPropagation(),
-    []
-  )
+  const stopPropagation = (event) => event.stopPropagation()
 
   return (
     <div

@@ -3,10 +3,12 @@ import {useRouter} from 'next/router'
 import ErrorPage from 'next/error'
 import Head from 'next/head'
 import {ParsedUrlQuery} from 'querystring'
+import {ClipboardCopyIcon} from '@heroicons/react/outline'
 
 import {getPostBySlug, getPosts} from 'lib/api'
 import markdownToHtml from 'lib/utils/markdownToHtml'
 import PostType from 'types/post'
+import copyToClipboard from 'lib/utils/copy-to-clipboard'
 
 import Container from 'components/container'
 import PostBody from 'components/post-body'
@@ -23,39 +25,53 @@ type Props = {
 
 const Post: React.FC<Props> = ({post, similarPosts}) => {
   const router = useRouter()
+
+  const copyLink = () => {
+    copyToClipboard(window.location.href)
+    alert('Link copied to clipboard')
+  }
+
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
 
   return (
-    <Layout>
-      <Container>
-        <Header />
-        {router.isFallback ? (
-          <Title>Loading…</Title>
-        ) : (
-          <>
-            <article className="mb-32">
-              <Head>
-                <title>{post.title} | Code Templates</title>
-                <meta property="og:image" content={post.ogImage.url} />
-              </Head>
-              <PostHeader
-                title={post.title}
-                coverImage={post.coverImage}
-                date={post.date}
-                author={post.author}
-                tags={post.tags}
-              />
-              <PostBody content={post.content} />
-            </article>
-          </>
-        )}
-        {similarPosts.length > 0 && (
-          <PostList title="Similar Posts" posts={similarPosts} />
-        )}
-      </Container>
-    </Layout>
+    <>
+      <Layout>
+        <Container>
+          <Header />
+          {router.isFallback ? (
+            <Title>Loading…</Title>
+          ) : (
+            <>
+              <article className="mb-32">
+                <Head>
+                  <title>{post.title} | Code Templates</title>
+                  <meta property="og:image" content={post.ogImage.url} />
+                </Head>
+                <PostHeader
+                  title={post.title}
+                  coverImage={post.coverImage}
+                  date={post.date}
+                  author={post.author}
+                  tags={post.tags}
+                />
+                <PostBody content={post.content} />
+              </article>
+            </>
+          )}
+          {similarPosts.length > 0 && (
+            <PostList title="Similar Posts" posts={similarPosts} />
+          )}
+        </Container>
+      </Layout>
+      <button
+        className="fixed right-8 bottom-8 p-4 rounded-full bg-black text-white"
+        onClick={copyLink}
+      >
+        <ClipboardCopyIcon className="w-6 h-6" />
+      </button>
+    </>
   )
 }
 
