@@ -12,7 +12,7 @@ const TagList: React.FC<Props> = ({tags}) => {
           key={index}
           className="mx-1 my-1 px-2 py-0.5 bg-black text-white rounded"
         >
-          {tag}
+          #{tag}
         </li>
       ))}
     </ul>
