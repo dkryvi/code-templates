@@ -9,7 +9,7 @@ import Collection from 'types/collection'
 import Post from 'types/post'
 import {getCollections, getCollectionBySlug, getPostBySlug} from 'lib/api'
 
-import CollectionTags from 'components/collection-tags'
+import CollectionTagList from 'components/collection-tag-list'
 import Container from 'components/container'
 import Header from 'components/header'
 import Layout from 'components/layout'
@@ -46,7 +46,7 @@ const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
         <Container>
           <Header />
           <Title>{collection.title}</Title>
-          <CollectionTags
+          <CollectionTagList
             tags={collection.tags}
             activeTag={activeTag}
             onTagClick={handleTagClick}

@@ -6,7 +6,7 @@ type Props = {
   onTagClick: (tag: string) => void
 }
 
-const CollectionTags: React.FC<Props> = ({tags, activeTag, onTagClick}) => {
+const CollectionTagList: React.FC<Props> = ({tags, activeTag, onTagClick}) => {
   const handleClick = (clickedTag: string) => () => {
     onTagClick(clickedTag)
   }
@@ -31,4 +31,4 @@ const CollectionTags: React.FC<Props> = ({tags, activeTag, onTagClick}) => {
   )
 }
 
-export default CollectionTags
+export default CollectionTagList

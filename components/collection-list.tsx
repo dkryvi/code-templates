@@ -2,15 +2,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import {COLLECTION_IMAGE_FALLBACK} from 'lib/constants'
+import toTitleCase from 'lib/utils/to-title-case'
 import Collection from 'types/collection'
 
 type Props = {
   title?: string
   collections: Collection[]
-}
-
-function toTitleCase(title: string): string {
-  return title.charAt(0).toUpperCase() + title.substr(1).toLowerCase()
 }
 
 const CollectionList: React.FC<Props> = ({title, collections}) => {
@@ -25,34 +22,28 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
         {collections.map((collection) => (
           <li
             key={collection.title}
-            className="rounded border-black border-2 p-2 transform hover:shadow-xl"
+            className="grid grid-cols-12 place-items-center rounded border-black border-2 p-2"
           >
-            <Link href={`/collections/${collection.title}?p=1`}>
-              <a
-                className="grid grid-cols-12 place-items-center "
-                aria-label={collection.title}
-              >
-                <div className="col-span-3 relative h-16 w-16">
-                  <Image
-                    className="rounded"
-                    src={collection.coverImage ?? COLLECTION_IMAGE_FALLBACK}
-                    alt={collection.title}
-                    layout="fill"
-                  />
-                </div>
-                <p className="col-span-9 text-center text-xl font-semibold">
+            <div className="col-span-3 relative h-16 w-16">
+              <Image
+                className="rounded"
+                src={collection.coverImage ?? COLLECTION_IMAGE_FALLBACK}
+                alt={collection.title}
+                layout="fill"
+              />
+            </div>
+            <h3 className="col-span-9 text-center text-3xl font-semibold">
+              <Link href={`/collections/${collection.title}?p=1`}>
+                <a aria-label={collection.title}>
                   {toTitleCase(collection.title)}
-                </p>
-              </a>
-            </Link>
+                </a>
+              </Link>
+            </h3>
           </li>
         ))}
       </ul>
       <Link href="/collections">
-        <a
-          className="block text-right text-lg font-bold hover:underline"
-          aria-label="View All"
-        >
+        <a className="block text-right text-lg font-bold" aria-label="View All">
           View All
         </a>
       </Link>

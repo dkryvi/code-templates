@@ -18,18 +18,18 @@ const PostPreview: React.FC<Props> = ({title, excerpt, author, tags, slug}) => {
     excerpt.length > 100 ? `${excerpt.slice(0, 100)}...` : excerpt
 
   return (
-    <Link as={`/posts/${slug}`} href="/posts/[slug]">
-      <a>
-        <article className="h-full rounded hover:shadow-xl border-black border-2">
-          <div className="p-4">
-            <Avatar name={author.name} picture={author.picture} />
-            <h3 className="text-3xl leading-snug my-4">{title}</h3>
-            <TagList tags={tags} />
-            <p className="text-lg leading-relaxed mt-4">{slicedExcerpt}</p>
-          </div>
-        </article>
-      </a>
-    </Link>
+    <article className="h-full rounded border-black border-2">
+      <div className="p-4">
+        <Avatar name={author.name} picture={author.picture} />
+        <h3 className="text-3xl leading-snug my-4 font-semibold">
+          <Link as={`/posts/${slug}`} href="/posts/[slug]">
+            <a>{title}</a>
+          </Link>
+        </h3>
+        <TagList tags={tags} />
+        <p className="text-lg leading-relaxed mt-4">{slicedExcerpt}</p>
+      </div>
+    </article>
   )
 }
 
