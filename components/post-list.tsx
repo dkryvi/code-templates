@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import Post from 'types/post'
 
 import PostPreview from './post-preview'
@@ -5,9 +7,10 @@ import PostPreview from './post-preview'
 type Props = {
   title?: string
   posts: Post[]
+  allLink?: string
 }
 
-const PostList: React.FC<Props> = ({title, posts}) => {
+const PostList: React.FC<Props> = ({title, posts, allLink}) => {
   return (
     <section className="mb-16">
       {title && (
@@ -28,6 +31,16 @@ const PostList: React.FC<Props> = ({title, posts}) => {
           </li>
         ))}
       </ul>
+      {allLink && (
+        <Link href={allLink}>
+          <a
+            className="block text-right text-lg font-bold hover:underline mt-4"
+            aria-label="View All"
+          >
+            View All
+          </a>
+        </Link>
+      )}
     </section>
   )
 }
