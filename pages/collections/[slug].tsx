@@ -21,17 +21,12 @@ type Props = {
   posts: Array<Post>
 }
 
-const POSTS_PER_PAGE = 6
-
 const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
   const router = useRouter()
   const [activeTag, setActiveTag] = useState<string | undefined>()
-  const [limit, setLimit] = useState<number>(POSTS_PER_PAGE)
 
   const handleTagClick = (tag: string) =>
     setActiveTag(activeTag === tag ? undefined : tag)
-
-  const seeMore = () => setLimit(limit + POSTS_PER_PAGE)
 
   if (!router.isFallback && !collection?.title) {
     return <ErrorPage statusCode={404} />
@@ -56,15 +51,7 @@ const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
             activeTag={activeTag}
             onTagClick={handleTagClick}
           />
-          <PostList posts={filteredPosts.slice(0, limit)} />
-          {limit < filteredPosts.length && (
-            <button
-              className="block text-lg font-bold hover:underline ml-auto"
-              onClick={seeMore}
-            >
-              See More
-            </button>
-          )}
+          <PostList posts={filteredPosts} />
         </Container>
       </Layout>
     </>
