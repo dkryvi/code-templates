@@ -1,4 +1,5 @@
 import {GetStaticProps} from 'next'
+import Link from 'next/link'
 
 import {getPosts, getCollections} from 'lib/api'
 import Collection from 'types/collection'
@@ -20,16 +21,15 @@ const Index: React.FC<Props> = ({collections, posts}) => {
     <Layout>
       <Container>
         <Header />
-        <h1 className="text-6xl lg:text-8xl font-bold tracking-tighter leading-tight mb-8">
-          Code Templates.
-        </h1>
         {collections.length > 0 && (
           <CollectionList
             title="Popular collections"
             collections={collections}
           />
         )}
-        {posts.length > 0 && <PostList title="Latest Posts" posts={posts} />}
+        {posts.length > 0 && (
+          <PostList title="Latest Posts" posts={posts} allLink="/posts" />
+        )}
       </Container>
     </Layout>
   )
