@@ -69,7 +69,7 @@ const Post: React.FC<Props> = ({post, similarPosts}) => {
         className="fixed right-8 bottom-8 p-4 rounded-full bg-black text-white"
         onClick={copyLink}
       >
-        <ShareIcon className="text-white" />
+        <ShareIcon className="fill-current text-white" />
       </button>
     </>
   )
