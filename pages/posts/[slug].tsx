@@ -3,12 +3,12 @@ import {useRouter} from 'next/router'
 import ErrorPage from 'next/error'
 import Head from 'next/head'
 import {ParsedUrlQuery} from 'querystring'
-import {ClipboardCopyIcon} from '@heroicons/react/outline'
 
 import {getPostBySlug, getPosts} from 'lib/api'
 import markdownToHtml from 'lib/utils/markdown-to-html'
 import PostType from 'types/post'
 import copyToClipboard from 'lib/utils/copy-to-clipboard'
+import {ShareIcon} from 'icons'
 
 import Container from 'components/container'
 import PostBody from 'components/post-body'
@@ -69,7 +69,7 @@ const Post: React.FC<Props> = ({post, similarPosts}) => {
         className="fixed right-8 bottom-8 p-4 rounded-full bg-black text-white"
         onClick={copyLink}
       >
-        <ClipboardCopyIcon className="w-6 h-6" />
+        <ShareIcon className="text-white" />
       </button>
     </>
   )
