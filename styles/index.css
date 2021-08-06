@@ -36,3 +36,7 @@
 .aa-Form:focus-within {
   @apply border-black shadow-none;
 }
+
+a:hover {
+  @apply underline;
+}

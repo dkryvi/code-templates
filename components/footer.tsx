@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
             >
               Read Documentation
             </a>
-            <a href={REPOSITORY_URL} className="mx-3 font-bold hover:underline">
+            <a href={REPOSITORY_URL} className="mx-3 font-bold">
               View on GitHub
             </a>
           </div>

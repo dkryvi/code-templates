@@ -1,4 +1,6 @@
 import {GetStaticProps} from 'next'
+import {useRouter} from 'next/router'
+import Link from 'next/link'
 
 import {getPosts} from 'lib/api'
 import Post from 'types/post'
@@ -12,15 +14,37 @@ type Props = {
   posts: Array<Post>
 }
 
+type RouterQuery = {
+  [key: string]: string
+}
+
 const Index: React.FC<Props> = ({posts}) => {
+  const {query = {}} = useRouter()
+
+  const {tag: queryTag} = query as RouterQuery
+
+  const filteredPosts = queryTag
+    ? posts.filter((post) => post.tags.includes(queryTag))
+    : posts
+
   return (
     <Layout>
       <Container>
         <Header />
         <h1 className="text-6xl lg:text-8xl font-bold tracking-tighter leading-tight mb-8">
-          Posts
+          {queryTag ? `#${queryTag} posts` : 'Posts'}
         </h1>
-        <PostList posts={posts} />
+        {queryTag && (
+          <Link href="/posts">
+            <a
+              className="inline-block text-lg font-bold mb-4"
+              aria-label="View All"
+            >
+              View All
+            </a>
+          </Link>
+        )}
+        <PostList posts={filteredPosts} />
       </Container>
     </Layout>
   )

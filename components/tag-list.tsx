@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 type Props = {
   tags: Array<string>
@@ -12,7 +13,9 @@ const TagList: React.FC<Props> = ({tags}) => {
           key={index}
           className="mx-1 my-1 px-2 py-0.5 bg-black text-white rounded"
         >
-          #{tag}
+          <Link href={`/posts?tag=${tag}`}>
+            <a aria-label={tag}>#{tag}</a>
+          </Link>
         </li>
       ))}
     </ul>

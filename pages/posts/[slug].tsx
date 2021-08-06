@@ -6,7 +6,7 @@ import {ParsedUrlQuery} from 'querystring'
 import {ClipboardCopyIcon} from '@heroicons/react/outline'
 
 import {getPostBySlug, getPosts} from 'lib/api'
-import markdownToHtml from 'lib/utils/markdownToHtml'
+import markdownToHtml from 'lib/utils/markdown-to-html'
 import PostType from 'types/post'
 import copyToClipboard from 'lib/utils/copy-to-clipboard'
 
