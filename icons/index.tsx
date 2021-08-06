@@ -1,17 +1,14 @@
-import clsx from 'clsx'
-
 type IconProps = {
   className?: string
   [key: string]: any
 }
 
-export const ShareIcon: React.FC<IconProps> = ({className, ...props}) => {
+export const ShareIcon: React.FC<IconProps> = (props) => {
   return (
     <svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      className={clsx(['fill-current', className])}
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
