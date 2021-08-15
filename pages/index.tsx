@@ -15,7 +15,7 @@ type Props = {
   posts: Array<Post>
 }
 
-const Index: React.FC<Props> = ({collections, posts}) => {
+const HomePage: React.FC<Props> = ({collections, posts}) => {
   return (
     <Layout>
       <Container>
@@ -34,7 +34,7 @@ const Index: React.FC<Props> = ({collections, posts}) => {
   )
 }
 
-export default Index
+export default HomePage
 
 export const getStaticProps: GetStaticProps = async () => {
   const collections = await getCollections({limit: 6})

@@ -23,7 +23,7 @@ type Props = {
   similarPosts: Array<PostType>
 }
 
-const Post: React.FC<Props> = ({post, similarPosts}) => {
+const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
   const router = useRouter()
 
   const copyLink = () => {
@@ -75,7 +75,7 @@ const Post: React.FC<Props> = ({post, similarPosts}) => {
   )
 }
 
-export default Post
+export default PostDetail
 
 interface IParams extends ParsedUrlQuery {
   slug: string
