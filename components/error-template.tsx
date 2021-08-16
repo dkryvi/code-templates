@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import Container from 'components/container'
-import Layout from 'components/layout'
 
 type Props = {
   title: string
@@ -12,10 +11,8 @@ type Props = {
 
 const ErrorTemplate: React.FC<Props> = ({title, subtitle, media}) => {
   return (
-    <Layout>
-      <Container>
-        <h1>{title}</h1>
-        <h3>{subtitle}</h3>
+    <Container className="min-h-screen text-center flex flex-col justify-center">
+      <div className="mt-8">
         <Image
           src={media}
           alt={title}
@@ -24,13 +21,17 @@ const ErrorTemplate: React.FC<Props> = ({title, subtitle, media}) => {
           width={16}
           height={9}
         />
-        <Link href="/">
-          <a>
-            <button>Come Back Home</button>
-          </a>
-        </Link>
-      </Container>
-    </Layout>
+      </div>
+      <h1 className="mb-8 text-6xl lg:text-7xl font-bold tracking-tighter leading-tight">
+        {title}
+      </h1>
+      <h3 className="text-lg leading-relaxed font-light mb-8">{subtitle}</h3>
+      <Link href="/">
+        <a className="bg-black hover:bg-white hover:text-black border border-black text-white font-bold py-3 px-12 lg:px-8 duration-200 transition-colors">
+          Come Back Home
+        </a>
+      </Link>
+    </Container>
   )
 }
 
