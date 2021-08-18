@@ -43,6 +43,6 @@ body,
   @apply border-black shadow-none;
 }
 
-a:hover {
+/* a:hover {
   @apply underline;
-}
+} */

@@ -14,7 +14,9 @@ const TagList: React.FC<Props> = ({tags}) => {
           className="mx-1 my-1 px-2 py-0.5 bg-black text-white rounded"
         >
           <Link href={`/posts?tag=${tag}`}>
-            <a aria-label={tag}>#{tag}</a>
+            <a className="hover:underline" aria-label={tag}>
+              #{tag}
+            </a>
           </Link>
         </li>
       ))}
