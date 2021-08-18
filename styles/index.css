@@ -20,6 +20,12 @@
 /* Algolia styles */
 @import '@algolia/autocomplete-theme-classic';
 
+html,
+body,
+#__next {
+  height: 100%;
+}
+
 .aa-Panel {
   @apply z-50;
 }

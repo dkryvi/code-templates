@@ -18,7 +18,7 @@ type RouterQuery = {
   [key: string]: string
 }
 
-const Index: React.FC<Props> = ({posts}) => {
+const PostsPage: React.FC<Props> = ({posts}) => {
   const {query = {}} = useRouter()
 
   const {tag: queryTag} = query as RouterQuery
@@ -50,7 +50,7 @@ const Index: React.FC<Props> = ({posts}) => {
   )
 }
 
-export default Index
+export default PostsPage
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = getPosts()

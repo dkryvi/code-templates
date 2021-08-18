@@ -50,7 +50,6 @@ const Autocomplete: React.FC = () => {
       renderer: {createElement, Fragment},
       render: ({children}: {children: any}, root) => render(children, root),
       placeholder: 'Search...',
-      debug: true,
       openOnFocus: true,
       getSources: ({query}) => {
         if (!query) {

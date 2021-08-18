@@ -12,7 +12,7 @@ type Props = {
   collections: Collection[]
 }
 
-const Index: React.FC<Props> = ({collections}) => {
+const CollectionsPage: React.FC<Props> = ({collections}) => {
   return (
     <Layout>
       <Container>
@@ -37,7 +37,7 @@ const Index: React.FC<Props> = ({collections}) => {
   )
 }
 
-export default Index
+export default CollectionsPage
 
 export const getStaticProps: GetStaticProps = async () => {
   const collections = await getCollections()
