@@ -11,7 +11,6 @@ import {getCollections, getCollectionBySlug, getPostBySlug} from 'lib/api'
 
 import CollectionTagList from 'components/collection-tag-list'
 import Container from 'components/container'
-import Header from 'components/header'
 import Layout from 'components/layout'
 import PostList from 'components/post-list'
 import Title from 'components/title'
@@ -44,7 +43,6 @@ const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
       </Head>
       <Layout>
         <Container>
-          <Header />
           <Title>{collection.title}</Title>
           <CollectionTagList
             tags={collection.tags}

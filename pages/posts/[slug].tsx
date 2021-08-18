@@ -12,7 +12,6 @@ import {ShareIcon} from 'icons'
 
 import Container from 'components/container'
 import PostBody from 'components/post-body'
-import Header from 'components/header'
 import PostHeader from 'components/post-header'
 import Layout from 'components/layout'
 import PostList from 'components/post-list'
@@ -39,7 +38,6 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
     <>
       <Layout>
         <Container>
-          <Header />
           {router.isFallback ? (
             <Title>Loading…</Title>
           ) : (

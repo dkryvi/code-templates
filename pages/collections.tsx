@@ -5,7 +5,6 @@ import Collection from 'types/collection'
 
 import CollectionPreview from 'components/collection-preview'
 import Container from 'components/container'
-import Header from 'components/header'
 import Layout from 'components/layout'
 
 type Props = {
@@ -16,7 +15,6 @@ const CollectionsPage: React.FC<Props> = ({collections}) => {
   return (
     <Layout>
       <Container>
-        <Header />
         <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
           Collections
         </h2>
