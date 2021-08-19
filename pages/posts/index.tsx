@@ -6,7 +6,6 @@ import {getPosts} from 'lib/api'
 import Post from 'types/post'
 
 import Container from 'components/container'
-import Header from 'components/header'
 import PostList from 'components/post-list'
 import Layout from 'components/layout'
 
@@ -30,14 +29,13 @@ const PostsPage: React.FC<Props> = ({posts}) => {
   return (
     <Layout>
       <Container>
-        <Header />
         <h1 className="text-6xl lg:text-8xl font-bold tracking-tighter leading-tight mb-8">
           {queryTag ? `#${queryTag} posts` : 'Posts'}
         </h1>
         {queryTag && (
           <Link href="/posts">
             <a
-              className="inline-block text-lg font-bold mb-4"
+              className="inline-block text-lg font-bold mb-4 hover:underline"
               aria-label="View All"
             >
               View All

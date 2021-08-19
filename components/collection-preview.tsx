@@ -37,7 +37,9 @@ const CollectionPreview: React.FC<Props> = ({
         )}
         <h3 className="text-3xl leading-snug font-semibold">
           <Link as={`/collections/${title}?p=1`} href="/collections/[slug]">
-            <a>{toTitleCase(title)}</a>
+            <a className="hover:underline" aria-label={title}>
+              {toTitleCase(title)}
+            </a>
           </Link>
         </h3>
       </div>

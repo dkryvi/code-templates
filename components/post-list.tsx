@@ -34,7 +34,7 @@ const PostList: React.FC<Props> = ({title, posts, allLink}) => {
       {allLink && (
         <Link href={allLink}>
           <a
-            className="block text-right text-lg font-bold mt-4"
+            className="block text-right text-lg font-bold mt-4 hover:underline"
             aria-label="View All"
           >
             View All

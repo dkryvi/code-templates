@@ -41,12 +41,16 @@ const HitComponent: React.FC<HitPropsT> = ({hit, components}) => {
   )
 }
 
-const Autocomplete: React.FC = () => {
+type Props = {
+  containerId: string
+}
+
+const Autocomplete: React.FC<Props> = ({containerId}) => {
   const router = useRouter()
 
   useEffect(() => {
     const search = autocomplete<PostHitT>({
-      container: '#autocomplete',
+      container: `#${containerId}`,
       renderer: {createElement, Fragment},
       render: ({children}: {children: any}, root) => render(children, root),
       placeholder: 'Search...',
@@ -93,9 +97,9 @@ const Autocomplete: React.FC = () => {
     return () => {
       search.destroy()
     }
-  }, [router])
+  }, [containerId, router])
 
-  return <div id="autocomplete" className="w-full focus-within:shadow-md" />
+  return <div id={containerId} className="w-full focus-within:shadow-md" />
 }
 
 export default Autocomplete

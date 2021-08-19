@@ -34,7 +34,7 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
             </div>
             <h3 className="col-span-9 text-center text-3xl font-semibold">
               <Link href={`/collections/${collection.title}?p=1`}>
-                <a aria-label={collection.title}>
+                <a className="hover:underline" aria-label={collection.title}>
                   {toTitleCase(collection.title)}
                 </a>
               </Link>
@@ -43,7 +43,10 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
         ))}
       </ul>
       <Link href="/collections">
-        <a className="block text-right text-lg font-bold" aria-label="View All">
+        <a
+          className="block text-right text-lg font-bold hover:underline"
+          aria-label="View All"
+        >
           View All
         </a>
       </Link>

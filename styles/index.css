@@ -21,9 +21,13 @@
 @import '@algolia/autocomplete-theme-classic';
 
 html,
-body,
-#__next {
+body {
   height: 100%;
+}
+
+#_next {
+  height: 100%;
+  overflow: auto;
 }
 
 .aa-Panel {
@@ -43,6 +47,6 @@ body,
   @apply border-black shadow-none;
 }
 
-a:hover {
+/* a:hover {
   @apply underline;
-}
+} */

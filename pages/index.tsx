@@ -6,7 +6,6 @@ import Post from 'types/post'
 
 import Container from 'components/container'
 import CollectionList from 'components/collection-list'
-import Header from 'components/header'
 import PostList from 'components/post-list'
 import Layout from 'components/layout'
 
@@ -19,7 +18,6 @@ const HomePage: React.FC<Props> = ({collections, posts}) => {
   return (
     <Layout>
       <Container>
-        <Header />
         {collections.length > 0 && (
           <CollectionList
             title="Popular collections"
