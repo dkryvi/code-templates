@@ -56,8 +56,8 @@ const Nav: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="hidden sm:block max-w-xs lg:max-w-lg w-full">
-                <Autocomplete containerId="screen-autocomplete" />
+              <div className="w-64 max-w sm:max-w-xs lg:max-w-lg sm:w-full">
+                <Autocomplete />
               </div>
             </div>
           </div>
@@ -75,9 +75,6 @@ const Nav: React.FC = () => {
               className="sm:hidden z-50 absolute w-full bg-gray-800 px-2 pt-2 pb-3 space-y-1 "
               unmount
             >
-              <div className="mb-4 w-full">
-                <Autocomplete containerId="mobile-autocomplete" />
-              </div>
               {navigation.map((item) => (
                 <li key={item.name}>
                   <Link href={item.href}>
