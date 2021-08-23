@@ -42,6 +42,7 @@ const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
       <SocialMeta
         title={`${toTitleCase(collection.title)} | Code Templates`}
         description={collection.excerpt}
+        cardImage={collection.coverImage}
       />
       <Layout>
         <Container>

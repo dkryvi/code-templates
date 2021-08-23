@@ -41,6 +41,7 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
         <SocialMeta
           title={`${toTitleCase(post.title)} | Code Templates`}
           description={post.excerpt}
+          cardImage={post.ogImage.url}
         />
         <Container>
           {router.isFallback ? (
@@ -89,7 +90,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     'content',
     'ogImage',
     'coverImage',
-    'tags'
+    'tags',
+    'ogImage'
   ])
   const content = await markdownToHtml(post.content || '')
   const similarPosts = getPosts({
