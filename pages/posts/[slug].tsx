@@ -1,13 +1,13 @@
 import {GetStaticPaths, GetStaticProps} from 'next'
 import {useRouter} from 'next/router'
 import ErrorPage from 'next/error'
-import {NextSeo} from 'next-seo'
 import {ParsedUrlQuery} from 'querystring'
 
+import PostType from 'types/post'
 import {getPostBySlug, getPosts} from 'lib/api'
 import markdownToHtml from 'lib/utils/markdown-to-html'
-import PostType from 'types/post'
 import copyToClipboard from 'lib/utils/copy-to-clipboard'
+import toTitleCase from 'lib/utils/to-title-case'
 import {ShareIcon} from 'icons'
 
 import Container from 'components/container'
@@ -16,6 +16,7 @@ import PostBody from 'components/post-body'
 import PostHeader from 'components/post-header'
 import PostList from 'components/post-list'
 import Title from 'components/title'
+import SocialMeta from 'components/social-meta'
 
 type Props = {
   post: PostType
@@ -37,11 +38,9 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
   return (
     <>
       <Layout>
-        <NextSeo
-          title={`${post.title} | Code Templates`}
+        <SocialMeta
+          title={`${toTitleCase(post.title)} | Code Templates`}
           description={post.excerpt}
-          // TODO: add twitter and facebook meta
-          // cardImage={post.coverImage}
         />
         <Container>
           {router.isFallback ? (
@@ -83,6 +82,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const {slug} = context.params as IParams
   const post = getPostBySlug(slug, [
     'title',
+    'excerpt',
     'date',
     'slug',
     'author',
