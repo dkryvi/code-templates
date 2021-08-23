@@ -1,4 +1,5 @@
 import {GetStaticProps} from 'next'
+import {NextSeo} from 'next-seo'
 
 import {getCollections} from 'lib/api'
 import Collection from 'types/collection'
@@ -14,6 +15,7 @@ type Props = {
 const CollectionsPage: React.FC<Props> = ({collections}) => {
   return (
     <Layout>
+      <NextSeo title="Collections | Code Templates" />
       <Container>
         <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
           Collections

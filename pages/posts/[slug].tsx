@@ -1,21 +1,22 @@
 import {GetStaticPaths, GetStaticProps} from 'next'
 import {useRouter} from 'next/router'
 import ErrorPage from 'next/error'
-import Head from 'next/head'
 import {ParsedUrlQuery} from 'querystring'
 
+import PostType from 'types/post'
 import {getPostBySlug, getPosts} from 'lib/api'
 import markdownToHtml from 'lib/utils/markdown-to-html'
-import PostType from 'types/post'
 import copyToClipboard from 'lib/utils/copy-to-clipboard'
+import toTitleCase from 'lib/utils/to-title-case'
 import {ShareIcon} from 'icons'
 
 import Container from 'components/container'
+import Layout from 'components/layout'
 import PostBody from 'components/post-body'
 import PostHeader from 'components/post-header'
-import Layout from 'components/layout'
 import PostList from 'components/post-list'
 import Title from 'components/title'
+import SocialMeta from 'components/social-meta'
 
 type Props = {
   post: PostType
@@ -37,26 +38,25 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
   return (
     <>
       <Layout>
+        <SocialMeta
+          title={`${toTitleCase(post.title)} | Code Templates`}
+          description={post.excerpt}
+          cardImage={post.ogImage.url}
+        />
         <Container>
           {router.isFallback ? (
             <Title>Loading…</Title>
           ) : (
-            <>
-              <article className="mb-32">
-                <Head>
-                  <title>{post.title} | Code Templates</title>
-                  <meta property="og:image" content={post.ogImage.url} />
-                </Head>
-                <PostHeader
-                  title={post.title}
-                  coverImage={post.coverImage}
-                  date={post.date}
-                  author={post.author}
-                  tags={post.tags}
-                />
-                <PostBody content={post.content} />
-              </article>
-            </>
+            <article className="mb-32">
+              <PostHeader
+                title={post.title}
+                coverImage={post.coverImage}
+                date={post.date}
+                author={post.author}
+                tags={post.tags}
+              />
+              <PostBody content={post.content} />
+            </article>
           )}
           {similarPosts.length > 0 && (
             <PostList title="Similar Posts" posts={similarPosts} />
@@ -83,13 +83,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const {slug} = context.params as IParams
   const post = getPostBySlug(slug, [
     'title',
+    'excerpt',
     'date',
     'slug',
     'author',
     'content',
     'ogImage',
     'coverImage',
-    'tags'
+    'tags',
+    'ogImage'
   ])
   const content = await markdownToHtml(post.content || '')
   const similarPosts = getPosts({

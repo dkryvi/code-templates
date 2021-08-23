@@ -2,17 +2,19 @@ import {useState} from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import {useRouter} from 'next/router'
 import ErrorPage from 'next/error'
-import Head from 'next/head'
+
 import {ParsedUrlQuery} from 'querystring'
 
 import Collection from 'types/collection'
 import Post from 'types/post'
 import {getCollections, getCollectionBySlug, getPostBySlug} from 'lib/api'
+import toTitleCase from 'lib/utils/to-title-case'
 
 import CollectionTagList from 'components/collection-tag-list'
 import Container from 'components/container'
 import Layout from 'components/layout'
 import PostList from 'components/post-list'
+import SocialMeta from 'components/social-meta'
 import Title from 'components/title'
 
 type Props = {
@@ -37,10 +39,11 @@ const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
 
   return (
     <>
-      <Head>
-        <title>{collection.title} | Code Templates</title>
-        <meta property="og:image" content={collection.coverImage} />
-      </Head>
+      <SocialMeta
+        title={`${toTitleCase(collection.title)} | Code Templates`}
+        description={collection.excerpt}
+        cardImage={collection.coverImage}
+      />
       <Layout>
         <Container>
           <Title>{collection.title}</Title>
