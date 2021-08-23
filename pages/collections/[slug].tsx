@@ -2,7 +2,8 @@ import {useState} from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import {useRouter} from 'next/router'
 import ErrorPage from 'next/error'
-import Head from 'next/head'
+import {NextSeo} from 'next-seo'
+
 import {ParsedUrlQuery} from 'querystring'
 
 import Collection from 'types/collection'
@@ -37,10 +38,12 @@ const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
 
   return (
     <>
-      <Head>
-        <title>{collection.title} | Code Templates</title>
-        <meta property="og:image" content={collection.coverImage} />
-      </Head>
+      <NextSeo
+        title={`${collection.title} | Code Templates |`}
+        description={collection.excerpt}
+        // TODO: add twitter and facebook meta
+        // cardImage={post.coverImage}
+      />
       <Layout>
         <Container>
           <Title>{collection.title}</Title>

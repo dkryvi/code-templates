@@ -1,6 +1,7 @@
 import {GetStaticProps} from 'next'
 import {useRouter} from 'next/router'
 import Link from 'next/link'
+import {NextSeo} from 'next-seo'
 
 import {getPosts} from 'lib/api'
 import Post from 'types/post'
@@ -28,6 +29,7 @@ const PostsPage: React.FC<Props> = ({posts}) => {
 
   return (
     <Layout>
+      <NextSeo title="Collections | Code Templates" />
       <Container>
         <h1 className="text-6xl lg:text-8xl font-bold tracking-tighter leading-tight mb-8">
           {queryTag ? `#${queryTag} posts` : 'Posts'}

@@ -1,7 +1,7 @@
 import {GetStaticPaths, GetStaticProps} from 'next'
 import {useRouter} from 'next/router'
 import ErrorPage from 'next/error'
-import Head from 'next/head'
+import {NextSeo} from 'next-seo'
 import {ParsedUrlQuery} from 'querystring'
 
 import {getPostBySlug, getPosts} from 'lib/api'
@@ -11,9 +11,9 @@ import copyToClipboard from 'lib/utils/copy-to-clipboard'
 import {ShareIcon} from 'icons'
 
 import Container from 'components/container'
+import Layout from 'components/layout'
 import PostBody from 'components/post-body'
 import PostHeader from 'components/post-header'
-import Layout from 'components/layout'
 import PostList from 'components/post-list'
 import Title from 'components/title'
 
@@ -37,26 +37,26 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
   return (
     <>
       <Layout>
+        <NextSeo
+          title={`${post.title} | Code Templates`}
+          description={post.excerpt}
+          // TODO: add twitter and facebook meta
+          // cardImage={post.coverImage}
+        />
         <Container>
           {router.isFallback ? (
             <Title>Loading…</Title>
           ) : (
-            <>
-              <article className="mb-32">
-                <Head>
-                  <title>{post.title} | Code Templates</title>
-                  <meta property="og:image" content={post.ogImage.url} />
-                </Head>
-                <PostHeader
-                  title={post.title}
-                  coverImage={post.coverImage}
-                  date={post.date}
-                  author={post.author}
-                  tags={post.tags}
-                />
-                <PostBody content={post.content} />
-              </article>
-            </>
+            <article className="mb-32">
+              <PostHeader
+                title={post.title}
+                coverImage={post.coverImage}
+                date={post.date}
+                author={post.author}
+                tags={post.tags}
+              />
+              <PostBody content={post.content} />
+            </article>
           )}
           {similarPosts.length > 0 && (
             <PostList title="Similar Posts" posts={similarPosts} />
