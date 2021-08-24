@@ -1,20 +1,12 @@
 import {NextSeo} from 'next-seo'
 
-import {HOME_OG_IMAGE_URL} from 'lib/constants'
-
 export type TProps = {
-  title?: string
-  description?: string
-  cardImage?: string
+  title: string
+  description: string
+  cardImage: string
 }
 
-const SocialMeta: React.FC<TProps> = (props) => {
-  const {
-    title = 'Code Templates',
-    description = 'Browse code templates for all your development needs',
-    cardImage = HOME_OG_IMAGE_URL
-  } = props
-
+const SocialMeta: React.FC<TProps> = ({title, description, cardImage}) => {
   return (
     <NextSeo
       title={title}
