@@ -95,7 +95,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   ])
   const content = await markdownToHtml(post.content || '')
   const similarPosts = getPosts({
-    limit: 6,
+    limit: 4,
     tags: post.tags,
     excludedSlugs: [post.slug]
   })
