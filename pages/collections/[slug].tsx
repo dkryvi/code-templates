@@ -7,6 +7,7 @@ import {ParsedUrlQuery} from 'querystring'
 
 import Collection from 'types/collection'
 import Post from 'types/post'
+import {COLLECTION_IMAGE_FALLBACK} from 'lib/constants'
 import {getCollections, getCollectionBySlug, getPostBySlug} from 'lib/api'
 import toTitleCase from 'lib/utils/to-title-case'
 
@@ -41,8 +42,8 @@ const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
     <>
       <SocialMeta
         title={`${toTitleCase(collection.title)} | Code Templates`}
-        description={collection.excerpt}
-        cardImage={collection.coverImage}
+        description={collection.excerpt ?? collection.title}
+        cardImage={collection.coverImage ?? COLLECTION_IMAGE_FALLBACK}
       />
       <Layout>
         <Container>
