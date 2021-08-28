@@ -19,6 +19,7 @@
     "@algolia/client-search": "^4.10.3",
     "@headlessui/react": "^1.4.0",
     "@heroicons/react": "^1.0.4",
+    "@mapbox/rehype-prism": "^0.7.0",
     "algoliasearch": "^4.10.3",
     "clsx": "^1.1.1",
     "date-fns": "2.21.3",
