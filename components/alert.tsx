@@ -8,20 +8,18 @@ type Props = {
 
 const Alert: React.FC<Props> = () => {
   return (
-    <div className="border-t-2 border-accent-2">
-      <Container>
-        <div className="py-2 text-center text-sm">
-          The source code for this blog is{' '}
-          <a
-            href={REPOSITORY_URL}
-            className="underline hover:text-success duration-200 transition-colors"
-          >
-            available on GitHub
-          </a>
-          .
-        </div>
-      </Container>
-    </div>
+    <Container>
+      <div className="py-2 text-center text-sm">
+        The source code for this blog is{' '}
+        <a
+          href={REPOSITORY_URL}
+          className="underline hover:text-success duration-200 transition-colors"
+        >
+          available on GitHub
+        </a>
+        .
+      </div>
+    </Container>
   )
 }
 
