@@ -17,19 +17,28 @@ const Nav: React.FC = () => {
   const router = useRouter()
 
   return (
-    <Disclosure as="nav" className="bg-gray-800 sticky top-0 z-50">
+    <Disclosure
+      as="nav"
+      className="bg-white sticky top-0 z-50 border-b border-accent-2"
+    >
       {({open}) => (
         <>
-          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="relative flex items-center justify-between h-16">
               <div className="flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <XIcon className="block h-6 w-6" aria-hidden="true" />
+                    <XIcon
+                      className="block h-6 w-6 text-gray-900"
+                      aria-hidden="true"
+                    />
                   ) : (
-                    <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                    <MenuIcon
+                      className="block h-6 w-6 text-gray-900"
+                      aria-hidden="true"
+                    />
                   )}
                 </Disclosure.Button>
               </div>
@@ -42,7 +51,7 @@ const Nav: React.FC = () => {
                           className={clsx([
                             router.pathname === item.href
                               ? 'bg-gray-900 text-white'
-                              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                              : 'text-gray-900 hover:bg-gray-900 hover:text-white',
                             'px-3 py-2 rounded-md text-sm font-medium'
                           ])}
                           aria-current={
@@ -56,7 +65,7 @@ const Nav: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-64 max-w sm:max-w-xs lg:max-w-lg sm:w-full">
+              <div className="w-12 max-w sm:max-w-xs lg:max-w-lg sm:w-full">
                 <Autocomplete />
               </div>
             </div>
@@ -82,7 +91,7 @@ const Nav: React.FC = () => {
                       className={clsx([
                         router.pathname === item.href
                           ? 'bg-gray-900 text-white'
-                          : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          : 'text-gray-900 hover:bg-gray-900 hover:text-white',
                         'block px-3 py-2 rounded-md text-base font-medium'
                       ])}
                       aria-current={
