@@ -1,11 +1,12 @@
-import React, {Fragment} from 'react'
-import Link from 'next/link'
-import {useRouter} from 'next/router'
 import {Disclosure, Transition} from '@headlessui/react'
 import {MenuIcon, XIcon} from '@heroicons/react/outline'
 import clsx from 'clsx'
+import Link from 'next/link'
+import {useRouter} from 'next/router'
+import React, {Fragment} from 'react'
 
 import Autocomplete from 'components/autocomplete'
+import Container from 'components/container'
 
 const navigation = [
   {name: 'Home', href: '/'},
@@ -23,7 +24,7 @@ const Nav: React.FC = () => {
     >
       {({open}) => (
         <>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Container>
             <div className="relative flex items-center justify-between h-16">
               <div className="flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -43,7 +44,7 @@ const Nav: React.FC = () => {
                 </Disclosure.Button>
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="hidden sm:block sm:ml-6">
+                <div className="hidden sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <Link key={item.name} href={item.href}>
@@ -65,11 +66,11 @@ const Nav: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-12 max-w sm:max-w-xs lg:max-w-lg sm:w-full">
+              <div className="w-12 max-w md:max-w-xs lg:max-w-lg md:w-full">
                 <Autocomplete />
               </div>
             </div>
-          </div>
+          </Container>
           <Transition
             show={open}
             enter="transition duration-100 ease-out"
@@ -81,7 +82,7 @@ const Nav: React.FC = () => {
           >
             <Disclosure.Panel
               as="ul"
-              className="sm:hidden z-50 absolute w-full bg-gray-800 px-2 pt-2 pb-3 space-y-1 "
+              className="sm:hidden z-50 absolute w-full bg-white px-2 pt-2 pb-3 space-y-1 shadow-md"
               unmount
             >
               {navigation.map((item) => (

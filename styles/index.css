@@ -51,7 +51,7 @@ body {
 }
 
 .aa-DetachedSearchButtonPlaceholder {
-  @apply hidden sm:block;
+  @apply hidden md:block;
 }
 
 .aa-DetachedSearchButtonIcon {

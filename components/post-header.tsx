@@ -1,8 +1,8 @@
-import Author from 'types/author'
+import {Author} from '@types'
 
 import Avatar from './avatar'
-import DateFormatter from './date-formatter'
 import CoverImage from './cover-image'
+import DateFormatter from './date-formatter'
 import TagList from './tag-list'
 import Title from './title'
 

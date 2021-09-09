@@ -1,10 +1,10 @@
-import {AppProps} from 'next/app'
 import {DefaultSeo} from 'next-seo'
 import {ThemeProvider} from 'next-themes'
+import {AppProps} from 'next/app'
 
-import 'styles/index.css'
+import '@styles/index.css'
 
-import {DEFAULT_SEO} from 'lib/constants'
+import {DEFAULT_SEO} from '@lib/constants'
 
 export default function MyApp({
   Component,

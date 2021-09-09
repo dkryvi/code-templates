@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import {COLLECTION_IMAGE_FALLBACK} from 'lib/constants'
-import toTitleCase from 'lib/utils/to-title-case'
-import Collection from 'types/collection'
+import {Collection} from '@types'
+
+import {COLLECTION_IMAGE_FALLBACK} from '@lib/constants'
+import toTitleCase from '@lib/utils/to-title-case'
 
 type Props = {
   title?: string

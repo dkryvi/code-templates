@@ -1,5 +1,5 @@
-import {ReactNode, FC} from 'react'
 import clsx from 'clsx'
+import {ReactNode, FC} from 'react'
 
 type Props = {
   children?: ReactNode

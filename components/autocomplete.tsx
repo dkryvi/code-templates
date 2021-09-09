@@ -1,17 +1,18 @@
-import {useEffect, createElement, Fragment} from 'react'
-import {render} from 'react-dom'
-import {RouterContext} from 'next/dist/shared/lib/router-context'
-import {useRouter} from 'next/router'
-import algoliasearch from 'algoliasearch'
-import {Hit} from '@algolia/client-search'
 import {
   AutocompleteComponents,
   autocomplete,
   getAlgoliaResults
 } from '@algolia/autocomplete-js'
+import {Hit} from '@algolia/client-search'
+import algoliasearch from 'algoliasearch'
+import {RouterContext} from 'next/dist/shared/lib/router-context'
+import {useRouter} from 'next/router'
+import {useEffect, createElement, Fragment} from 'react'
+import {render} from 'react-dom'
 
-import TagList from 'components/tag-list'
-import Post from 'types/post'
+import {Post} from '@types'
+
+import TagList from '@components/tag-list'
 
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY as string

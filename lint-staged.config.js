@@ -5,7 +5,7 @@ const eslint = new ESLint()
 const isWin = process.platform === 'win32'
 
 module.exports = {
-  '**/*.{tsx,ts}': ["bash -c 'npm run check-types'"],
+  '**/*.{tsx,ts}': ["bash -c 'npm run check:types'"],
   '**/*.{js,jsx,tsx,ts,css,md}': (filenames) => {
     const escapedFileNames = filenames
       .filter((file) => !eslint.isPathIgnored(file))
@@ -13,8 +13,8 @@ module.exports = {
       .join(' ')
 
     return [
-      `npm run check-format ${escapedFileNames}`,
-      `npm run check-lint ${filenames
+      `npm run check:format ${escapedFileNames}`,
+      `npm run check:lint ${filenames
         .filter((file) => !eslint.isPathIgnored(file))
         .map((f) => `"${f}"`)
         .join(' ')}`

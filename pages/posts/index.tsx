@@ -1,14 +1,14 @@
 import {GetStaticProps} from 'next'
-import {useRouter} from 'next/router'
-import Link from 'next/link'
 import {NextSeo} from 'next-seo'
+import Link from 'next/link'
+import {useRouter} from 'next/router'
 
-import {getPosts} from 'lib/api'
-import Post from 'types/post'
+import {Post} from '@types'
 
-import Container from 'components/container'
-import PostList from 'components/post-list'
-import Layout from 'components/layout'
+import Container from '@components/container'
+import Layout from '@components/layout'
+import PostList from '@components/post-list'
+import {getPosts} from '@lib/api'
 
 type Props = {
   posts: Array<Post>

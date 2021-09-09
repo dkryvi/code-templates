@@ -1,12 +1,12 @@
 import {GetStaticProps} from 'next'
 import {NextSeo} from 'next-seo'
 
-import {getCollections} from 'lib/api'
-import Collection from 'types/collection'
+import {Collection} from '@types'
 
-import CollectionPreview from 'components/collection-preview'
-import Container from 'components/container'
-import Layout from 'components/layout'
+import CollectionPreview from '@components/collection-preview'
+import Container from '@components/container'
+import Layout from '@components/layout'
+import {getCollections} from '@lib/api'
 
 type Props = {
   collections: Collection[]

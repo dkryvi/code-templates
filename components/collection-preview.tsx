@@ -1,9 +1,9 @@
-import Link from 'next/link'
 import Image from 'next/image'
-
-import TagList from './tag-list'
+import Link from 'next/link'
 
 import toTitleCase from 'lib/utils/to-title-case'
+
+import TagList from './tag-list'
 
 type Props = {
   title: string
