@@ -4,7 +4,7 @@ import logger from 'loglevel'
 import algoliasearch from 'algoliasearch/lite'
 
 import {getPosts} from '../lib/api'
-import Post from '../types/post'
+import {Post} from '../types'
 
 function transformPostsToSearchObjects(posts: Array<Post>) {
   return posts.map((post, index) => {

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import Post from 'types/post'
+import {Post} from '@types'
 
 import PostPreview from './post-preview'
 

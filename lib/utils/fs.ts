@@ -1,6 +1,7 @@
-import util from 'util'
-import fs from 'fs-extra'
 import {join} from 'path'
+import util from 'util'
+
+import fs from 'fs-extra'
 
 import {CONTENT_FOLDER, SETTINGS_FOLDER} from '../constants'
 

@@ -8,9 +8,9 @@
     "postbuild": "ts-node ./scripts/post-build",
     "start": "next start",
     "prepare": "husky install",
-    "check-types": "tsc --noEmit",
-    "check-format": "prettier -w .",
-    "check-lint": "next lint --no-ignore --fix",
+    "check:types": "tsc --noEmit",
+    "check:format": "prettier -w .",
+    "check:lint": "next lint --no-ignore --fix",
     "pre-commit": "lint-staged"
   },
   "dependencies": {
@@ -47,6 +47,7 @@
     "eslint": "^7.32.0",
     "eslint-config-next": "^11.1.2",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-prettier": "^4.0.0",
     "fs-extra": "^10.0.0",
     "glob": "^7.1.7",

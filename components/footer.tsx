@@ -1,4 +1,4 @@
-import {REPOSITORY_URL} from 'lib/constants'
+import {REPOSITORY_URL} from '@lib/constants'
 
 import Container from './container'
 

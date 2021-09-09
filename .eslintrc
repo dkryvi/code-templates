@@ -14,9 +14,33 @@
     "next"
   ],
   "rules": {
-    "no-console": 1, // Means warning
-    "prettier/prettier": 2, // Means error,
-    "@typescript-eslint/ban-ts-comment": 0,
-    "@typescript-eslint/no-explicit-any": 0
+    "import/order": [
+      "error",
+      {
+        "pathGroups": [
+          {
+            "pattern": "@*/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "newlines-between": "always",
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ],
+    "no-console": "warn",
+    "prettier/prettier": "error",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }

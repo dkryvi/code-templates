@@ -1,9 +1,9 @@
-import React, {Fragment} from 'react'
-import Link from 'next/link'
-import {useRouter} from 'next/router'
 import {Disclosure, Transition} from '@headlessui/react'
 import {MenuIcon, XIcon} from '@heroicons/react/outline'
 import clsx from 'clsx'
+import Link from 'next/link'
+import {useRouter} from 'next/router'
+import React, {Fragment} from 'react'
 
 import Autocomplete from 'components/autocomplete'
 import Container from 'components/container'

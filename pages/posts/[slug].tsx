@@ -1,26 +1,27 @@
-import {GetStaticPaths, GetStaticProps} from 'next'
-import {useRouter} from 'next/router'
-import ErrorPage from 'next/error'
 import {ParsedUrlQuery} from 'querystring'
 
-import PostType from 'types/post'
-import {getPostBySlug, getPosts} from 'lib/api'
-import markdownToHtml from 'lib/utils/markdown-to-html'
-import copyToClipboard from 'lib/utils/copy-to-clipboard'
-import toTitleCase from 'lib/utils/to-title-case'
-import {ShareIcon} from 'icons'
+import {GetStaticPaths, GetStaticProps} from 'next'
+import ErrorPage from 'next/error'
+import {useRouter} from 'next/router'
 
-import Container from 'components/container'
-import Layout from 'components/layout'
-import PostBody from 'components/post-body'
-import PostHeader from 'components/post-header'
-import PostList from 'components/post-list'
-import Title from 'components/title'
-import SocialMeta from 'components/social-meta'
+import {ShareIcon} from '@icons'
+import {Post} from '@types'
+
+import Container from '@components/container'
+import Layout from '@components/layout'
+import PostBody from '@components/post-body'
+import PostHeader from '@components/post-header'
+import PostList from '@components/post-list'
+import SocialMeta from '@components/social-meta'
+import Title from '@components/title'
+import {getPostBySlug, getPosts} from '@lib/api'
+import copyToClipboard from '@lib/utils/copy-to-clipboard'
+import markdownToHtml from '@lib/utils/markdown-to-html'
+import toTitleCase from '@lib/utils/to-title-case'
 
 type Props = {
-  post: PostType
-  similarPosts: Array<PostType>
+  post: Post
+  similarPosts: Array<Post>
 }
 
 const PostDetail: React.FC<Props> = ({post, similarPosts}) => {

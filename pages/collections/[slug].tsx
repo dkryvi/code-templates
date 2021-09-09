@@ -1,22 +1,22 @@
-import {useState} from 'react'
-import {GetStaticPaths, GetStaticProps} from 'next'
-import {useRouter} from 'next/router'
-import ErrorPage from 'next/error'
-
 import {ParsedUrlQuery} from 'querystring'
 
-import Collection from 'types/collection'
-import Post from 'types/post'
-import {COLLECTION_IMAGE_FALLBACK} from 'lib/constants'
-import {getCollections, getCollectionBySlug, getPostBySlug} from 'lib/api'
-import toTitleCase from 'lib/utils/to-title-case'
+import {GetStaticPaths, GetStaticProps} from 'next'
+import ErrorPage from 'next/error'
+import {useRouter} from 'next/router'
+import {useState} from 'react'
 
-import CollectionTagList from 'components/collection-tag-list'
-import Container from 'components/container'
-import Layout from 'components/layout'
-import PostList from 'components/post-list'
-import SocialMeta from 'components/social-meta'
-import Title from 'components/title'
+import {Collection} from '@types'
+import {Post} from '@types'
+
+import CollectionTagList from '@components/collection-tag-list'
+import Container from '@components/container'
+import Layout from '@components/layout'
+import PostList from '@components/post-list'
+import SocialMeta from '@components/social-meta'
+import Title from '@components/title'
+import {getCollections, getCollectionBySlug, getPostBySlug} from '@lib/api'
+import {COLLECTION_IMAGE_FALLBACK} from '@lib/constants'
+import toTitleCase from '@lib/utils/to-title-case'
 
 type Props = {
   collection: Collection

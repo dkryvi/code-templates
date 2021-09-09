@@ -15,10 +15,11 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "components/*": ["components/*"],
-      "lib/*": ["lib/*"],
-      "types/*": ["types/*"],
-      "styles/*": ["styles/*"]
+      "@components/*": ["components/*"],
+      "@icons": ["icons/index"],
+      "@lib/*": ["lib/*"],
+      "@types": ["types/index"],
+      "@styles/*": ["styles/*"]
     }
   },
   "ts-node": {

@@ -1,6 +1,6 @@
-import Container from './container'
+import {REPOSITORY_URL} from '@lib/constants'
 
-import {REPOSITORY_URL} from 'lib/constants'
+import Container from './container'
 
 type Props = {
   preview?: boolean

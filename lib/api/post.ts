@@ -1,8 +1,9 @@
 import fs from 'fs'
 import {join} from 'path'
+
 import matter from 'gray-matter'
 
-import Post from 'types/post'
+import {Post} from '@types'
 
 import intersection from '../utils/intersection'
 

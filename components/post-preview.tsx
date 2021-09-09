@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import Author from 'types/author'
+import {Author} from '@types'
 
 import Avatar from './avatar'
 import TagList from './tag-list'

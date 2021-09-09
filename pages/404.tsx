@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import Container from 'components/container'
+import Container from '@components/container'
 
 const NotFoundPage: React.FC = () => (
   <Container className="min-h-screen text-center flex flex-col justify-center">
