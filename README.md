@@ -30,14 +30,14 @@ Start the server
 
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to
-your .env file
+To run this project, you need to add the following environment variables to
+your local .env file
 
-`ALGOLIA_SEARCH_ADMIN_KEY`
+`ALGOLIA_SEARCH_ADMIN_KEY=....`
 
-`NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY`
+`NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY=...`
 
-`NEXT_PUBLIC_ALGOLIA_APP_ID`
+`NEXT_PUBLIC_ALGOLIA_APP_ID=...`
 
 ## Authors
 
