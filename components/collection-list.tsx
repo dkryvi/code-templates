@@ -15,7 +15,7 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
   return (
     <section className="mb-16">
       {title && (
-        <h2 className="mb-8 text-6xl lg:text-7xl font-bold tracking-tighter leading-tight">
+        <h2 className="mb-8 text-6xl lg:text-7xl font-bold tracking-tighter leading-tight text-black">
           {title}
         </h2>
       )}
@@ -35,7 +35,10 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
             </div>
             <h3 className="col-span-9 text-center text-3xl font-semibold">
               <Link href={`/collections/${collection.title}?p=1`}>
-                <a className="hover:underline" aria-label={collection.title}>
+                <a
+                  className="hover:underline text-black"
+                  aria-label={collection.title}
+                >
                   {toTitleCase(collection.title)}
                 </a>
               </Link>
@@ -45,7 +48,7 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
       </ul>
       <Link href="/collections">
         <a
-          className="block text-right text-lg font-bold hover:underline"
+          className="block text-right text-lg font-bold hover:underline text-black"
           aria-label="View All"
         >
           View All

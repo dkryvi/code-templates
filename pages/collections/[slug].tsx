@@ -47,7 +47,7 @@ const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
       />
       <Layout>
         <Container>
-          <Title>{collection.title}</Title>
+          <Title>{toTitleCase(collection.title)}</Title>
           <CollectionTagList
             tags={collection.tags}
             activeTag={activeTag}
