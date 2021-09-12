@@ -8,6 +8,7 @@ import {Post} from '@types'
 import Container from '@components/container'
 import Layout from '@components/layout'
 import PostList from '@components/post-list'
+import Title from '@components/title'
 import {getPosts} from '@lib/api'
 
 type Props = {
@@ -31,9 +32,7 @@ const PostsPage: React.FC<Props> = ({posts}) => {
     <Layout>
       <NextSeo title="Collections | Code Templates" />
       <Container>
-        <h1 className="text-6xl lg:text-8xl font-bold tracking-tighter leading-tight mb-8">
-          {queryTag ? `#${queryTag} posts` : 'Posts'}
-        </h1>
+        <Title>{queryTag ? `#${queryTag} posts` : 'Posts'}</Title>
         {queryTag && (
           <Link href="/posts">
             <a

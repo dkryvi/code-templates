@@ -30,8 +30,8 @@ Start the server
 
 ## Environment Variables
 
-To run this project, you need to add the following environment variables to
-your local .env file
+To run this project, you need to add the following environment variables to your
+local .env file
 
 `ALGOLIA_SEARCH_ADMIN_KEY=....`
 
