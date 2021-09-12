@@ -38,11 +38,11 @@
     "@types/fs-extra": "^9.0.12",
     "@types/glob": "^7.1.4",
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.10",
-    "@types/react": "^17.0.19",
+    "@types/node": "^16.9.1",
+    "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
-    "@typescript-eslint/eslint-plugin": "^4.30.0",
-    "@typescript-eslint/parser": "^4.30.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.0",
+    "@typescript-eslint/parser": "^4.31.0",
     "autoprefixer": "^10.3.4",
     "eslint": "^7.32.0",
     "eslint-config-next": "^11.1.2",
@@ -54,11 +54,11 @@
     "husky": "^7.0.2",
     "lint-staged": ">=11",
     "postcss": "^8.3.6",
-    "prettier": "^2.3.2",
+    "prettier": "^2.4.0",
     "shell-quote": "^1.7.2",
-    "tailwindcss": "^2.2.9",
+    "tailwindcss": "^2.2.15",
     "ts-node": "^10.2.1",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.3"
   },
   "engines": {
     "node": "14.17.6"
