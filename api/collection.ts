@@ -1,26 +1,32 @@
 import {Collection} from '@types'
 
-import {getContentData} from '../utils/fs'
-
+import {prisma} from './client'
 import {GetCollectionsParams} from './types'
 
-const bySlugsCount = (col1: Collection, col2: Collection) =>
-  col2.slugs.length - col1.slugs.length
-
 export async function getCollections(
-  params: GetCollectionsParams = {}
+  params?: GetCollectionsParams
 ): Promise<Array<Collection>> {
-  const {limit = Infinity, offset = 0} = params
+  const {limit, offset} = params ?? {}
 
-  const collections = await getContentData('collections')
+  const collections = await prisma.collection.findMany({
+    skip: offset,
+    take: limit
+    // orderBy: {
+    //   slugs: {
+    //     length: 'desc'
+    //   }
+    // }
+  })
 
-  return collections.sort(bySlugsCount).slice(offset, limit)
+  return collections
 }
 
 export async function getCollectionBySlug(
   slug: string
-): Promise<Collection | undefined> {
-  const collections = await getCollections()
+): Promise<Collection | null> {
+  const collection = await prisma.collection.findFirst({
+    where: {title: slug}
+  })
 
-  return collections.find((collection) => collection.title === slug)
+  return collection
 }

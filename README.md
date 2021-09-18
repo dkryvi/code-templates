@@ -39,6 +39,8 @@ local .env file
 
 `NEXT_PUBLIC_ALGOLIA_APP_ID=...`
 
+`DATABASE_URL=...` MongoDB url to store generated collections
+
 ## Authors
 
 - [@dkryvi](https://github.com/dkryvi)

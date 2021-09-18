@@ -7,8 +7,8 @@ import TagList from './tag-list'
 
 type Props = {
   title: string
-  excerpt?: string
-  coverImage?: string
+  excerpt?: string | null
+  coverImage?: string | null
   tags: Array<string>
 }
 

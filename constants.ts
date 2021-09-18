@@ -2,9 +2,6 @@ export const REPOSITORY_URL = 'https://github.com/dkryvi/code-templates'
 export const COLLECTION_IMAGE_FALLBACK =
   'https://res.cloudinary.com/dkryvi/image/upload/v1627327454/Code%20Templates/logos/box_usldlb.png'
 
-export const CONTENT_FOLDER = '.content'
-export const SETTINGS_FOLDER = 'settings'
-
 export const DEFAULT_SEO = {
   title: 'Code Templates',
   description: 'Browse code templates for all your development needs.',

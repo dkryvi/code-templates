@@ -4,9 +4,10 @@ export type Author = {
 }
 
 export type Collection = {
+  id: string
   title: string
-  excerpt?: string
-  coverImage?: string
+  excerpt?: string | null
+  coverImage?: string | null
   tags: Array<string>
   slugs: Array<string>
 }

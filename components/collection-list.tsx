@@ -22,7 +22,7 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
       <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10 mb-4">
         {collections.map((collection) => (
           <li
-            key={collection.title}
+            key={collection.id}
             className="grid grid-cols-12 place-items-center rounded border-black border-2 p-2"
           >
             <div className="col-span-3 relative h-16 w-16">
