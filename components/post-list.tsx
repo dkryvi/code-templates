@@ -14,7 +14,7 @@ const PostList: React.FC<Props> = ({title, posts, allLink}) => {
   return (
     <section className="mb-16">
       {title && (
-        <h2 className="mb-8 text-6xl lg:text-7xl font-bold tracking-tighter leading-tight text-black">
+        <h2 className="prose mb-8 text-6xl lg:text-7xl font-bold tracking-tighter leading-tight">
           {title}
         </h2>
       )}
@@ -34,7 +34,7 @@ const PostList: React.FC<Props> = ({title, posts, allLink}) => {
       {allLink && (
         <Link href={allLink}>
           <a
-            className="block text-right text-lg font-bold mt-4 hover:underline text-black"
+            className="block mt-4 text-right text-lg text-gray-900 font-bold"
             aria-label="View All"
           >
             View All

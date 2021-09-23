@@ -7,7 +7,7 @@ type Props = {
 const DateFormatter: React.FC<Props> = ({dateString}) => {
   const date = parseISO(dateString)
   return (
-    <time className="text-black" dateTime={dateString}>
+    <time className="prose" dateTime={dateString}>
       {format(date, 'LLLL	d, yyyy')}
     </time>
   )

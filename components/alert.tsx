@@ -9,16 +9,16 @@ type Props = {
 const Alert: React.FC<Props> = () => {
   return (
     <Container>
-      <div className="py-2 text-center text-sm">
+      <p className="prose block max-w-full py-2 text-center text-sm">
         The source code for this blog is{' '}
         <a
           href={REPOSITORY_URL}
-          className="underline hover:text-success duration-200 transition-colors"
+          // className="hover:text-blue-600 duration-200 transition-colors"
         >
           available on GitHub
         </a>
         .
-      </div>
+      </p>
     </Container>
   )
 }
