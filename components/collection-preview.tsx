@@ -35,16 +35,14 @@ const CollectionPreview: React.FC<Props> = ({
             />
           </div>
         )}
-        <h3 className="text-3xl leading-snug font-semibold">
+        <h3 className="prose text-3xl leading-snug font-semibold">
           <Link as={`/collections/${title}?p=1`} href="/collections/[slug]">
-            <a className="hover:underline" aria-label={title}>
-              {toTitleCase(title)}
-            </a>
+            <a aria-label={title}>{toTitleCase(title)}</a>
           </Link>
         </h3>
       </div>
       <TagList tags={tags.slice(0, 8)} />
-      <p className="text-lg leading-relaxed mt-4">{slicedExcerpt}</p>
+      <p className="prose text-lg leading-relaxed mt-4">{slicedExcerpt}</p>
     </article>
   )
 }

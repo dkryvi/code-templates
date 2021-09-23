@@ -6,6 +6,7 @@ import {Collection} from '@types'
 import CollectionPreview from '@components/collection-preview'
 import Container from '@components/container'
 import Layout from '@components/layout'
+import Title from '@components/title'
 import {getCollections} from '@lib/api'
 
 type Props = {
@@ -17,9 +18,7 @@ const CollectionsPage: React.FC<Props> = ({collections}) => {
     <Layout>
       <NextSeo title="Collections | Code Templates" />
       <Container>
-        <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
-          Collections
-        </h2>
+        <Title>Collections</Title>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-4">
           {collections.map((collection, index) => (
             <li key={index}>

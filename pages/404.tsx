@@ -22,7 +22,7 @@ const NotFoundPage: React.FC = () => (
       The page you are looking for might have been removed.
     </h3>
     <Link href="/">
-      <a className="bg-black hover:bg-white hover:text-black border border-black text-white font-bold py-3 px-12 lg:px-8 duration-200 transition-colors">
+      <a className="bg-black hover:bg-white hover:text-gray-900 border border-black text-white font-bold py-3 px-12 lg:px-8 duration-200 transition-colors">
         Come Back Home
       </a>
     </Link>

@@ -20,7 +20,7 @@ const CollectionTagList: React.FC<Props> = ({tags, activeTag, onTagClick}) => {
             'mx-1 my-1 px-4 py-2 transition rounded-full border-2 cursor-pointer',
             activeTag === tag
               ? 'bg-black border-black text-white hover:opacity-70'
-              : 'bg-gray-100 border-gray-200 text-black hover:bg-gray-200 hover:border-gray-300'
+              : 'bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200 hover:border-gray-300'
           ])}
           onClick={handleClick(tag)}
         >
