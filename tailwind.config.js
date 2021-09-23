@@ -30,12 +30,6 @@ module.exports = {
         DEFAULT: {
           css: {
             color: theme('colors.gray.900')
-            // a: {
-            //   'text-decoration': 'none',
-            //   '&:hover': {
-            //     'text-decoration': 'underline'
-            //   }
-            // }
           }
         }
       })

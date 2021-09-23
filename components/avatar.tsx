@@ -15,7 +15,7 @@ const Avatar: React.FC<Props> = ({name, picture}) => {
         width={48}
         height={48}
       />
-      <div className="prose ml-4 text-xl font-bold">{name}</div>
+      <p className="prose ml-4 text-xl font-bold">{name}</p>
     </div>
   )
 }

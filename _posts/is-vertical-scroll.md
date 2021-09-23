@@ -13,7 +13,7 @@ ogImage:
   url: 'https://res.cloudinary.com/dkryvi/image/upload/v1627307206/Code%20Templates/covers/cover_mkiayd.jpg'
 ---
 
-```javascript
+```js
 function isVerticalScroll(event) {
   const {deltaX, deltaY} = event
 

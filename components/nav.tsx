@@ -48,7 +48,7 @@ const Nav: React.FC = () => {
                             className={clsx([
                               router.pathname === item.href
                                 ? 'bg-gray-900 text-white'
-                                : 'text-gray-900 hover:bg-gray-900 hover:text-white',
+                                : 'text-gray-900 hover:bg-gray-600 hover:text-white',
                               'px-3 py-2 rounded-md text-sm font-medium'
                             ])}
                             aria-current={

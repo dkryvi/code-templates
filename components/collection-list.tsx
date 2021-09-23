@@ -45,7 +45,7 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
       </ul>
       <Link href="/collections">
         <a
-          className="prose block text-right text-lg font-bold"
+          className="block mt-4 text-right text-lg text-gray-900 font-bold"
           aria-label="View All"
         >
           View All
