@@ -1,5 +1,6 @@
 import {GetStaticProps} from 'next'
 
+import {getPosts, getCollections} from '@api'
 import {Collection} from '@types'
 import {Post} from '@types'
 
@@ -7,7 +8,6 @@ import CollectionList from '@components/collection-list'
 import Container from '@components/container'
 import Layout from '@components/layout'
 import PostList from '@components/post-list'
-import {getPosts, getCollections} from '@lib/api'
 
 type Props = {
   collections: Array<Collection>

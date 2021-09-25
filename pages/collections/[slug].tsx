@@ -5,6 +5,8 @@ import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
 import {useState} from 'react'
 
+import {getCollections, getCollectionBySlug, getPostBySlug} from '@api'
+import {COLLECTION_IMAGE_FALLBACK} from '@constants'
 import {Collection} from '@types'
 import {Post} from '@types'
 
@@ -14,9 +16,7 @@ import Layout from '@components/layout'
 import PostList from '@components/post-list'
 import SocialMeta from '@components/social-meta'
 import Title from '@components/title'
-import {getCollections, getCollectionBySlug, getPostBySlug} from '@lib/api'
-import {COLLECTION_IMAGE_FALLBACK} from '@lib/constants'
-import toTitleCase from '@lib/utils/to-title-case'
+import {toTitleCase} from '@utils/string'
 
 type Props = {
   collection: Collection

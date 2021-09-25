@@ -1,10 +1,10 @@
-import logger from 'loglevel'
 import fs from 'fs-extra'
+import logger from 'loglevel'
 
-import {CONTENT_FOLDER} from '../lib/constants'
-import {getPosts} from '../lib/api'
-import {serializeToFile, getSettings} from '../lib/utils/fs'
+import {getPosts} from '../api'
+import {CONTENT_FOLDER} from '../constants'
 import {Post} from '../types'
+import {serializeToFile, getSettings} from '../utils/fs'
 
 type GroupedPosts = {
   [key: string]: Array<Post>
