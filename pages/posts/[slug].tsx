@@ -15,7 +15,8 @@ import PostHeader from '@components/post-header'
 import PostList from '@components/post-list'
 import SocialMeta from '@components/social-meta'
 import Title from '@components/title'
-import {copyToClipboard, markdownToHtml} from '@utils/content'
+import {copyToClipboard} from '@utils/content'
+import markdownToHtml from '@utils/markdown-to-html'
 import {toTitleCase} from '@utils/string'
 
 type Props = {
