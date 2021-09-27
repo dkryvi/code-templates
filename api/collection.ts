@@ -2,16 +2,10 @@ import {Collection} from '@types'
 
 import {getContentData} from '../utils/fs'
 
+import {GetCollectionsParams} from './types'
+
 const bySlugsCount = (col1: Collection, col2: Collection) =>
   col2.slugs.length - col1.slugs.length
-
-type GetCollectionsParams = {
-  limit?: number
-  offset?: number
-  fields?: Array<string>
-  tags?: Array<string>
-  excludedSlugs?: Array<string>
-}
 
 export async function getCollections(
   params: GetCollectionsParams = {}

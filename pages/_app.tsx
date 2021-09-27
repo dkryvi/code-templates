@@ -4,7 +4,7 @@ import {AppProps} from 'next/app'
 
 import '@styles/index.css'
 
-import {DEFAULT_SEO} from '@lib/constants'
+import {DEFAULT_SEO} from '@constants'
 
 export default function MyApp({
   Component,

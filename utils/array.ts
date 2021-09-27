@@ -1,7 +1,4 @@
-export default function intersection<T>(
-  arr1: Array<T>,
-  arr2: Array<T>
-): Array<T> {
+export function intersection<T>(arr1: Array<T>, arr2: Array<T>): Array<T> {
   const [longer, shorter] =
     arr2.length > arr1.length ? [arr2, arr1] : [arr1, arr2]
 

@@ -3,13 +3,13 @@ import {NextSeo} from 'next-seo'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 
+import {getPosts} from '@api'
 import {Post} from '@types'
 
 import Container from '@components/container'
 import Layout from '@components/layout'
 import PostList from '@components/post-list'
 import Title from '@components/title'
-import {getPosts} from '@lib/api'
 
 type Props = {
   posts: Array<Post>

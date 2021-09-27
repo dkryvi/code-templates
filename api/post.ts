@@ -5,16 +5,14 @@ import matter from 'gray-matter'
 
 import {Post} from '@types'
 
-import intersection from '../utils/intersection'
+import {intersection} from '../utils/array'
+
+import {GetPostsParams, SlugPost} from './types'
 
 const postsDirectory = join(process.cwd(), '_posts')
 
 export function getPostSlugs(): Array<string> {
   return fs.readdirSync(postsDirectory)
-}
-
-type SlugPost = Post & {
-  [key: string]: string
 }
 
 export function getPostBySlug(slug: string, fields: string[] = []): SlugPost {
@@ -40,14 +38,6 @@ export function getPostBySlug(slug: string, fields: string[] = []): SlugPost {
   })
 
   return items
-}
-
-type GetPostsParams = {
-  limit?: number
-  offset?: number
-  fields?: Array<string>
-  tags?: Array<string>
-  excludedSlugs?: Array<string>
 }
 
 export function getPosts(params: GetPostsParams = {}): Array<Post> {

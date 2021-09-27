@@ -1,4 +1,4 @@
-function copyToClipboard(link: string): void {
+export function copyToClipboard(link: string): void {
   const textarea = document.createElement('textarea')
   textarea.textContent = link
   document.body.appendChild(textarea)
@@ -17,5 +17,3 @@ function copyToClipboard(link: string): void {
     document.body.removeChild(textarea)
   }
 }
-
-export default copyToClipboard

@@ -4,6 +4,7 @@ import {GetStaticPaths, GetStaticProps} from 'next'
 import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
 
+import {getPostBySlug, getPosts} from '@api'
 import {ShareIcon} from '@icons'
 import {Post} from '@types'
 
@@ -14,10 +15,9 @@ import PostHeader from '@components/post-header'
 import PostList from '@components/post-list'
 import SocialMeta from '@components/social-meta'
 import Title from '@components/title'
-import {getPostBySlug, getPosts} from '@lib/api'
-import copyToClipboard from '@lib/utils/copy-to-clipboard'
-import markdownToHtml from '@lib/utils/markdown-to-html'
-import toTitleCase from '@lib/utils/to-title-case'
+import {copyToClipboard} from '@utils/content'
+import markdownToHtml from '@utils/markdown-to-html'
+import {toTitleCase} from '@utils/string'
 
 type Props = {
   post: Post
