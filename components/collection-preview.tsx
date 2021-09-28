@@ -22,7 +22,7 @@ const CollectionPreview: React.FC<Props> = ({
     excerpt && excerpt.length > 100 ? `${excerpt.slice(0, 100)}...` : excerpt
 
   return (
-    <article className="h-full rounded border-black border-2 p-4">
+    <article className="h-full rounded border-black border-2 p-4 hover:shadow-xl">
       <div className="flex mb-4">
         {coverImage && (
           <div className="h-12 mr-4">

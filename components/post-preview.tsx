@@ -18,7 +18,7 @@ const PostPreview: React.FC<Props> = ({title, excerpt, author, tags, slug}) => {
     excerpt.length > 100 ? `${excerpt.slice(0, 100)}...` : excerpt
 
   return (
-    <article className="h-full rounded border-black border-2">
+    <article className="h-full rounded border-black border-2 hover:shadow-xl">
       <div className="p-4">
         <Avatar name={author.name} picture={author.picture} />
         <h3 className="prose text-3xl leading-snug my-4 font-semibold">

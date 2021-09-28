@@ -23,7 +23,7 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
         {collections.map((collection) => (
           <li
             key={collection.id}
-            className="grid grid-cols-12 place-items-center rounded border-black border-2 p-2"
+            className="grid grid-cols-12 place-items-center rounded border-black border-2 p-2 hover:shadow-xl"
           >
             <div className="col-span-3 relative h-16 w-16">
               <Image
@@ -45,7 +45,7 @@ const CollectionList: React.FC<Props> = ({title, collections}) => {
       </ul>
       <Link href="/collections">
         <a
-          className="block mt-4 text-right text-lg text-gray-900 font-bold"
+          className="block mt-4 text-right text-lg text-gray-900 font-bold hover:underline"
           aria-label="View All"
         >
           View All
