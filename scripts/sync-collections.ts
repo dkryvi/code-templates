@@ -44,7 +44,7 @@ async function build() {
     }
   }
 
-  logger.info(`🎉 Successfully build ${collections.length} collections`)
+  logger.info(`🎉 Successfully synced ${collections.length} collections`)
 }
 
 build()

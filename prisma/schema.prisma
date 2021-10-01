@@ -11,6 +11,13 @@ generator client {
   previewFeatures = ["mongodb"]
 }
 
+model Author {
+  id      String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name    String
+  picture String
+  Post    Post[]
+}
+
 model CollectionDictionary {
   id         String @id @default(dbgenerated()) @map("_id") @db.ObjectId
   title      String @unique
@@ -25,4 +32,18 @@ model Collection {
   coverImage String?
   tags       String[]
   slugs      String[]
+}
+
+model Post {
+  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  slug       String   @unique
+  title      String
+  date       String
+  tags       String[]
+  coverImage String?
+  author     Author   @relation(fields: [authorId], references: [id])
+  authorId   String   @db.ObjectId
+  excerpt    String
+  ogImageUrl String
+  content    String
 }

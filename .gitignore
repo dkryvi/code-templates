@@ -35,6 +35,3 @@ yarn-error.log*
 
 # vercel
 .vercel
-
-# generated files
-.content

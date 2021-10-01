@@ -4,8 +4,6 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "postinstall": "ts-node ./scripts/post-install",
-    "postbuild": "ts-node ./scripts/post-build",
     "start": "next start",
     "prepare": "husky install",
     "check:types": "tsc --noEmit",
