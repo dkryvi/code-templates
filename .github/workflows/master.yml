@@ -4,8 +4,8 @@ on:
     types:
       - closed
       - opened
-    # branches:
-    #   - master
+    branches:
+      - master
 jobs:
   install_dependencies:
     name: Install dependencies
@@ -33,8 +33,8 @@ jobs:
       - name: Sync Algolia search
         run: ts-node ./scripts/sync-algolia
 
-      # - name: Sync posts
-      #   run: ts-node ./scripts/sync-posts
+      - name: Sync posts
+        run: ts-node ./scripts/sync-posts
 
       - name: Sync collections
         run: ts-node ./scripts/sync-collections
