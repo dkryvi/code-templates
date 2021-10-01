@@ -17,11 +17,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Install ts-node
+        run: npm install -g ts-node
+
       - name: Sync Algolia search
-        run: npx ts-node ./scripts/sync-algolia
+        run: ts-node ./scripts/sync-algolia
 
       - name: Sync posts
-        run: npx ts-node ./scripts/sync-posts
+        run: ts-node ./scripts/sync-posts
 
       - name: Sync collections
-        run: npx ts-node ./scripts/sync-collections
+        run: ts-node ./scripts/sync-collections
