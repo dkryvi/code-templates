@@ -4,24 +4,11 @@ on:
     types:
       - closed
       - opened
-    # branches:
-    #   - master
+    branches:
+      - master
 jobs:
-  install_dependencies:
-    name: Install dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          check-latest: true
-      - name: Install Dependencies
-        run: npm install
-
   sync_data:
     name: Sync data
-    needs: install_dependencies
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -29,12 +16,15 @@ jobs:
         with:
           node-version: '14'
           check-latest: true
+
+      - name: Install Dependencies
+        run: npm install
 
       - name: Sync Algolia search
         run: ts-node ./scripts/sync-algolia
 
-      # - name: Sync posts
-      #   run: ts-node ./scripts/sync-posts
+      - name: Sync posts
+        run: ts-node ./scripts/sync-posts
 
       - name: Sync collections
         run: ts-node ./scripts/sync-collections
