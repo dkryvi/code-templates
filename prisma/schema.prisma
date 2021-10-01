@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongodb"]
+}
+
+model Author {
+  id      String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name    String
+  picture String
+  Post    Post[]
+}
+
+model Collection {
+  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  title      String   @unique
+  excerpt    String?
+  coverImage String?
+  tags       String[]
+  slugs      String[]
+}
+
+model CollectionDictionary {
+  id         String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  title      String @unique
+  excerpt    String
+  coverImage String
+}
+
+model OgImage {
+  id   String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  url  String
+  Post Post[]
+}
+
+model Post {
+  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  slug       String   @unique
+  title      String
+  date       String
+  tags       String[]
+  coverImage String?
+  author     Author   @relation(fields: [authorId], references: [id])
+  authorId   String   @db.ObjectId
+  excerpt    String
+  ogImage    OgImage  @relation(fields: [ogImageId], references: [id])
+  content    String
+  ogImageId  String   @db.ObjectId
+}

@@ -4,15 +4,15 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "postinstall": "ts-node ./scripts/post-install",
-    "postbuild": "ts-node ./scripts/post-build",
     "start": "next start",
     "prepare": "husky install",
     "check:types": "tsc --noEmit",
     "check:format": "prettier -w .",
     "check:lint": "next lint --no-ignore --fix",
     "update-deps": "npx npm-check-updates -u",
-    "pre-commit": "lint-staged"
+    "generate": "prisma generate",
+    "pre-commit": "lint-staged",
+    "postinstall": "npm run generate"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.4.0",
@@ -21,7 +21,9 @@
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
     "@tailwindcss/typography": "^0.4.1",
+    "@prisma/client": "^3.0.2",
     "algoliasearch": "^4.10.5",
+    "bson": "^4.5.2",
     "clsx": "^1.1.1",
     "date-fns": "2.24.0",
     "dotenv": "^10.0.0",
@@ -60,6 +62,7 @@
     "lint-staged": ">=11",
     "postcss": "^8.3.7",
     "prettier": "^2.4.1",
+    "prisma": "^3.0.2",
     "shell-quote": "^1.7.2",
     "tailwindcss": "^2.2.15",
     "ts-node": "^10.2.1",

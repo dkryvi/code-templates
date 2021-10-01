@@ -11,7 +11,7 @@ const TagList: React.FC<Props> = ({tags}) => {
       {tags.map((tag, index) => (
         <li
           key={index}
-          className="mx-1 my-1 px-2 py-0.5 bg-gray-800 text-white rounded"
+          className="mx-1 my-1 px-2 py-0.5 bg-gray-900 text-white rounded hover:bg-gray-600"
         >
           <Link href={`/posts?tag=${tag}`}>
             <a aria-label={tag}>#{tag}</a>
