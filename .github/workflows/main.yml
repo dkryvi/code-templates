@@ -5,7 +5,7 @@ on:
       - closed
       - opened
     branches:
-      - master
+      - main
 jobs:
   sync_data:
     name: Sync data
