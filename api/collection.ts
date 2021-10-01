@@ -10,12 +10,10 @@ export async function getCollections(
 
   const collections = await prisma.collection.findMany({
     skip: offset,
-    take: limit
-    // orderBy: {
-    //   slugs: {
-    //     length: 'desc'
-    //   }
-    // }
+    take: limit,
+    orderBy: {
+      slugs: 'desc'
+    }
   })
 
   return collections
