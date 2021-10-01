@@ -4,8 +4,8 @@ on:
     types:
       - closed
       - opened
-    branches:
-      - master
+    # branches:
+    #   - master
 jobs:
   install_dependencies:
     name: Install dependencies
