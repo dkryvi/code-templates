@@ -18,13 +18,6 @@ model Author {
   Post    Post[]
 }
 
-model CollectionDictionary {
-  id         String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  title      String @unique
-  excerpt    String
-  coverImage String
-}
-
 model Collection {
   id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   title      String   @unique
@@ -32,6 +25,19 @@ model Collection {
   coverImage String?
   tags       String[]
   slugs      String[]
+}
+
+model CollectionDictionary {
+  id         String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  title      String @unique
+  excerpt    String
+  coverImage String
+}
+
+model OgImage {
+  id   String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  url  String
+  Post Post[]
 }
 
 model Post {
@@ -44,6 +50,7 @@ model Post {
   author     Author   @relation(fields: [authorId], references: [id])
   authorId   String   @db.ObjectId
   excerpt    String
-  ogImageUrl String
+  ogImage    OgImage  @relation(fields: [ogImageId], references: [id])
   content    String
+  ogImageId  String   @db.ObjectId
 }

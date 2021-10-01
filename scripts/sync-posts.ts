@@ -1,6 +1,30 @@
 import logger from 'loglevel'
 
 import {prisma, getPosts} from '../api'
+import {Post} from '../types'
+
+function getPostData(post: Post, actionKey: 'update' | 'create') {
+  return {
+    author: {
+      [actionKey]: {
+        name: post.author.name,
+        picture: post.author.picture
+      }
+    },
+    content: post.content,
+    coverImage: post.coverImage,
+    date: post.date,
+    excerpt: post.excerpt,
+    ogImage: {
+      [actionKey]: {
+        url: post.ogImage.url
+      }
+    },
+    slug: post.slug,
+    tags: post.tags,
+    title: post.title
+  }
+}
 
 async function build() {
   logger.setLevel('info')
@@ -16,11 +40,11 @@ async function build() {
     if (dbPost) {
       await prisma.post.update({
         where: {id: dbPost.id},
-        data: post
+        data: getPostData(post, 'update')
       })
     } else {
       await prisma.post.create({
-        data: post
+        data: getPostData(post, 'create')
       })
     }
   }
