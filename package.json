@@ -11,7 +11,8 @@
     "check:lint": "next lint --no-ignore --fix",
     "update-deps": "npx npm-check-updates -u",
     "generate": "prisma generate",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "postinstall": "npm run generate"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.4.0",
