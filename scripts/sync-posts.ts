@@ -49,7 +49,7 @@ async function build() {
     }
   }
 
-  logger.info(`🎉 Successfully synced ${posts.length} collections`)
+  logger.info(`🎉 Successfully synced ${posts.length} posts`)
 }
 
 build()
