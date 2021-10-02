@@ -45,13 +45,15 @@ export function getPosts(params: GetPostsParams = {}): Array<Post> {
     limit = Infinity,
     offset = 0,
     fields = [
-      'title',
-      'date',
-      'slug',
       'author',
-      'tags',
+      'content',
       'coverImage',
-      'excerpt'
+      'date',
+      'excerpt',
+      'slug',
+      'tags',
+      'title',
+      'ogImage'
     ],
     tags = [],
     excludedSlugs = []
