@@ -3,10 +3,10 @@ import logger from 'loglevel'
 import {prisma, getPosts} from '../api'
 import {Post} from '../types'
 
-function getPostData(post: Post, actionKey: 'update' | 'create') {
+function getPostData(post: Post, action: 'update' | 'create') {
   return {
     author: {
-      [actionKey]: {
+      [action]: {
         name: post.author.name,
         picture: post.author.picture
       }
@@ -15,41 +15,42 @@ function getPostData(post: Post, actionKey: 'update' | 'create') {
     coverImage: post.coverImage,
     date: post.date,
     excerpt: post.excerpt,
-    ogImage: {
-      [actionKey]: {
-        url: post.ogImage.url
-      }
-    },
     slug: post.slug,
     tags: post.tags,
-    title: post.title
+    title: post.title,
+    ogImage: {
+      [action]: {
+        url: post.ogImage.url
+      }
+    }
   }
 }
 
-async function build() {
-  logger.setLevel('info')
+async function main() {
   await prisma.$connect()
 
   const posts = getPosts()
 
-  const dbPosts = await prisma.post.findMany()
+  const promises = posts.map(async function (post) {
+    return await prisma.post.upsert({
+      where: {slug: post.slug},
+      create: getPostData(post, 'create'),
+      update: getPostData(post, 'update')
+    })
+  })
 
-  for (const post of posts) {
-    const dbPost = dbPosts.find((dbPost) => dbPost.slug === post.slug)
+  const newPosts = await Promise.all(promises)
 
-    if (dbPost) {
-      await prisma.post.update({
-        where: {id: dbPost.id},
-        data: getPostData(post, 'update')
-      })
-    } else {
-      await prisma.post.create({
-        data: getPostData(post, 'create')
-      })
-    }
-  }
-
-  logger.info(`🎉 Successfully synced ${posts.length} posts`)
+  logger.info(`🎉 Successfully synced ${newPosts.length} posts`)
 }
 
-build()
+logger.setLevel('info')
+
+try {
+  main()
+} catch (error) {
+  console.log('error')
+  throw error
+} finally {
+  prisma.$disconnect()
+}
