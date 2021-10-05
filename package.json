@@ -12,7 +12,9 @@
     "update-deps": "npx npm-check-updates -u",
     "generate": "prisma generate",
     "pre-commit": "lint-staged",
-    "postinstall": "npm run generate"
+    "link-project": "vercel link",
+    "pull-env": "vercel env pull",
+    "postinstall": "npm run generate && npm run pull-env"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.4.0",
@@ -65,7 +67,8 @@
     "prisma": "^3.0.2",
     "shell-quote": "^1.7.2",
     "tailwindcss": "^2.2.15",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.3",
+    "vercel": "^23.1.2"
   },
   "engines": {
     "node": "14.17.6"
