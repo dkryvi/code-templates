@@ -38,8 +38,6 @@ async function syncSearch() {
   })
 }
 
-build()
-
 try {
   dotenv.config()
   logger.setLevel('info')
