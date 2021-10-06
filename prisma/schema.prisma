@@ -13,7 +13,7 @@ generator client {
 
 model Author {
   id      String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  name    String
+  name    String @unique
   picture String
   Post    Post[]
 }
@@ -36,7 +36,7 @@ model CollectionDictionary {
 
 model OgImage {
   id   String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  url  String
+  url  String @unique
   Post Post[]
 }
 

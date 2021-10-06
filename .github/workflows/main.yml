@@ -7,6 +7,11 @@ jobs:
   sync_data:
     name: Sync data
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+      ALGOLIA_SEARCH_ADMIN_KEY: ${{ secrets.ALGOLIA_SEARCH_ADMIN_KEY }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -21,17 +26,11 @@ jobs:
         run: npm install -g ts-node
 
       - name: Sync Algolia search
-        env:
-          NEXT_PUBLIC_ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
-          ALGOLIA_SEARCH_ADMIN_KEY: ${{ secrets.ALGOLIA_SEARCH_ADMIN_KEY }}
         run: ts-node ./scripts/sync-algolia
 
       - name: Sync posts
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: ts-node ./scripts/sync-posts
 
       - name: Sync collections
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: ts-node ./scripts/sync-collections

@@ -3,53 +3,67 @@ import logger from 'loglevel'
 import {prisma, getPosts} from '../api'
 import {Post} from '../types'
 
-function getPostData(post: Post, actionKey: 'update' | 'create') {
-  return {
+async function syncPost(post: Post) {
+  const dbAuthor = await prisma.author.upsert({
+    where: {name: post.author.name},
+    create: {name: post.author.name, picture: post.author.picture},
+    update: {}
+  })
+  const dbOgImage = await prisma.ogImage.upsert({
+    where: {url: post.ogImage.url},
+    create: {url: post.ogImage.url},
+    update: {}
+  })
+
+  const postData = {
     author: {
-      [actionKey]: {
-        name: post.author.name,
-        picture: post.author.picture
+      connect: {
+        id: dbAuthor.id
       }
     },
     content: post.content,
     coverImage: post.coverImage,
     date: post.date,
     excerpt: post.excerpt,
-    ogImage: {
-      [actionKey]: {
-        url: post.ogImage.url
-      }
-    },
     slug: post.slug,
     tags: post.tags,
-    title: post.title
+    title: post.title,
+    ogImage: {
+      connect: {
+        id: dbOgImage.id
+      }
+    }
   }
+
+  await prisma.post.upsert({
+    where: {slug: post.slug},
+    create: postData,
+    update: postData
+  })
 }
 
-async function build() {
-  logger.setLevel('info')
+async function syncPosts() {
   await prisma.$connect()
 
   const posts = getPosts()
 
-  const dbPosts = await prisma.post.findMany()
+  await posts.reduce(async (memo, post) => {
+    await memo
+    await syncPost(post)
+  }, Promise.resolve())
 
-  for (const post of posts) {
-    const dbPost = dbPosts.find((dbPost) => dbPost.slug === post.slug)
-
-    if (dbPost) {
-      await prisma.post.update({
-        where: {id: dbPost.id},
-        data: getPostData(post, 'update')
-      })
-    } else {
-      await prisma.post.create({
-        data: getPostData(post, 'create')
-      })
-    }
-  }
-
-  logger.info(`🎉 Successfully synced ${posts.length} posts`)
+  return posts
 }
 
-build()
+try {
+  logger.setLevel('info')
+  syncPosts().then((posts) => {
+    logger.info(`🎉 Successfully synced ${posts.length} posts`)
+  })
+} catch (error) {
+  console.log({error})
+  // TODO: use some tool to track errors
+  throw error
+} finally {
+  prisma.$disconnect()
+}

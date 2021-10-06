@@ -1,19 +1,20 @@
+import {CollectionDictionary} from '@prisma/client'
 import logger from 'loglevel'
 
 import {prisma, getPosts} from '../api'
-import {groupPostsByPrimaryTag, getUniquePostsTags} from '../utils/post'
+import {
+  groupPostsByPrimaryTag,
+  getUniquePostsTags,
+  GroupedPosts
+} from '../utils/post'
 
-async function build() {
-  logger.setLevel('info')
-  await prisma.$connect()
-
-  const posts = getPosts()
-  const groupedPosts = groupPostsByPrimaryTag(posts)
-
-  const collectionsDictionaries = await prisma.collectionDictionary.findMany()
-  const collections = Object.keys(groupedPosts).map((title) => {
-    const dictionary = collectionsDictionaries.find(
-      (dictionary) => dictionary.title === title
+function createCollections(
+  groupedPosts: GroupedPosts,
+  collectionDictionary: Array<CollectionDictionary>
+) {
+  return Object.keys(groupedPosts).map((title) => {
+    const dictionary = collectionDictionary.find(
+      (dictionaryItem) => dictionaryItem.title === title
     )
 
     return {
@@ -24,27 +25,36 @@ async function build() {
       slugs: groupedPosts[title].map((post) => post.slug)
     }
   })
-
-  const dbCollections = await prisma.collection.findMany()
-
-  for (const collection of collections) {
-    const dbCollection = dbCollections.find(
-      (dbCollection) => dbCollection.title === collection.title
-    )
-
-    if (dbCollection) {
-      await prisma.collection.update({
-        where: {id: dbCollection.id},
-        data: collection
-      })
-    } else {
-      await prisma.collection.create({
-        data: collection
-      })
-    }
-  }
-
-  logger.info(`🎉 Successfully synced ${collections.length} collections`)
 }
 
-build()
+async function syncCollections() {
+  await prisma.$connect()
+
+  const groupedPosts = groupPostsByPrimaryTag(getPosts())
+  const collectionDictionary = await prisma.collectionDictionary.findMany()
+
+  const collections = createCollections(groupedPosts, collectionDictionary)
+
+  return await Promise.all(
+    collections.map(async function (collection) {
+      return await prisma.collection.upsert({
+        where: {title: collection.title},
+        create: collection,
+        update: collection
+      })
+    })
+  )
+}
+
+try {
+  logger.setLevel('info')
+  syncCollections().then((collections) => {
+    logger.info(`🎉 Successfully synced ${collections.length} collections`)
+  })
+} catch (error) {
+  console.log({error})
+  // TODO: use some tool to track errors
+  throw error
+} finally {
+  prisma.$disconnect()
+}

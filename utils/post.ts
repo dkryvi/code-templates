@@ -1,6 +1,6 @@
 import {Post} from '@types'
 
-type GroupedPosts = {
+export interface GroupedPosts {
   [key: string]: Array<Post>
 }
 
