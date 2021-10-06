@@ -22,8 +22,8 @@ function transformPostsToSearchObjects(posts: Array<Post>) {
   })
 }
 
-async function build() {
-  const posts = getPosts()
+async function syncSearch() {
+  const posts = getPosts() 
   const transformed = transformPostsToSearchObjects(posts)
 
   const client = algoliasearch(
