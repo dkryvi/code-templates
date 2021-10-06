@@ -23,9 +23,6 @@ function transformPostsToSearchObjects(posts: Array<Post>) {
 }
 
 async function build() {
-  dotenv.config()
-  logger.setLevel('info')
-
   const posts = getPosts()
   const transformed = transformPostsToSearchObjects(posts)
 
@@ -36,13 +33,24 @@ async function build() {
 
   const index = client.initIndex('blog_posts')
 
-  const algoliaResponse = await index.replaceAllObjects(transformed, {
+  return await index.replaceAllObjects(transformed, {
     safe: true
   })
-
-  logger.info(
-    `🎉 Sucessfully added ${algoliaResponse.objectIDs.length} records to Algolia search.`
-  )
 }
 
 build()
+
+try {
+  dotenv.config()
+  logger.setLevel('info')
+
+  syncSearch().then((response) =>
+    logger.info(
+      `🎉 Sucessfully added ${response.objectIDs.length} records to Algolia search.`
+    )
+  )
+} catch (error) {
+  console.log({error})
+  // TODO: use some tool to track errors
+  throw error
+}
