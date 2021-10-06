@@ -10,23 +10,10 @@ Go to the project directory
   cd code-templates
 ```
 
-Install dependencies
+Bootstrap project
 
 ```bash
-  yarn
-```
-
-Command is used to link your local directory to a project.
-
-```bash
-  yarn link-project
-```
-
-Command to download Development Environment Variables from the cloud and write
-to a local .env file.
-
-```bash
-  yarn pull-env
+  yarn bootstrap
 ```
 
 Start the server
