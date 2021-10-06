@@ -32,5 +32,4 @@ jobs:
         run: ts-node ./scripts/sync-posts
 
       - name: Sync collections
-        env:
         run: ts-node ./scripts/sync-collections
