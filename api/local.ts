@@ -1,18 +1,11 @@
 import fs from 'fs'
 import {join} from 'path'
 
-import {Author, Post, OgImage} from '@prisma/client'
 import matter from 'gray-matter'
 
-const postsDirectory = join(process.cwd(), '_posts')
+import {LocalPost} from '../types'
 
-type LocalPost = Pick<
-  Post,
-  'slug' | 'title' | 'date' | 'tags' | 'coverImage' | 'excerpt' | 'content'
-> & {
-  author: Omit<Author, 'id'>
-  ogImage: Omit<OgImage, 'id'>
-}
+const postsDirectory = join(process.cwd(), '_posts')
 
 export function getLocalPostBySlug(slug: string): LocalPost {
   const realSlug = slug.replace(/\.md$/, '')
