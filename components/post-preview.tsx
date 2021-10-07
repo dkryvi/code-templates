@@ -1,6 +1,5 @@
+import {Author} from '@prisma/client'
 import Link from 'next/link'
-
-import {Author} from '@types'
 
 import Avatar from './avatar'
 import TagList from './tag-list'

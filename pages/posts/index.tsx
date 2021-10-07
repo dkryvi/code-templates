@@ -1,10 +1,10 @@
+import {Post} from '@prisma/client'
 import {GetStaticProps} from 'next'
 import {NextSeo} from 'next-seo'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 
 import {getPosts} from '@api'
-import {Post} from '@types'
 
 import Container from '@components/container'
 import Layout from '@components/layout'

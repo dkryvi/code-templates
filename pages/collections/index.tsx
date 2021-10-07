@@ -1,8 +1,8 @@
+import {Collection} from '@prisma/client'
 import {GetStaticProps} from 'next'
 import {NextSeo} from 'next-seo'
 
 import {getCollections} from '@api'
-import {Collection} from '@types'
 
 import CollectionPreview from '@components/collection-preview'
 import Container from '@components/container'
@@ -39,7 +39,11 @@ const CollectionsPage: React.FC<Props> = ({collections}) => {
 export default CollectionsPage
 
 export const getStaticProps: GetStaticProps = async () => {
-  const collections = await getCollections()
+  const collections = await getCollections({
+    orderBy: {
+      slugs: 'desc'
+    }
+  })
 
   return {
     props: {collections}

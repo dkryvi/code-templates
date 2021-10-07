@@ -19,7 +19,6 @@
       "@components/*": ["components/*"],
       "@constants": ["constants"],
       "@icons": ["icons/index"],
-      "@types": ["types/index"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"]
     }

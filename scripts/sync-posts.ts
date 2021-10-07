@@ -1,6 +1,6 @@
 import logger from 'loglevel'
 
-import {prisma, getPosts} from '../api'
+import {prisma, getLocalPosts} from '../api'
 import {Post} from '../types'
 
 async function syncPost(post: Post) {
@@ -45,7 +45,7 @@ async function syncPost(post: Post) {
 async function syncPosts() {
   await prisma.$connect()
 
-  const posts = getPosts()
+  const posts = getLocalPosts()
 
   await posts.reduce(async (memo, post) => {
     await memo

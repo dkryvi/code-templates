@@ -1,6 +1,5 @@
+import {Post} from '@prisma/client'
 import Link from 'next/link'
-
-import {Post} from '@types'
 
 import PostPreview from './post-preview'
 
