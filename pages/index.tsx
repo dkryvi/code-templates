@@ -1,7 +1,8 @@
-import {Collection, Post} from '@prisma/client'
+import {Collection} from '@prisma/client'
 import {GetStaticProps} from 'next'
 
 import {getPosts, getCollections} from '@api'
+import {PostWithAuthor} from '@types'
 
 import CollectionList from '@components/collection-list'
 import Container from '@components/container'
@@ -10,7 +11,7 @@ import PostList from '@components/post-list'
 
 type Props = {
   collections: Array<Collection>
-  posts: Array<Post>
+  posts: Array<PostWithAuthor>
 }
 
 const HomePage: React.FC<Props> = ({collections, posts}) => {

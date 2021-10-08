@@ -1,11 +1,12 @@
-import {Post} from '@prisma/client'
 import Link from 'next/link'
+
+import {PostWithAuthor} from '@types'
 
 import PostPreview from './post-preview'
 
-type Props = {
+interface Props {
   title?: string
-  posts: Post[]
+  posts: PostWithAuthor[]
   allLink?: string
 }
 

@@ -19,6 +19,7 @@
       "@components/*": ["components/*"],
       "@constants": ["constants"],
       "@icons": ["icons/index"],
+      "@types": ["./types"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"]
     }

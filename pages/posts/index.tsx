@@ -1,10 +1,10 @@
-import {Post} from '@prisma/client'
 import {GetStaticProps} from 'next'
 import {NextSeo} from 'next-seo'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 
 import {getPosts} from '@api'
+import {PostWithAuthor} from '@types'
 
 import Container from '@components/container'
 import Layout from '@components/layout'
@@ -12,7 +12,7 @@ import PostList from '@components/post-list'
 import Title from '@components/title'
 
 type Props = {
-  posts: Array<Post>
+  posts: Array<PostWithAuthor>
 }
 
 type RouterQuery = {

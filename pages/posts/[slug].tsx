@@ -1,12 +1,12 @@
 import {ParsedUrlQuery} from 'querystring'
 
-import {Post} from '@prisma/client'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
 
 import {getPost, getPosts} from '@api'
 import {ShareIcon} from '@icons'
+import {ExtendedPost, PostWithAuthor} from '@types'
 
 import Container from '@components/container'
 import Layout from '@components/layout'
@@ -19,9 +19,9 @@ import {copyToClipboard} from '@utils/content'
 import markdownToHtml from '@utils/markdown-to-html'
 import {toTitleCase} from '@utils/string'
 
-type Props = {
-  post: Post
-  similarPosts: Array<Post>
+interface Props {
+  post: ExtendedPost
+  similarPosts: Array<PostWithAuthor>
 }
 
 const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
@@ -91,9 +91,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
     take: 4,
     where: {
       tags: {hasSome: post?.tags},
-      slug: {notIn: [post?.slug]},
-      include: {author: true}
-    }
+      slug: {notIn: post?.slug ? [post?.slug] : undefined}
+    },
+    include: {author: true}
   })
 
   return {

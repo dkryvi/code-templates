@@ -1,6 +1,6 @@
 import {ParsedUrlQuery} from 'querystring'
 
-import {Collection, Post} from '@prisma/client'
+import {Collection} from '@prisma/client'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
@@ -8,6 +8,7 @@ import {useState} from 'react'
 
 import {getCollections, getCollection, getPost} from '@api'
 import {COLLECTION_IMAGE_FALLBACK} from '@constants'
+import {PostWithAuthor} from '@types'
 
 import CollectionTagList from '@components/collection-tag-list'
 import Container from '@components/container'
@@ -19,7 +20,7 @@ import {toTitleCase} from '@utils/string'
 
 type Props = {
   collection: Collection
-  posts: Array<Post>
+  posts: Array<PostWithAuthor>
 }
 
 const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
