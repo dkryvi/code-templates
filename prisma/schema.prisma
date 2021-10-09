@@ -12,11 +12,10 @@ generator client {
 }
 
 model Author {
-  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  name      String   @unique
-  picture   String
-  Post      Post[]
-  updatedAt DateTime @updatedAt
+  id      String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name    String @unique
+  picture String
+  Post    Post[]
 }
 
 model Collection {
@@ -26,22 +25,19 @@ model Collection {
   coverImage String?
   tags       String[]
   slugs      String[]
-  updatedAt  DateTime @updatedAt
 }
 
 model CollectionDictionary {
-  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  title      String   @unique
+  id         String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  title      String @unique
   excerpt    String
   coverImage String
-  updatedAt  DateTime @updatedAt
 }
 
 model OgImage {
-  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  url       String   @unique
-  Post      Post[]
-  updatedAt DateTime @updatedAt
+  id   String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  url  String @unique
+  Post Post[]
 }
 
 model Post {
@@ -57,5 +53,4 @@ model Post {
   ogImage    OgImage  @relation(fields: [ogImageId], references: [id])
   content    String
   ogImageId  String   @db.ObjectId
-  updatedAt  DateTime @updatedAt
 }
