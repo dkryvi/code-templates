@@ -6,7 +6,6 @@
     "prisma:generate": "prisma generate",
     "dev": "next",
     "build": "next build",
-    "vercel-build": "prisma generate",
     "start": "next start",
     "check:types": "tsc --noEmit",
     "check:format": "prettier -w .",
