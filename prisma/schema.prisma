@@ -16,7 +16,6 @@ model Author {
   name      String   @unique
   picture   String
   Post      Post[]
-  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
@@ -27,7 +26,6 @@ model Collection {
   coverImage String?
   tags       String[]
   slugs      String[]
-  createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
 
@@ -36,7 +34,6 @@ model CollectionDictionary {
   title      String   @unique
   excerpt    String
   coverImage String
-  createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
 
@@ -44,7 +41,6 @@ model OgImage {
   id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   url       String   @unique
   Post      Post[]
-  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
@@ -61,6 +57,5 @@ model Post {
   ogImage    OgImage  @relation(fields: [ogImageId], references: [id])
   content    String
   ogImageId  String   @db.ObjectId
-  createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
