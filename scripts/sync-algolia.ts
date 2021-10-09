@@ -3,10 +3,10 @@ import algoliasearch from 'algoliasearch/lite'
 import dotenv from 'dotenv'
 import logger from 'loglevel'
 
-import {getPosts} from '../api'
-import {Post} from '../types'
+import {getLocalPosts} from '../api'
+import {Post as LocalPost} from '../types'
 
-function transformPostsToSearchObjects(posts: Array<Post>) {
+function transformPostsToSearchObjects(posts: Array<LocalPost>) {
   return posts.map((post, index) => {
     return {
       objectID: `${post.slug}-${index}`,
@@ -23,7 +23,7 @@ function transformPostsToSearchObjects(posts: Array<Post>) {
 }
 
 async function syncSearch() {
-  const posts = getPosts() 
+  const posts = getLocalPosts()
   const transformed = transformPostsToSearchObjects(posts)
 
   const client = algoliasearch(

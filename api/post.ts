@@ -1,75 +1,15 @@
-import fs from 'fs'
-import {join} from 'path'
+import {Post, Prisma} from '@prisma/client'
 
-import matter from 'gray-matter'
+import {prisma} from './client'
 
-import {Post} from '@types'
-
-import {intersection} from '../utils/array'
-
-import {GetPostsParams, SlugPost} from './types'
-
-const postsDirectory = join(process.cwd(), '_posts')
-
-export function getPostSlugs(): Array<string> {
-  return fs.readdirSync(postsDirectory)
+export async function getPost(
+  args: Prisma.PostFindUniqueArgs
+): Promise<Post | null> {
+  return await prisma.post.findUnique(args)
 }
 
-export function getPostBySlug(slug: string, fields: string[] = []): SlugPost {
-  const realSlug = slug.replace(/\.md$/, '')
-  const fullPath = join(postsDirectory, `${realSlug}.md`)
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
-  const {data, content} = matter(fileContents)
-
-  const items = {} as SlugPost
-
-  // Ensure only the minimal needed data is exposed
-  fields.forEach((field) => {
-    if (field === 'slug') {
-      items[field] = realSlug
-    }
-    if (field === 'content') {
-      items[field] = content
-    }
-
-    if (data[field]) {
-      items[field] = data[field]
-    }
-  })
-
-  return items
-}
-
-export function getPosts(params: GetPostsParams = {}): Array<Post> {
-  const {
-    limit = Infinity,
-    offset = 0,
-    fields = [
-      'author',
-      'content',
-      'coverImage',
-      'date',
-      'excerpt',
-      'slug',
-      'tags',
-      'title',
-      'ogImage'
-    ],
-    tags = [],
-    excludedSlugs = []
-  } = params
-
-  const slugs = getPostSlugs()
-  const posts = slugs
-    .filter((slug) => !excludedSlugs.includes(slug.split('.')[0]))
-    .map((slug) => getPostBySlug(slug, fields))
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
-
-  if (tags.length > 0) {
-    return posts
-      .filter((post) => intersection(post.tags, tags).length > 0)
-      .slice(offset, limit)
-  }
-
-  return posts.slice(offset, limit)
+export async function getPosts(
+  args?: Prisma.PostFindManyArgs
+): Promise<Array<Post>> {
+  return await prisma.post.findMany(args)
 }

@@ -4,9 +4,9 @@ import {GetStaticPaths, GetStaticProps} from 'next'
 import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
 
-import {getPostBySlug, getPosts} from '@api'
+import {getPost, getPosts} from '@api'
 import {ShareIcon} from '@icons'
-import {Post} from '@types'
+import {ExtendedPost, PostWithAuthor} from '@types'
 
 import Container from '@components/container'
 import Layout from '@components/layout'
@@ -19,9 +19,9 @@ import {copyToClipboard} from '@utils/content'
 import markdownToHtml from '@utils/markdown-to-html'
 import {toTitleCase} from '@utils/string'
 
-type Props = {
-  post: Post
-  similarPosts: Array<Post>
+interface Props {
+  post: ExtendedPost
+  similarPosts: Array<PostWithAuthor>
 }
 
 const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
@@ -82,23 +82,18 @@ interface IParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const {slug} = context.params as IParams
-  const post = getPostBySlug(slug, [
-    'title',
-    'excerpt',
-    'date',
-    'slug',
-    'author',
-    'content',
-    'ogImage',
-    'coverImage',
-    'tags',
-    'ogImage'
-  ])
-  const content = await markdownToHtml(post.content || '')
-  const similarPosts = getPosts({
-    limit: 4,
-    tags: post.tags,
-    excludedSlugs: [post.slug]
+  const post = await getPost({
+    where: {slug},
+    include: {author: true, ogImage: true}
+  })
+  const content = await markdownToHtml(post?.content || '')
+  const similarPosts = await getPosts({
+    take: 4,
+    where: {
+      tags: {hasSome: post?.tags},
+      slug: {notIn: post?.slug ? [post?.slug] : undefined}
+    },
+    include: {author: true}
   })
 
   return {
@@ -113,7 +108,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = getPosts({fields: ['slug']})
+  const posts = await getPosts({
+    select: {
+      slug: true
+    }
+  })
 
   return {
     paths: posts.map((post) => {

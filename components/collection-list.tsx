@@ -1,8 +1,8 @@
+import {Collection} from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import {COLLECTION_IMAGE_FALLBACK} from '@constants'
-import {Collection} from '@types'
 
 import {toTitleCase} from '@utils/string'
 

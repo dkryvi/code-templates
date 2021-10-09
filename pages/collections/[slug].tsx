@@ -1,14 +1,14 @@
 import {ParsedUrlQuery} from 'querystring'
 
+import {Collection} from '@prisma/client'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
 import {useState} from 'react'
 
-import {getCollections, getCollectionBySlug, getPostBySlug} from '@api'
+import {getCollections, getCollection, getPost} from '@api'
 import {COLLECTION_IMAGE_FALLBACK} from '@constants'
-import {Collection} from '@types'
-import {Post} from '@types'
+import {PostWithAuthor} from '@types'
 
 import CollectionTagList from '@components/collection-tag-list'
 import Container from '@components/container'
@@ -20,7 +20,7 @@ import {toTitleCase} from '@utils/string'
 
 type Props = {
   collection: Collection
-  posts: Array<Post>
+  posts: Array<PostWithAuthor>
 }
 
 const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
@@ -66,22 +66,21 @@ interface IParams extends ParsedUrlQuery {
   slug: string
 }
 
+function getPostBySlug(slug: string) {
+  return getPost({
+    where: {slug},
+    include: {author: true}
+  })
+}
+
 export const getStaticProps: GetStaticProps = async (context) => {
   const {slug} = context.params as IParams
-  const collection = await getCollectionBySlug(slug)
+  const collection = await getCollection({
+    where: {title: slug}
+  })
 
   const posts = collection
-    ? await collection.slugs.map((slug) =>
-        getPostBySlug(slug, [
-          'title',
-          'date',
-          'slug',
-          'author',
-          'tags',
-          'coverImage',
-          'excerpt'
-        ])
-      )
+    ? await Promise.all(collection.slugs.map(getPostBySlug))
     : []
 
   return {
@@ -93,7 +92,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const collections = await getCollections()
+  const collections = await getCollections({select: {title: true}})
 
   return {
     paths: collections.map((collection) => {

@@ -30,7 +30,8 @@ function createCollections(
 async function syncCollections() {
   await prisma.$connect()
 
-  const groupedPosts = groupPostsByPrimaryTag(getPosts())
+  const posts = await getPosts()
+  const groupedPosts = groupPostsByPrimaryTag(posts)
   const collectionDictionary = await prisma.collectionDictionary.findMany()
 
   const collections = createCollections(groupedPosts, collectionDictionary)

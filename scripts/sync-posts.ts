@@ -1,9 +1,9 @@
 import logger from 'loglevel'
 
-import {prisma, getPosts} from '../api'
-import {Post} from '../types'
+import {prisma, getLocalPosts} from '../api'
+import {LocalPost} from '../types'
 
-async function syncPost(post: Post) {
+async function syncPost(post: LocalPost) {
   const dbAuthor = await prisma.author.upsert({
     where: {name: post.author.name},
     create: {name: post.author.name, picture: post.author.picture},
@@ -45,7 +45,7 @@ async function syncPost(post: Post) {
 async function syncPosts() {
   await prisma.$connect()
 
-  const posts = getPosts()
+  const posts = getLocalPosts()
 
   await posts.reduce(async (memo, post) => {
     await memo

@@ -2,8 +2,8 @@
   "name": "code-templates",
   "version": "1.0.0",
   "scripts": {
-    "bootstrap": "yarn && yarn generate && vercel link && vercel env pull",
-    "generate": "prisma generate",
+    "bootstrap": "yarn && yarn prisma:generate && vercel link && vercel env pull",
+    "prisma:generate": "prisma generate",
     "dev": "next",
     "build": "next build",
     "start": "next start",
@@ -69,7 +69,7 @@
     "vercel": "^23.1.2"
   },
   "engines": {
-    "node": "14.17.6"
+    "node": "^14"
   },
   "license": "MIT"
 }

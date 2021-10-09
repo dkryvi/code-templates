@@ -1,30 +1,15 @@
-import {Collection} from '@types'
+import {Collection, Prisma} from '@prisma/client'
 
 import {prisma} from './client'
-import {GetCollectionsParams} from './types'
 
-export async function getCollections(
-  params?: GetCollectionsParams
-): Promise<Array<Collection>> {
-  const {limit, offset} = params ?? {}
-
-  const collections = await prisma.collection.findMany({
-    skip: offset,
-    take: limit,
-    orderBy: {
-      slugs: 'desc'
-    }
-  })
-
-  return collections
+export async function getCollection(
+  args: Prisma.CollectionFindUniqueArgs
+): Promise<Collection | null> {
+  return await prisma.collection.findUnique(args)
 }
 
-export async function getCollectionBySlug(
-  slug: string
-): Promise<Collection | null> {
-  const collection = await prisma.collection.findFirst({
-    where: {title: slug}
-  })
-
-  return collection
+export async function getCollections(
+  args?: Prisma.CollectionFindManyArgs
+): Promise<Array<Collection>> {
+  return await prisma.collection.findMany(args)
 }

@@ -4,13 +4,12 @@ import {
   getAlgoliaResults
 } from '@algolia/autocomplete-js'
 import {Hit} from '@algolia/client-search'
+import {Post} from '@prisma/client'
 import algoliasearch from 'algoliasearch'
 import {RouterContext} from 'next/dist/shared/lib/router-context'
 import {useRouter} from 'next/router'
 import {useEffect, createElement, Fragment} from 'react'
 import {render} from 'react-dom'
-
-import {Post} from '@types'
 
 import TagList from '@components/tag-list'
 
