@@ -52,7 +52,9 @@ const PostsPage: React.FC<Props> = ({posts}) => {
 export default PostsPage
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = getPosts()
+  const posts = await getPosts({
+    include: {author: true}
+  })
 
   return {
     props: {posts}
