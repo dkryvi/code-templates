@@ -16,6 +16,9 @@ jobs:
         with:
           node-version: '14'
 
+      - name: Setup node_modules
+        run: yarn
+
       - name: Cache node_modules
         id: cache-node-modules
         uses: actions/cache@v2
@@ -82,6 +85,9 @@ jobs:
 
       - name: Install ts-node
         run: yarn global add ts-node
+
+      - name: Install typescript
+        run: yarn global add typescript
 
       - name: Sync Algolia search
         run: ts-node ./scripts/sync-algolia
