@@ -8,11 +8,9 @@
     "build": "next build",
     "start": "next start",
     "check:types": "tsc --noEmit",
-    "check:format": "prettier -w .",
-    "check:lint": "next lint --no-ignore --fix",
-    "update-deps": "npx npm-check-updates -u",
-    "prepare": "husky install",
-    "pre-commit": "lint-staged"
+    "check:format": "prettier .",
+    "check:lint": "next lint --no-ignore",
+    "update-deps": "npx npm-check-updates -u"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.4.0",
@@ -58,8 +56,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "fs-extra": "^10.0.0",
     "glob": "^7.2.0",
-    "husky": "^7.0.2",
-    "lint-staged": ">=11",
     "postcss": "^8.3.7",
     "prettier": "^2.4.1",
     "prisma": "^3.2.0",
