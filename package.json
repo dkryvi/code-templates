@@ -10,7 +10,10 @@
     "check:types": "tsc --noEmit",
     "check:format": "prettier .",
     "check:lint": "next lint --no-ignore",
-    "update-deps": "npx npm-check-updates -u"
+    "update-deps": "npx npm-check-updates -u",
+    "sync:algolia": "ts-node ./scripts/sync-algolia",
+    "sync:posts": "ts-node ./scripts/sync-posts",
+    "sync:collections": "ts-node ./scripts/sync-collections"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.4.0",

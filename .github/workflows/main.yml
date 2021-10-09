@@ -44,7 +44,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: node-modules-${{ hashFiles('yarn-lock.json') }}
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install packages
         run: yarn install
@@ -81,16 +81,16 @@ jobs:
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: node-modules-${{ hashFiles('yarn-lock.json') }}
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install packages
         run: yarn install
 
       - name: Sync Algolia search
-        run: ts-node ./scripts/sync-algolia
+        run: yarn sync:algolia
 
       - name: Sync posts
-        run: ts-node ./scripts/sync-posts
+        run: yarn sync:posts
 
       - name: Sync collections
-        run: ts-node ./scripts/sync-collections
+        run: yarn sync:collections
