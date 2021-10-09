@@ -17,14 +17,14 @@ jobs:
           node-version: '14'
 
       - name: Setup node_modules
-        run: yarn
+        run: yarn install
 
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v2
+      - uses: actions/cache@v2
         with:
-          path: node_modules
-          key: node-modules-${{ hashFiles('yarn-lock.json') }}
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
   lint:
     name: Code Linting
@@ -83,11 +83,8 @@ jobs:
           path: node_modules
           key: node-modules-${{ hashFiles('yarn-lock.json') }}
 
-      - name: Install ts-node
-        run: yarn global add ts-node
-
-      - name: Install typescript
-        run: yarn global add typescript
+      - name: Install packages
+        run: yarn install
 
       - name: Sync Algolia search
         run: ts-node ./scripts/sync-algolia
