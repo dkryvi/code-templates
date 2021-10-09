@@ -16,7 +16,8 @@ export function getLocalPostBySlug(slug: string): LocalPost {
 
   return {
     ...(data as Omit<LocalPost, 'content'>),
-    content
+    content,
+    slug: realSlug
   }
 }
 
