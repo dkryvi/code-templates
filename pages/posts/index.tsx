@@ -30,7 +30,7 @@ const PostsPage: React.FC<Props> = ({posts}) => {
 
   return (
     <Layout>
-      <NextSeo title="Collections | Code Templates" />
+      <NextSeo title="Posts | Code Templates" />
       <Container>
         <Title>{queryTag ? `#${queryTag} posts` : 'Posts'}</Title>
         {queryTag && (

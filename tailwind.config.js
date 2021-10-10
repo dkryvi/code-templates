@@ -11,8 +11,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'accent-1': '#FAFAFA',
-        'accent-2': '#EAEAEA'
+        'accent-2': '#EAEAEA',
+        primary: {
+          light: '#52c7b8',
+          DEFAULT: '#009688',
+          dark: '#00675b'
+        },
+        secondary: {
+          light: '#8e8e8e',
+          DEFAULT: '#616161',
+          dark: '#373737'
+        }
       },
       fontSize: {
         '5xl': '2.5rem',
