@@ -3,6 +3,7 @@ import {MenuIcon, XIcon} from '@heroicons/react/outline'
 import clsx from 'clsx'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
+import {signIn, signOut, useSession} from 'next-auth/client'
 import React from 'react'
 
 import Autocomplete from 'components/autocomplete'
@@ -24,6 +25,10 @@ const navigation = [
 
 const Nav: React.FC = () => {
   const router = useRouter()
+  const [session] = useSession()
+
+  const handleSignInClick = () => signIn()
+  const handleSignOutClick = () => signOut()
 
   return (
     <Disclosure
@@ -72,6 +77,26 @@ const Nav: React.FC = () => {
                 </div>
                 <div className="w-12 max-w md:max-w-xs lg:max-w-lg md:w-full">
                   <Autocomplete />
+                </div>
+                <div className="ml-4">
+                  {session ? (
+                    <>
+                      <p>Signed in as {session?.user?.email}</p>
+                      <button
+                        className="text-gray-900"
+                        onClick={handleSignInClick}
+                      >
+                        Sign Out
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      className="text-gray-900"
+                      onClick={handleSignOutClick}
+                    >
+                      Sign In with GitHub
+                    </button>
+                  )}
                 </div>
               </div>
             </Container>

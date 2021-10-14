@@ -1,6 +1,7 @@
 import {DefaultSeo} from 'next-seo'
 import {ThemeProvider} from 'next-themes'
 import {AppProps} from 'next/app'
+import {Provider as SessionProvider} from 'next-auth/client'
 
 import '@styles/index.css'
 
@@ -11,9 +12,11 @@ export default function MyApp({
   pageProps
 }: AppProps): React.ReactElement {
   return (
-    <ThemeProvider>
-      <DefaultSeo {...DEFAULT_SEO} />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <SessionProvider session={pageProps.session}>
+      <ThemeProvider>
+        <DefaultSeo {...DEFAULT_SEO} />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </SessionProvider>
   )
 }

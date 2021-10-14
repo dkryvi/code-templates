@@ -1,6 +1,7 @@
 import logger from 'loglevel'
 
-import {prisma, getLocalPosts} from '../api'
+import prisma from '../lib/prisma'
+import {getLocalPosts} from '../api'
 import {LocalPost} from '../types'
 
 async function syncPost(post: LocalPost) {

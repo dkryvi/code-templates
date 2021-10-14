@@ -1,6 +1,6 @@
 import {Collection, Prisma} from '@prisma/client'
 
-import {prisma} from './client'
+import prisma from '../lib/prisma'
 
 export async function getCollection(
   args: Prisma.CollectionFindUniqueArgs
