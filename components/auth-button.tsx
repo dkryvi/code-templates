@@ -16,7 +16,7 @@ const AuthButton: React.FC = () => {
     </>
   ) : (
     <Link href="/api/auth/signin">
-      <a className="group flex align-center py-2 px-6 prose bg-gray-900 hover:bg-white hover:text-gray-900 border border-gray-900 text-white font-bold duration-200 transition-colors">
+      <a className="group flex align-center py-2 px-4 prose bg-gray-900 hover:bg-white hover:text-gray-900 border border-gray-900 text-white font-bold duration-200 transition-colors">
         <GithubIcon
           className="mr-4 text-white group-hover:text-gray-900"
           fill="currentColor"
