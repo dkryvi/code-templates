@@ -1,7 +1,7 @@
+import {Provider as SessionProvider} from 'next-auth/client'
 import {DefaultSeo} from 'next-seo'
 import {ThemeProvider} from 'next-themes'
 import {AppProps} from 'next/app'
-import {Provider as SessionProvider} from 'next-auth/client'
 
 import '@styles/index.css'
 

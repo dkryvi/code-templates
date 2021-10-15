@@ -3,9 +3,9 @@ import {MenuIcon, XIcon} from '@heroicons/react/outline'
 import clsx from 'clsx'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import {signIn, signOut, useSession} from 'next-auth/client'
 import React from 'react'
 
+import AuthButton from 'components/auth-button'
 import Autocomplete from 'components/autocomplete'
 import Container from 'components/container'
 
@@ -25,10 +25,6 @@ const navigation = [
 
 const Nav: React.FC = () => {
   const router = useRouter()
-  const [session] = useSession()
-
-  const handleSignInClick = () => signIn()
-  const handleSignOutClick = () => signOut()
 
   return (
     <Disclosure
@@ -79,24 +75,7 @@ const Nav: React.FC = () => {
                   <Autocomplete />
                 </div>
                 <div className="ml-4">
-                  {session ? (
-                    <>
-                      <p>Signed in as {session?.user?.email}</p>
-                      <button
-                        className="text-gray-900"
-                        onClick={handleSignInClick}
-                      >
-                        Sign Out
-                      </button>
-                    </>
-                  ) : (
-                    <button
-                      className="text-gray-900"
-                      onClick={handleSignOutClick}
-                    >
-                      Sign In with GitHub
-                    </button>
-                  )}
+                  <AuthButton />
                 </div>
               </div>
             </Container>
