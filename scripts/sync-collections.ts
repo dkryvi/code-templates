@@ -1,7 +1,8 @@
 import {CollectionDictionary} from '@prisma/client'
 import logger from 'loglevel'
 
-import {prisma, getPosts} from '../api'
+import {getPosts} from '../api'
+import prisma from '../lib/prisma'
 import {
   groupPostsByPrimaryTag,
   getUniquePostsTags,

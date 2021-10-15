@@ -5,6 +5,7 @@ import Link from 'next/link'
 import {useRouter} from 'next/router'
 import React from 'react'
 
+import AuthButton from 'components/auth-button'
 import Autocomplete from 'components/autocomplete'
 import Container from 'components/container'
 
@@ -72,6 +73,9 @@ const Nav: React.FC = () => {
                 </div>
                 <div className="w-12 max-w md:max-w-xs lg:max-w-lg md:w-full">
                   <Autocomplete />
+                </div>
+                <div className="ml-4">
+                  <AuthButton />
                 </div>
               </div>
             </Container>
