@@ -38,7 +38,7 @@ const Nav: React.FC = () => {
           <>
             <Container>
               <div className="relative flex items-center justify-between h-16">
-                <div className="flex items-center sm:hidden">
+                <div className="flex items-center lg:hidden">
                   {/* Mobile menu button*/}
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-gray-900 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span className="sr-only">Open main menu</span>
@@ -49,7 +49,7 @@ const Nav: React.FC = () => {
                   </Disclosure.Button>
                 </div>
                 <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                  <div className="hidden sm:block">
+                  <div className="hidden lg:block">
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
                         <Link key={item.name} href={item.href}>
@@ -71,7 +71,7 @@ const Nav: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-12 max-w md:max-w-xs lg:max-w-lg md:w-full">
+                <div className="w-12 sm:max-w-xs lg:max-w-md md:w-full">
                   <Autocomplete />
                 </div>
                 <div className="ml-4">
@@ -90,7 +90,7 @@ const Nav: React.FC = () => {
             >
               <Disclosure.Panel
                 as="ul"
-                className="sm:hidden z-50 absolute w-full bg-white px-2 pt-2 pb-3 space-y-1 shadow-md"
+                className="lg:hidden z-50 absolute w-full bg-white px-2 pt-2 pb-3 space-y-1 shadow-md"
                 unmount
               >
                 {navigation.map((item) => (
