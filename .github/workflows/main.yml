@@ -88,3 +88,6 @@ jobs:
 
       - name: Sync collections
         run: yarn sync:collections
+
+      - name: Deploy DB migrations
+        run: npx prisma migrate deploy
