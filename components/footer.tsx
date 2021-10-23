@@ -1,6 +1,6 @@
 import {REPOSITORY_URL} from '@constants'
-
-import Container from './container'
+import Button from 'components/button'
+import Container from 'components/container'
 
 const Footer: React.FC = () => {
   return (
@@ -15,9 +15,8 @@ const Footer: React.FC = () => {
               href="https://nextjs.org/docs/basic-features/pages"
               target="_blank"
               rel="noreferrer"
-              className="prose mx-3 bg-gray-900 hover:bg-white hover:text-gray-900 border border-gray-900 text-white font-bold py-3 px-12 lg:px-8 duration-200 transition-colors mb-6 lg:mb-0"
             >
-              Read Documentation
+              <Button>Read Documentation</Button>
             </a>
             <a
               href={REPOSITORY_URL}
