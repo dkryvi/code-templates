@@ -2,24 +2,27 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["mongodb"]
+  provider = "prisma-client-js"
 }
 
 model Author {
-  id      String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  name    String @unique
-  picture String
-  Post    Post[]
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String   @unique
+  picture   String
+  Post      Post[]
 }
 
 model Collection {
-  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
   title      String   @unique
   excerpt    String?
   coverImage String?
@@ -28,29 +31,35 @@ model Collection {
 }
 
 model CollectionDictionary {
-  id         String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  title      String @unique
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  title      String   @unique
   excerpt    String
   coverImage String
 }
 
 model OgImage {
-  id   String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  url  String @unique
-  Post Post[]
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  url       String   @unique
+  Post      Post[]
 }
 
 model Post {
-  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
   slug       String   @unique
   title      String
   date       String
   tags       String[]
   coverImage String?
   author     Author   @relation(fields: [authorId], references: [id])
-  authorId   String   @db.ObjectId
+  authorId   Int
   excerpt    String
   ogImage    OgImage  @relation(fields: [ogImageId], references: [id])
   content    String
-  ogImageId  String   @db.ObjectId
+  ogImageId  Int
 }

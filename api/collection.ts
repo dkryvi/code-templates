@@ -5,11 +5,13 @@ import prisma from '../lib/prisma'
 export async function getCollection(
   args: Prisma.CollectionFindUniqueArgs
 ): Promise<Collection | null> {
-  return await prisma.collection.findUnique(args)
+  const data = await prisma.collection.findUnique(args)
+  return JSON.parse(JSON.stringify(data))
 }
 
 export async function getCollections(
   args?: Prisma.CollectionFindManyArgs
 ): Promise<Array<Collection>> {
-  return await prisma.collection.findMany(args)
+  const data = await prisma.collection.findMany(args)
+  return JSON.parse(JSON.stringify(data))
 }

@@ -1,7 +1,7 @@
-import {Provider as SessionProvider} from 'next-auth/client'
 import {DefaultSeo} from 'next-seo'
 import {ThemeProvider} from 'next-themes'
 import {AppProps} from 'next/app'
+import {Toaster} from 'react-hot-toast'
 
 import '@styles/index.css'
 
@@ -12,11 +12,10 @@ export default function MyApp({
   pageProps
 }: AppProps): React.ReactElement {
   return (
-    <SessionProvider session={pageProps.session}>
-      <ThemeProvider>
-        <DefaultSeo {...DEFAULT_SEO} />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </SessionProvider>
+    <ThemeProvider>
+      <DefaultSeo {...DEFAULT_SEO} />
+      <Component {...pageProps} />
+      <Toaster position="top-center" />
+    </ThemeProvider>
   )
 }
