@@ -18,7 +18,10 @@
 @import './prism-holi-theme.css';
 
 /* Algolia styles */
-@import '@algolia/autocomplete-theme-classic';
+@import './algolia.css';
+
+/* Components */
+@import './components.css';
 
 html,
 body {
@@ -28,41 +31,4 @@ body {
 #_next {
   height: 100%;
   overflow: auto;
-}
-
-.aa-Panel {
-  @apply z-50;
-}
-
-.aa-List {
-  @apply divide-y divide-gray-400;
-}
-
-.aa-Item {
-  @apply p-2 rounded-none;
-}
-
-.aa-DetachedSearchButton {
-  @apply w-12 h-12 px-0.5 border-0 rounded-full bg-gray-200 text-gray-900;
-}
-
-.aa-DetachedCancelButton {
-  @apply text-gray-900;
-}
-
-.aa-DetachedSearchButtonPlaceholder {
-  @apply hidden md:block;
-}
-
-.aa-DetachedSearchButtonIcon {
-  @apply w-full;
-}
-
-.aa-Label svg,
-.aa-DetachedSearchButtonIcon svg {
-  @apply text-gray-900;
-}
-
-.aa-Form:focus-within {
-  @apply border-gray-900 shadow-none;
 }
