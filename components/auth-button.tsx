@@ -4,7 +4,6 @@ import Image from 'next/image'
 import React from 'react'
 import toast from 'react-hot-toast'
 
-import Button from 'components/button'
 import supabase from 'lib/supabase'
 
 const AuthButton: React.FC = () => {
@@ -82,7 +81,9 @@ const AuthButton: React.FC = () => {
       </Menu>
     </>
   ) : (
-    <Button onClick={handleSignInClick}>Sign in with Google</Button>
+    <button className="btn" onClick={handleSignInClick}>
+      Sign in with Google
+    </button>
   )
 }
 

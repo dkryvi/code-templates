@@ -1,5 +1,4 @@
 import {REPOSITORY_URL} from '@constants'
-import Button from 'components/button'
 import Container from 'components/container'
 
 const Footer: React.FC = () => {
@@ -16,7 +15,7 @@ const Footer: React.FC = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <Button>Read Documentation</Button>
+              <button className="btn">Read Documentation</button>
             </a>
             <a
               href={REPOSITORY_URL}
