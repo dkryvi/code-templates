@@ -7,15 +7,20 @@ import '@styles/index.css'
 
 import {DEFAULT_SEO} from '@constants'
 
+import {UserContextProvider} from '../context/user'
+import supabase from '../lib/supabase'
+
 export default function MyApp({
   Component,
   pageProps
 }: AppProps): React.ReactElement {
   return (
     <ThemeProvider>
-      <DefaultSeo {...DEFAULT_SEO} />
-      <Component {...pageProps} />
       <Toaster position="top-center" />
+      <UserContextProvider supabase={supabase}>
+        <DefaultSeo {...DEFAULT_SEO} />
+        <Component {...pageProps} />
+      </UserContextProvider>
     </ThemeProvider>
   )
 }

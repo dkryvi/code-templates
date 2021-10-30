@@ -71,7 +71,7 @@ const Nav: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-12 sm:max-w-xs lg:max-w-md md:w-full">
+                <div className="w-12 sm:max-w-xs lg:max-w-md md:w-96">
                   <Autocomplete />
                 </div>
                 <div className="ml-4">

@@ -7,7 +7,7 @@ module.exports = {
       safelist: ['dark'] //specific classes
     }
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')],
   theme: {
     extend: {
       colors: {

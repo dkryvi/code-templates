@@ -14,7 +14,8 @@ model Author {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name      String   @unique
+  name      String
+  email     String   @unique
   picture   String
   Post      Post[]
 }
@@ -53,7 +54,6 @@ model Post {
   updatedAt  DateTime @updatedAt
   slug       String   @unique
   title      String
-  date       String
   tags       String[]
   coverImage String?
   author     Author   @relation(fields: [authorId], references: [id])
@@ -62,4 +62,5 @@ model Post {
   ogImage    OgImage  @relation(fields: [ogImageId], references: [id])
   content    String
   ogImageId  Int
+  isDraft    Boolean? @default(true)
 }

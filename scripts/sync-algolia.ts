@@ -3,8 +3,8 @@ import algoliasearch from 'algoliasearch/lite'
 import dotenv from 'dotenv'
 import logger from 'loglevel'
 
-import {getLocalPosts} from '../api'
 import {Post as LocalPost} from '../types'
+import {getLocalPosts} from '../utils/local'
 
 function transformPostsToSearchObjects(posts: Array<LocalPost>) {
   return posts.map((post, index) => {

@@ -1,13 +1,17 @@
 import logger from 'loglevel'
 
-import {getLocalPosts} from '../api'
 import prisma from '../lib/prisma'
 import {LocalPost} from '../types'
+import {getLocalPosts} from '../utils/local'
 
 async function syncPost(post: LocalPost) {
   const dbAuthor = await prisma.author.upsert({
-    where: {name: post.author.name},
-    create: {name: post.author.name, picture: post.author.picture},
+    where: {email: post.author.email},
+    create: {
+      name: post.author.name,
+      email: post.author.email,
+      picture: post.author.picture
+    },
     update: {}
   })
   const dbOgImage = await prisma.ogImage.upsert({
@@ -24,7 +28,6 @@ async function syncPost(post: LocalPost) {
     },
     content: post.content,
     coverImage: post.coverImage,
-    date: post.date,
     excerpt: post.excerpt,
     slug: post.slug,
     tags: post.tags,
