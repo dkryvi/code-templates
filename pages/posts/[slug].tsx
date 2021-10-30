@@ -91,7 +91,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     take: 4,
     where: {
       tags: {hasSome: post?.tags},
-      slug: {notIn: post?.slug ? [post?.slug] : undefined}
+      slug: {notIn: post?.slug ? [post?.slug] : undefined},
+      isDraft: false
     },
     include: {author: true}
   })

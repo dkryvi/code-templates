@@ -23,6 +23,7 @@ export default async function handle(
       // TODO: create multiselect for tags
       tags: tags.split(', '),
       coverImage,
+      // connect or create a new author(if it's a first author post)
       author: {connect: {email: user?.email}},
       ogImage: {connect: {url: socialImage}},
       excerpt,

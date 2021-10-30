@@ -53,6 +53,9 @@ export default PostsPage
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getPosts({
+    where: {
+      isDraft: false
+    },
     include: {author: true}
   })
 
