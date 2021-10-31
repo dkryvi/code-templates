@@ -6,9 +6,11 @@ import {useForm} from 'react-hook-form'
 import toast from 'react-hot-toast'
 import * as yup from 'yup'
 
+import {client} from 'api/client'
 import Container from 'components/container'
 import Layout from 'components/layout'
 import {useUser} from 'context/user'
+import useAsync from 'hooks/use-async'
 import {getErrorMessage} from 'utils/error'
 
 const schema = yup
@@ -34,6 +36,7 @@ const ErrorMessage: React.FC<{message?: string}> = ({message}) => {
 
 const CreatePostPage: React.FC = () => {
   const {session} = useUser()
+  const {run, isLoading, isSuccess, error} = useAsync()
 
   const {
     register,
@@ -41,32 +44,43 @@ const CreatePostPage: React.FC = () => {
     formState: {errors}
   } = useForm({
     resolver: yupResolver(schema)
+    // defaultValues: {
+    //   title: 'Draft Title',
+    //   tags: 'qwe, zxc',
+    //   coverImage: 'https://google.com',
+    //   socialImage: 'https://google.com',
+    //   excerpt: 'excerpt',
+    //   content: 'content'
+    // }
   })
 
   const onSubmit = React.useCallback(
     async (data) => {
-      try {
-        await fetch(`/api/post`, {
-          method: 'POST',
+      run(
+        client('/api/post', {
           headers: {
-            'Content-Type': 'application/json',
-            token: session?.access_token ?? ''
+            token: session?.access_token
           },
           body: JSON.stringify(data)
         })
-
-        toast.success('New post successfully created')
-
-        // TODO: push to /drafts page
-        await Router.push('/posts')
-      } catch (error) {
-        const message = getErrorMessage(error)
-
-        toast.error(message)
-      }
+      )
     },
-    [session]
+    [run, session?.access_token]
   )
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      toast.success('New post successfully created')
+      Router.push('/posts')
+    }
+  }, [isSuccess])
+
+  React.useEffect(() => {
+    if (error) {
+      const message = getErrorMessage(error)
+      toast.error(message)
+    }
+  }, [error])
 
   return (
     <Layout>
@@ -123,8 +137,12 @@ const CreatePostPage: React.FC = () => {
               <ErrorMessage message={errors.content?.message} />
             </div>
           </div>
-          <button type="submit" className="btn mt-3 float-right">
-            Create
+          <button
+            type="submit"
+            className="btn mt-3 float-right"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Creating...' : 'Create'}
           </button>
         </form>
       </Container>
