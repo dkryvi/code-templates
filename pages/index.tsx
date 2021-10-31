@@ -42,9 +42,6 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   })
   const posts = await getPosts({
-    where: {
-      isDraft: false
-    },
     take: 6,
     include: {author: true}
   })
