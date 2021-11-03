@@ -22,7 +22,8 @@
       "@types": ["./types"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"]
-    }
+    },
+    "incremental": true
   },
   "ts-node": {
     "compilerOptions": {
