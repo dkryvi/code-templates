@@ -87,7 +87,7 @@ const CreatePostPage: React.FC = () => {
       <NextSeo title="Create Post | Code Templates" />
       <Container>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>New Draft Post</h1>
+          <h1 className="mb-6 prose text-6xl font-bold">New Draft Post</h1>
           <div className="grid grid-cols-6 gap-6">
             <div className="col-span-6 sm:col-span-3">
               <label htmlFor="title" className="label">
@@ -139,7 +139,7 @@ const CreatePostPage: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="btn mt-3 float-right"
+            className="btn btn-primary mt-3 float-right"
             disabled={isLoading}
           >
             {isLoading ? 'Creating...' : 'Create'}

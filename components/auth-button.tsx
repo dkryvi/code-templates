@@ -51,7 +51,7 @@ const AuthButton: React.FC = () => {
       </Menu>
     </>
   ) : (
-    <button className="btn" onClick={signIn}>
+    <button className="btn btn-primary" onClick={signIn}>
       Sign in with Google
     </button>
   )

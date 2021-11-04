@@ -1,5 +1,6 @@
 import {Collection} from '@prisma/client'
 import {GetStaticProps} from 'next'
+import Link from 'next/link'
 
 import {getPosts, getCollections} from '@api'
 import {PostWithAuthor} from '@types'
@@ -18,6 +19,24 @@ const HomePage: React.FC<Props> = ({collections, posts}) => {
   return (
     <Layout>
       <Container>
+        <div className="mb-16 flex-column lg:items-center justify-center">
+          <h1 className="prose text-6xl font-extrabold tracking-tight text-gray-900 text-center">
+            <span className="block">Ready to dive in?</span>
+            <span className="block text-indigo-600">
+              Best place to store your templates
+            </span>
+          </h1>
+          <div className="mt-8 flex flex-col space-y-6 sm:space-x-6 sm:space-y-0 sm:flex-row justify-center">
+            <Link href="/create-post">
+              <a className="btn btn-primary text-2xl text-center">
+                Get started
+              </a>
+            </Link>
+            <Link href="/about">
+              <a className="btn btn-outline text-2xl text-center">Learn more</a>
+            </Link>
+          </div>
+        </div>
         {collections.length > 0 && (
           <CollectionList
             title="Popular collections"
