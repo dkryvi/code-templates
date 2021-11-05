@@ -20,7 +20,7 @@ const HomePage: React.FC<Props> = ({collections, posts}) => {
     <Layout>
       <Container>
         <div className="mb-16 flex-column lg:items-center justify-center">
-          <h1 className="prose text-6xl font-extrabold tracking-tight text-gray-900 text-center">
+          <h1 className="prose text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-900 text-center">
             <span className="block">Ready to dive in?</span>
             <span className="block text-indigo-600">
               Best place to store your templates
