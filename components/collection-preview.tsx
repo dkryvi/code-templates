@@ -18,9 +18,6 @@ const CollectionPreview: React.FC<Props> = ({
   coverImage,
   tags
 }) => {
-  const slicedExcerpt =
-    excerpt && excerpt.length > 100 ? `${excerpt.slice(0, 100)}...` : excerpt
-
   return (
     <article className="h-full rounded border-black border-2 p-4 hover:shadow-xl">
       <div className="flex mb-4">
@@ -42,7 +39,9 @@ const CollectionPreview: React.FC<Props> = ({
         </h3>
       </div>
       <TagList tags={tags.slice(0, 8)} />
-      <p className="prose text-lg leading-relaxed mt-4">{slicedExcerpt}</p>
+      <p className="prose text-lg leading-relaxed mt-4 line-clamp-3">
+        {excerpt}
+      </p>
     </article>
   )
 }
