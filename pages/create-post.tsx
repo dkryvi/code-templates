@@ -1,4 +1,4 @@
-import {yupResolver} from '@hookform/resolvers/yup'
+import {yupResolver} from '@hookform/resolvers/yup/dist/yup'
 import type {GetServerSideProps} from 'next'
 import {NextSeo} from 'next-seo'
 import Router from 'next/router'
