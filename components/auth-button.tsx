@@ -1,41 +1,11 @@
 import {Menu, Transition} from '@headlessui/react'
-import type {Session} from '@supabase/supabase-js'
 import Image from 'next/image'
 import React from 'react'
-import toast from 'react-hot-toast'
 
-import supabase from 'lib/supabase'
+import {useUser} from 'context/user'
 
 const AuthButton: React.FC = () => {
-  const [session, setSession] = React.useState<Session | null>(null)
-  const [error, setError] = React.useState<Error | null>(null)
-
-  const handleSignOutClick = React.useCallback(async () => {
-    const {error} = await supabase.auth.signOut()
-    if (error) setError(error)
-  }, [])
-
-  const handleSignInClick = React.useCallback(async () => {
-    const {error} = await supabase.auth.signIn({
-      provider: 'google'
-    })
-
-    if (error) setError(error)
-  }, [])
-
-  React.useEffect(() => {
-    setSession(supabase.auth.session())
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, [])
-
-  React.useEffect(() => {
-    if (error) {
-      toast.error(error.message)
-    }
-  }, [error])
+  const {session, signIn, signOut} = useUser()
 
   return session ? (
     <>
@@ -70,7 +40,7 @@ const AuthButton: React.FC = () => {
               <Menu.Item>
                 <button
                   className="w-full py-2 px-2 rounded-md text-gray-900 hover:bg-gray-900 hover:text-white"
-                  onClick={handleSignOutClick}
+                  onClick={signOut}
                 >
                   Sign Out
                 </button>
@@ -81,7 +51,7 @@ const AuthButton: React.FC = () => {
       </Menu>
     </>
   ) : (
-    <button className="btn" onClick={handleSignInClick}>
+    <button className="btn btn-primary" onClick={signIn}>
       Sign in with Google
     </button>
   )

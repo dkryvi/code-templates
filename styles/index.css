@@ -20,9 +20,6 @@
 /* Algolia styles */
 @import './algolia.css';
 
-/* Components */
-@import './components.css';
-
 html,
 body {
   height: 100%;
@@ -31,4 +28,42 @@ body {
 #_next {
   height: 100%;
   overflow: auto;
+}
+
+@layer base {
+  [type='text'],
+  [type='email'],
+  [type='url'],
+  [type='password'],
+  [type='number'],
+  [type='date'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='search'],
+  [type='tel'],
+  [type='time'],
+  [type='week'],
+  [multiple],
+  textarea,
+  select {
+    @apply mt-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-300 text-gray-900 rounded-md;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center py-2 px-4 prose font-bold rounded-md border;
+  }
+
+  .btn-primary {
+    @apply bg-gray-900 hover:bg-white hover:text-gray-900 border-gray-900 text-white duration-200 transition-colors;
+  }
+
+  .btn-outline {
+    @apply bg-white text-gray-900 border-gray-900 hover:bg-gray-100;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-gray-800;
+  }
 }

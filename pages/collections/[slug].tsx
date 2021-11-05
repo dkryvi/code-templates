@@ -66,13 +66,6 @@ interface IParams extends ParsedUrlQuery {
   slug: string
 }
 
-function getPostBySlug(slug: string) {
-  return getPost({
-    where: {slug},
-    include: {author: true}
-  })
-}
-
 export const getStaticProps: GetStaticProps = async (context) => {
   const {slug} = context.params as IParams
   const collection = await getCollection({
@@ -80,7 +73,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
   })
 
   const posts = collection
-    ? await Promise.all(collection.slugs.map(getPostBySlug))
+    ? await Promise.all(
+        collection.slugs.map((slug) =>
+          getPost({
+            where: {slug},
+            include: {author: true}
+          })
+        )
+      )
     : []
 
   return {

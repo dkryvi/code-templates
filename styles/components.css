@@ -1,5 +1,0 @@
-@layer components {
-  .btn {
-    @apply flex items-center py-2 px-4 prose bg-gray-900 hover:bg-white hover:text-gray-900 border border-gray-900 text-white font-bold rounded-md duration-200 transition-colors;
-  }
-}

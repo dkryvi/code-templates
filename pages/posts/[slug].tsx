@@ -52,7 +52,7 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
               <PostHeader
                 title={post.title}
                 coverImage={post.coverImage}
-                date={post.date}
+                date={post.createdAt.toLocaleString()}
                 author={post.author}
                 tags={post.tags}
               />

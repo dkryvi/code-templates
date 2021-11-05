@@ -9,13 +9,14 @@ const Footer: React.FC = () => {
           <h3 className="prose text-4xl lg-text-5xl font-bold tracking-tighter leading-tight text-center lg:text-left mb-10 lg:mb-0 lg:pr-4 lg:w-1/2">
             Statically Generated with Next.js.
           </h3>
-          <div className="flex flex-col lg:flex-row justify-center items-center lg:pl-4 lg:w-1/2">
+          <div className="flex flex-col space-y-6 sm:space-y-0 sm:space-x-6 sm:flex-row justify-center items-center lg:pl-4 lg:w-1/2">
             <a
+              className="btn btn-primary"
               href="https://nextjs.org/docs/basic-features/pages"
               target="_blank"
               rel="noreferrer"
             >
-              <button className="btn">Read Documentation</button>
+              Read Documentation
             </a>
             <a
               href={REPOSITORY_URL}
