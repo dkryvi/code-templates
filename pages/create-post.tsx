@@ -87,7 +87,7 @@ const CreatePostPage: React.FC = () => {
       <NextSeo title="Create Post | Code Templates" />
       <Container>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h1 className="mb-6 prose text-6xl font-bold">New Draft Post</h1>
+          <h1 className="mb-6 prose text-6xl font-bold">New Post</h1>
           <div className="grid grid-cols-6 gap-6">
             <div className="col-span-6 sm:col-span-3">
               <label htmlFor="title" className="label">
