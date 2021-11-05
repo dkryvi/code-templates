@@ -7,7 +7,6 @@ import React from 'react'
 
 import AuthButton from 'components/auth-button'
 import Autocomplete from 'components/autocomplete'
-import Container from 'components/container'
 
 const navigation = [
   {name: 'Home', href: '/', isActive: (path: string): boolean => path === '/'},
@@ -23,9 +22,33 @@ const navigation = [
   }
 ]
 
-const Nav: React.FC = () => {
+const NavMenu: React.FC<{className?: string}> = ({className = ''}) => {
   const router = useRouter()
 
+  return (
+    <ul className={className}>
+      {navigation.map((item) => (
+        <li key={item.name}>
+          <Link href={item.href}>
+            <a
+              className={clsx([
+                router.pathname === item.href
+                  ? 'bg-gray-900 text-white'
+                  : 'text-gray-900 hover:bg-gray-900 hover:text-white',
+                'block px-3 py-2 rounded-md text-base font-medium'
+              ])}
+              aria-current={router.pathname === item.href ? 'page' : undefined}
+            >
+              {item.name}
+            </a>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+const Nav: React.FC = () => {
   return (
     <Disclosure
       as="nav"
@@ -36,7 +59,7 @@ const Nav: React.FC = () => {
 
         return (
           <>
-            <Container>
+            <div className="px-6 mx-auto xl:max-w-screen-xl 2xl:max-w-screen-2xl">
               <div className="relative flex items-center justify-between h-16">
                 <div className="flex items-center lg:hidden">
                   {/* Mobile menu button*/}
@@ -50,35 +73,17 @@ const Nav: React.FC = () => {
                 </div>
                 <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="hidden lg:block">
-                    <div className="flex space-x-4">
-                      {navigation.map((item) => (
-                        <Link key={item.name} href={item.href}>
-                          <a
-                            className={clsx([
-                              item.isActive(router.pathname)
-                                ? 'bg-gray-900 text-white'
-                                : 'text-gray-900 hover:bg-gray-600 hover:text-white',
-                              'px-3 py-2 rounded-md text-sm font-medium'
-                            ])}
-                            aria-current={
-                              router.pathname === item.href ? 'page' : undefined
-                            }
-                          >
-                            {item.name}
-                          </a>
-                        </Link>
-                      ))}
-                    </div>
+                    <NavMenu className="flex space-x-4" />
                   </div>
                 </div>
-                <div className="w-12 sm:max-w-xs lg:max-w-md md:w-96">
+                <div className="w-12 sm:w-auto sm:max-w-sm lg:max-w-md md:w-96">
                   <Autocomplete />
                 </div>
                 <div className="ml-4">
                   <AuthButton />
                 </div>
               </div>
-            </Container>
+            </div>
             <Transition
               show={open}
               enter="transition duration-100 ease-out"
@@ -89,29 +94,10 @@ const Nav: React.FC = () => {
               leaveTo="transform scale-95 opacity-0"
             >
               <Disclosure.Panel
-                as="ul"
                 className="lg:hidden z-50 absolute w-full bg-white px-2 pt-2 pb-3 space-y-1 shadow-md"
                 unmount
               >
-                {navigation.map((item) => (
-                  <li key={item.name}>
-                    <Link href={item.href}>
-                      <a
-                        className={clsx([
-                          router.pathname === item.href
-                            ? 'bg-gray-900 text-white'
-                            : 'text-gray-900 hover:bg-gray-900 hover:text-white',
-                          'block px-3 py-2 rounded-md text-base font-medium'
-                        ])}
-                        aria-current={
-                          router.pathname === item.href ? 'page' : undefined
-                        }
-                      >
-                        {item.name}
-                      </a>
-                    </Link>
-                  </li>
-                ))}
+                <NavMenu />
               </Disclosure.Panel>
             </Transition>
           </>
