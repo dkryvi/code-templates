@@ -1,4 +1,5 @@
 import {yupResolver} from '@hookform/resolvers/yup'
+import type {GetServerSideProps} from 'next'
 import {NextSeo} from 'next-seo'
 import Router from 'next/router'
 import React from 'react'
@@ -11,6 +12,7 @@ import Container from 'components/container'
 import Layout from 'components/layout'
 import {useUser} from 'context/user'
 import useAsync from 'hooks/use-async'
+import supabase from 'lib/supabase'
 import {getErrorMessage} from 'utils/error'
 
 const schema = yup
@@ -151,3 +153,13 @@ const CreatePostPage: React.FC = () => {
 }
 
 export default CreatePostPage
+
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+  const {user} = await supabase.auth.api.getUserByCookie(req)
+
+  if (!user) {
+    return {props: {}, redirect: {destination: '/auth', permanent: false}}
+  }
+
+  return {props: {user}}
+}
