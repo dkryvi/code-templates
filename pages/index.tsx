@@ -27,9 +27,7 @@ const HomePage: React.FC<Props> = ({collections, posts}) => {
             </span>
           </h1>
           <Link href="/create-post">
-            <a className="mt-8 btn btn-primary text-2xl text-center">
-              Get started
-            </a>
+            <a className="mt-8 btn text-2xl text-center">Get started</a>
           </Link>
         </div>
         {collections.length > 0 && (

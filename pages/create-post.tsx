@@ -141,7 +141,7 @@ const CreatePostPage: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="btn btn-primary mt-3 float-right"
+            className="btn mt-3 float-right"
             disabled={isLoading}
           >
             {isLoading ? 'Creating...' : 'Create'}
