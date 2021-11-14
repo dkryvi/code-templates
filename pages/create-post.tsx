@@ -1,4 +1,6 @@
+import {Tab} from '@headlessui/react'
 import {yupResolver} from '@hookform/resolvers/yup/dist/yup'
+import clsx from 'clsx'
 import type {GetServerSideProps} from 'next'
 import {NextSeo} from 'next-seo'
 import Router from 'next/router'
@@ -9,6 +11,8 @@ import * as yup from 'yup'
 
 import {client} from 'api/client'
 import Container from 'components/container'
+import Content from 'components/content'
+import ErrorMessage from 'components/error-message'
 import Layout from 'components/layout'
 import {useUser} from 'context/user'
 import useAsync from 'hooks/use-async'
@@ -32,9 +36,7 @@ const schema = yup
   })
   .required()
 
-const ErrorMessage: React.FC<{message?: string}> = ({message}) => {
-  return <p className="prose prose-sm text-red-500">{message}</p>
-}
+const TABS = ['Edit', 'Preview']
 
 const CreatePostPage: React.FC = () => {
   const {session} = useUser()
@@ -43,6 +45,7 @@ const CreatePostPage: React.FC = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: {errors}
   } = useForm({
     resolver: yupResolver(schema)
@@ -135,7 +138,39 @@ const CreatePostPage: React.FC = () => {
               <label htmlFor="content" className="label">
                 Content
               </label>
-              <textarea id="content" {...register('content')} />
+              <Tab.Group>
+                <Tab.List className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
+                  {TABS.map((tab) => (
+                    <Tab
+                      key={tab}
+                      className={clsx(
+                        'bg-white rounded-xl p-3',
+                        'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
+                      )}
+                    >
+                      {tab}
+                    </Tab>
+                  ))}
+                </Tab.List>
+                <Tab.Panels className="mt-2">
+                  <Tab.Panel
+                    className={clsx(
+                      'bg-white rounded-xl p-3',
+                      'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
+                    )}
+                  >
+                    <textarea id="content" {...register('content')} />
+                  </Tab.Panel>
+                  <Tab.Panel
+                    className={clsx(
+                      'bg-white rounded-xl p-3',
+                      'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
+                    )}
+                  >
+                    <Content content={watch('content')} />
+                  </Tab.Panel>
+                </Tab.Panels>
+              </Tab.Group>
               <ErrorMessage message={errors.content?.message} />
             </div>
           </div>

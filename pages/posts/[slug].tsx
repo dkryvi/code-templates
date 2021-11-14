@@ -9,14 +9,13 @@ import {ShareIcon} from '@icons'
 import {ExtendedPost, PostWithAuthor} from '@types'
 
 import Container from '@components/container'
+import Content from '@components/content'
 import Layout from '@components/layout'
-import PostBody from '@components/post-body'
 import PostHeader from '@components/post-header'
 import PostList from '@components/post-list'
 import SocialMeta from '@components/social-meta'
 import Title from '@components/title'
 import {copyToClipboard} from '@utils/content'
-import markdownToHtml from '@utils/markdown-to-html'
 import {toTitleCase} from '@utils/string'
 
 interface Props {
@@ -56,7 +55,7 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
                 author={post.author}
                 tags={post.tags}
               />
-              <PostBody content={post.content} />
+              <Content content={post.content} />
             </article>
           )}
           {similarPosts.length > 0 && (
@@ -86,7 +85,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     where: {slug},
     include: {author: true, ogImage: true}
   })
-  const content = await markdownToHtml(post?.content || '')
   const similarPosts = await getPosts({
     take: 4,
     where: {
@@ -98,10 +96,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      post: {
-        ...post,
-        content
-      },
+      post,
       similarPosts
     }
   }
