@@ -6,6 +6,7 @@ import logger from 'loglevel'
 
 import {Post as LocalPost} from '../types'
 import {getLocalPosts} from '../utils/local'
+import '../sentry.server.config'
 
 function transformPostsToSearchObjects(posts: Array<LocalPost>) {
   return posts.map((post, index) => {
@@ -23,7 +24,7 @@ function transformPostsToSearchObjects(posts: Array<LocalPost>) {
   })
 }
 
-async function syncSearch() {
+async function sync() {
   const posts = getLocalPosts()
   const transformed = transformPostsToSearchObjects(posts)
 
@@ -39,15 +40,15 @@ async function syncSearch() {
   })
 }
 
-try {
-  dotenv.config()
-  logger.setLevel('info')
+dotenv.config()
+logger.setLevel('info')
 
-  syncSearch().then((response) =>
+sync()
+  .then((data) =>
     logger.info(
-      `🎉 Sucessfully added ${response.objectIDs.length} records to Algolia search.`
+      `🎉 Sucessfully added ${data.objectIDs.length} records to Algolia search.`
     )
   )
-} catch (error) {
-  Sentry.captureException(error)
-}
+  .catch((error) => {
+    Sentry.captureException(error)
+  })
