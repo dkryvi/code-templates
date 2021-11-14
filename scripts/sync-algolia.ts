@@ -1,4 +1,5 @@
 // @ts-nocheck
+import * as Sentry from '@sentry/nextjs'
 import algoliasearch from 'algoliasearch/lite'
 import dotenv from 'dotenv'
 import logger from 'loglevel'
@@ -48,7 +49,5 @@ try {
     )
   )
 } catch (error) {
-  console.log({error})
-  // TODO: use some tool to track errors
-  throw error
+  Sentry.captureException(error)
 }

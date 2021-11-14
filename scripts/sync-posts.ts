@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import logger from 'loglevel'
 
 import prisma from '../lib/prisma'
@@ -65,9 +66,7 @@ try {
     logger.info(`🎉 Successfully synced ${posts.length} posts`)
   })
 } catch (error) {
-  console.log({error})
-  // TODO: use some tool to track errors
-  throw error
+  Sentry.captureException(error)
 } finally {
   prisma.$disconnect()
 }

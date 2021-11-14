@@ -1,4 +1,5 @@
 import {Post} from '@prisma/client'
+import {withSentry} from '@sentry/nextjs'
 import type {NextApiRequest, NextApiResponse} from 'next'
 
 import prisma from 'lib/prisma'
@@ -6,19 +7,18 @@ import supabase from 'lib/supabase'
 import {getErrorMessage} from 'utils/error'
 import {toSlugCase} from 'utils/string'
 
-export default async function handle(
+const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
-): Promise<Post | undefined | void> {
+): Promise<void> => {
   if (req.method !== 'POST') {
     res.status(405).send({message: 'Only POST requests allowed'})
-    return
   }
 
   const token = req.headers.token as string
   const {data: user, error} = await supabase.auth.api.getUser(token)
 
-  if (error) return res.status(401).json({error: getErrorMessage(error)})
+  if (error) res.status(401).json({error: getErrorMessage(error)})
 
   try {
     const {title, tags, coverImage, socialImage, excerpt, content} = JSON.parse(
@@ -39,8 +39,10 @@ export default async function handle(
         content
       }
     })
-    return res.json(result)
+    res.json(result)
   } catch (error) {
-    return res.status(500).json({error: getErrorMessage(error)})
+    res.status(500).json({error: getErrorMessage(error)})
   }
 }
+
+export default withSentry(handler)

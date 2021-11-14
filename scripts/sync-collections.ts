@@ -1,4 +1,5 @@
 import {CollectionDictionary} from '@prisma/client'
+import * as Sentry from '@sentry/nextjs'
 import logger from 'loglevel'
 
 import {getPosts} from '../api'
@@ -54,9 +55,7 @@ try {
     logger.info(`🎉 Successfully synced ${collections.length} collections`)
   })
 } catch (error) {
-  console.log({error})
-  // TODO: use some tool to track errors
-  throw error
+  Sentry.captureException(error)
 } finally {
   prisma.$disconnect()
 }
