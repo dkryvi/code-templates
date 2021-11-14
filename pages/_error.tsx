@@ -1,7 +1,14 @@
 import * as Sentry from '@sentry/nextjs'
+import type {NextPageContext} from 'next'
 import NextErrorComponent from 'next/error'
 
-const MyError = ({statusCode, hasGetInitialPropsRun, err}) => {
+interface Props {
+  statusCode: number
+  hasGetInitialPropsRun: boolean
+  err: Error
+}
+
+const ErrorPage = ({statusCode, hasGetInitialPropsRun, err}: Props): any => {
   if (!hasGetInitialPropsRun && err) {
     // getInitialProps is not called in case of
     // https://github.com/vercel/next.js/issues/8592. As a workaround, we pass
@@ -13,15 +20,17 @@ const MyError = ({statusCode, hasGetInitialPropsRun, err}) => {
   return <NextErrorComponent statusCode={statusCode} />
 }
 
-MyError.getInitialProps = async ({res, err, asPath}) => {
-  const errorInitialProps = await NextErrorComponent.getInitialProps({
-    res,
-    err
-  })
+ErrorPage.getInitialProps = async (context: NextPageContext) => {
+  const errorInitialProps = await NextErrorComponent.getInitialProps(context)
+  const {err, asPath} = context
 
   // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
   // getInitialProps has run
-  errorInitialProps.hasGetInitialPropsRun = true
+  const errorProps = {
+    ...errorInitialProps,
+    err,
+    hasGetInitialPropsRun: true
+  }
 
   // Running on the server, the response object (`res`) is available.
   //
@@ -43,18 +52,18 @@ MyError.getInitialProps = async ({res, err, asPath}) => {
     // https://vercel.com/docs/platform/limits#streaming-responses
     await Sentry.flush(2000)
 
-    return errorInitialProps
+    return errorProps
   }
 
   // If this point is reached, getInitialProps was called without any
   // information about what the error might be. This is unexpected and may
   // indicate a bug introduced in Next.js, so record it in Sentry
   Sentry.captureException(
-    new Error(`_error.js getInitialProps missing data at path: ${asPath}`)
+    `_error.js getInitialProps missing data at path: ${asPath}`
   )
   await Sentry.flush(2000)
 
   return errorInitialProps
 }
 
-export default MyError
+export default ErrorPage
