@@ -1,6 +1,7 @@
 import {Collection} from '@prisma/client'
 import {GetStaticProps} from 'next'
 import {NextSeo} from 'next-seo'
+import Link from 'next/link'
 
 import {getCollections} from '@api'
 
@@ -22,12 +23,16 @@ const CollectionsPage: React.FC<Props> = ({collections}) => {
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-4">
           {collections.map((collection, index) => (
             <li key={index}>
-              <CollectionPreview
-                title={collection.title}
-                excerpt={collection.excerpt}
-                coverImage={collection.coverImage}
-                tags={collection.tags}
-              />
+              <Link href={`/collections/${collection.title}`}>
+                <a aria-label={collection.title}>
+                  <CollectionPreview
+                    title={collection.title}
+                    excerpt={collection.excerpt}
+                    coverImage={collection.coverImage}
+                    tags={collection.tags}
+                  />
+                </a>
+              </Link>
             </li>
           ))}
         </ul>

@@ -1,4 +1,5 @@
 import {CollectionDictionary} from '@prisma/client'
+import * as Sentry from '@sentry/nextjs'
 import logger from 'loglevel'
 
 import {getPosts} from '../api'
@@ -8,6 +9,7 @@ import {
   getUniquePostsTags,
   GroupedPosts
 } from '../utils/post'
+import '../sentry.server.config'
 
 function createCollections(
   groupedPosts: GroupedPosts,
@@ -28,7 +30,7 @@ function createCollections(
   })
 }
 
-async function syncCollections() {
+async function sync() {
   await prisma.$connect()
 
   const posts = await getPosts()
@@ -48,15 +50,11 @@ async function syncCollections() {
   )
 }
 
-try {
-  logger.setLevel('info')
-  syncCollections().then((collections) => {
+logger.setLevel('info')
+
+sync()
+  .then((collections) =>
     logger.info(`🎉 Successfully synced ${collections.length} collections`)
-  })
-} catch (error) {
-  console.log({error})
-  // TODO: use some tool to track errors
-  throw error
-} finally {
-  prisma.$disconnect()
-}
+  )
+  .catch((error) => Sentry.captureException(error))
+  .finally(() => prisma.$disconnect())

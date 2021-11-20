@@ -11,7 +11,9 @@ const NotFoundPage: React.FC = () => (
       The page you are looking for might have been removed.
     </h3>
     <Link href="/">
-      <a className="btn btn-primary">Come Back Home</a>
+      <a className="btn btn-primary" aria-label="home-link">
+        Come Back Home
+      </a>
     </Link>
   </Container>
 )

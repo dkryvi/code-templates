@@ -1,8 +1,10 @@
+import * as Sentry from '@sentry/nextjs'
 import logger from 'loglevel'
 
 import prisma from '../lib/prisma'
 import {LocalPost} from '../types'
 import {getLocalPosts} from '../utils/local'
+import '../sentry.server.config'
 
 async function syncPost(post: LocalPost) {
   const dbAuthor = await prisma.author.upsert({
@@ -46,7 +48,7 @@ async function syncPost(post: LocalPost) {
   })
 }
 
-async function syncPosts() {
+async function sync() {
   await prisma.$connect()
 
   const posts = getLocalPosts()
@@ -59,15 +61,9 @@ async function syncPosts() {
   return posts
 }
 
-try {
-  logger.setLevel('info')
-  syncPosts().then((posts) => {
-    logger.info(`🎉 Successfully synced ${posts.length} posts`)
-  })
-} catch (error) {
-  console.log({error})
-  // TODO: use some tool to track errors
-  throw error
-} finally {
-  prisma.$disconnect()
-}
+logger.setLevel('info')
+
+sync()
+  .then((posts) => logger.info(`🎉 Successfully synced ${posts.length} posts`))
+  .catch((error) => Sentry.captureException(error))
+  .finally(() => prisma.$disconnect())

@@ -13,7 +13,7 @@ const Alert: React.FC<Props> = () => {
         The source code for this blog is{' '}
         <a
           href={REPOSITORY_URL}
-          // className="hover:text-blue-600 duration-200 transition-colors"
+          className="hover:text-indigo-600 duration-200 transition-colors"
         >
           available on GitHub
         </a>

@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 
 import {toTitleCase} from '@utils/string'
 
@@ -33,9 +32,7 @@ const CollectionPreview: React.FC<Props> = ({
           </div>
         )}
         <h3 className="prose text-3xl leading-snug font-semibold">
-          <Link as={`/collections/${title}?p=1`} href="/collections/[slug]">
-            <a aria-label={title}>{toTitleCase(title)}</a>
-          </Link>
+          {toTitleCase(title)}
         </h3>
       </div>
       <TagList tags={tags.slice(0, 8)} />

@@ -27,20 +27,16 @@ const HomePage: React.FC<Props> = ({collections, posts}) => {
             </span>
           </h1>
           <Link href="/create-post">
-            <a className="mt-8 btn btn-primary text-2xl text-center">
+            <a
+              className="mt-8 btn btn-primary text-2xl text-center"
+              aria-label="get-started"
+            >
               Get started
             </a>
           </Link>
         </div>
-        {collections.length > 0 && (
-          <CollectionList
-            title="Popular collections"
-            collections={collections}
-          />
-        )}
-        {posts.length > 0 && (
-          <PostList title="Latest Posts" posts={posts} allLink="/posts" />
-        )}
+        <CollectionList title="Popular collections" collections={collections} />
+        <PostList title="Latest Posts" posts={posts} allLink="/posts" />
       </Container>
     </Layout>
   )

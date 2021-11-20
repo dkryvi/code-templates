@@ -15,6 +15,7 @@ const Footer: React.FC = () => {
               href="https://nextjs.org/docs/basic-features/pages"
               target="_blank"
               rel="noreferrer"
+              aria-label="read-documentation"
             >
               Read Documentation
             </a>
@@ -23,6 +24,7 @@ const Footer: React.FC = () => {
               target="_blank"
               rel="noreferrer"
               className="prose mx-3 font-bold"
+              aria-label="view-on-github"
             >
               View on GitHub
             </a>
