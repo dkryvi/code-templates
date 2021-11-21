@@ -1,21 +1,36 @@
-import {Author, OgImage, Post, Prisma} from '@prisma/client'
+import type {BaseItem} from '@algolia/autocomplete-core'
 
-export type LocalPost = Pick<
-  Post,
-  'slug' | 'title' | 'tags' | 'coverImage' | 'excerpt' | 'content'
-> & {
-  author: Omit<Author, 'id'>
-  ogImage: Omit<OgImage, 'id'>
+export interface Author {
+  email: string
+  image: string
+  name: string
 }
 
-const postWithAuthor = Prisma.validator<Prisma.PostArgs>()({
-  include: {author: true}
-})
+export interface DictionaryNote {
+  excerpt: string
+  image: string | null
+  title: string
+}
 
-export type PostWithAuthor = Prisma.PostGetPayload<typeof postWithAuthor>
+export type AlgoliaPost = BaseItem & {
+  objectID: string
+  slug: string
+  tags: Array<string>
+  title: string
+  image: string
+  author_name: string
+  author_image: string
+  excerpt: string
+}
 
-const extendedPost = Prisma.validator<Prisma.PostArgs>()({
-  include: {author: true, ogImage: true}
-})
-
-export type ExtendedPost = Prisma.PostGetPayload<typeof extendedPost>
+export interface Post {
+  author: Author
+  date: number
+  content: string
+  coverImage: string
+  excerpt: string
+  ogImage: string
+  slug: string
+  tags: Array<string>
+  title: string
+}

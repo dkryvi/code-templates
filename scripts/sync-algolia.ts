@@ -1,15 +1,14 @@
-// @ts-nocheck
 import * as Sentry from '@sentry/nextjs'
 import algoliasearch from 'algoliasearch/lite'
 import dotenv from 'dotenv'
 import logger from 'loglevel'
 
-import {Post as LocalPost} from '../types'
-import {getLocalPosts} from '../utils/local'
+import {AlgoliaPost, Post} from '../types'
+import {getPosts} from '../utils/fs'
 import '../sentry.server.config'
 
-function transformPostsToSearchObjects(posts: Array<LocalPost>) {
-  return posts.map((post, index) => {
+function transformPostsToSearchObjects(posts: Array<Post>) {
+  return posts.map((post, index): AlgoliaPost => {
     return {
       objectID: `${post.slug}-${index}`,
       slug: post.slug,
@@ -17,15 +16,14 @@ function transformPostsToSearchObjects(posts: Array<LocalPost>) {
       tags: post.tags,
       image: post.coverImage,
       author_name: post.author.name,
-      author_image: post.author.picture,
-      excerpt: post.excerpt,
-      date: post.date
+      author_image: post.author.image,
+      excerpt: post.excerpt
     }
   })
 }
 
 async function sync() {
-  const posts = getLocalPosts()
+  const posts = getPosts()
   const transformed = transformPostsToSearchObjects(posts)
 
   const client = algoliasearch(
@@ -35,6 +33,7 @@ async function sync() {
 
   const index = client.initIndex('blog_posts')
 
+  // @ts-ignore
   return await index.replaceAllObjects(transformed, {
     safe: true
   })

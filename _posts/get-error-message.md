@@ -1,3 +1,10 @@
+---
+title: 'Get error message'
+excerpt: 'Utility function to get error message from any erro'
+tags: ['js', 'utils', 'error']
+---
+
+```js
 type ErrorWithMessage = {
   message: string
 }
@@ -21,3 +28,4 @@ function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
 export function getErrorMessage(error: unknown): string {
   return toErrorWithMessage(error).message
 }
+```

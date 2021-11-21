@@ -3,12 +3,11 @@ import {GetStaticProps} from 'next'
 import {NextSeo} from 'next-seo'
 import Link from 'next/link'
 
-import {getCollections} from '@api'
-
-import CollectionPreview from '@components/collection-preview'
-import Container from '@components/container'
-import Layout from '@components/layout'
-import Title from '@components/title'
+import {getCollections} from 'api/collection'
+import CollectionPreview from 'components/collection-preview'
+import Container from 'components/container'
+import Layout from 'components/layout'
+import Title from 'components/title'
 
 type Props = {
   collections: Collection[]
@@ -28,7 +27,7 @@ const CollectionsPage: React.FC<Props> = ({collections}) => {
                   <CollectionPreview
                     title={collection.title}
                     excerpt={collection.excerpt}
-                    coverImage={collection.coverImage}
+                    image={collection.image}
                     tags={collection.tags}
                   />
                 </a>

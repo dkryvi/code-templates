@@ -1,5 +1,6 @@
-import {Author} from '@prisma/client'
 import Link from 'next/link'
+
+import {Author} from 'types'
 
 import Avatar from './avatar'
 import TagList from './tag-list'
@@ -19,7 +20,7 @@ const PostPreview: React.FC<Props> = ({title, excerpt, author, tags, slug}) => {
   return (
     <article className="h-full rounded border-black border-2 hover:shadow-xl">
       <div className="p-4">
-        <Avatar name={author.name} picture={author.picture} />
+        <Avatar name={author.name} picture={author.image} />
         <h3 className="prose text-3xl leading-snug my-4 font-semibold">
           <Link as={`/posts/${slug}`} href="/posts/[slug]">
             <a aria-label={title}>{title}</a>

@@ -17,13 +17,6 @@
     "import/order": [
       "error",
       {
-        "pathGroups": [
-          {
-            "pattern": "@*/**",
-            "group": "internal",
-            "position": "after"
-          }
-        ],
         "newlines-between": "always",
         "groups": [
           "builtin",

@@ -2,13 +2,15 @@ import {CollectionDictionary} from '@prisma/client'
 import * as Sentry from '@sentry/nextjs'
 import logger from 'loglevel'
 
-import {getPosts} from '../api'
+import {COLLECTION_IMAGE_FALLBACK} from '../config'
 import prisma from '../lib/prisma'
+import {getPosts} from '../utils/fs'
 import {
   groupPostsByPrimaryTag,
   getUniquePostsTags,
   GroupedPosts
 } from '../utils/post'
+
 import '../sentry.server.config'
 
 function createCollections(
@@ -23,7 +25,7 @@ function createCollections(
     return {
       title,
       excerpt: dictionary?.excerpt,
-      coverImage: dictionary?.coverImage,
+      image: dictionary?.image ?? COLLECTION_IMAGE_FALLBACK,
       tags: getUniquePostsTags(groupedPosts[title]),
       slugs: groupedPosts[title].map((post) => post.slug)
     }
@@ -31,9 +33,7 @@ function createCollections(
 }
 
 async function sync() {
-  await prisma.$connect()
-
-  const posts = await getPosts()
+  const posts = getPosts()
   const groupedPosts = groupPostsByPrimaryTag(posts)
   const collectionDictionary = await prisma.collectionDictionary.findMany()
 
@@ -48,6 +48,8 @@ async function sync() {
       })
     })
   )
+
+  return collections
 }
 
 logger.setLevel('info')

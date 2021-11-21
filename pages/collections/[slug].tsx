@@ -6,21 +6,20 @@ import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
 import {useState} from 'react'
 
-import {getCollections, getCollection, getPost} from '@api'
-import {COLLECTION_IMAGE_FALLBACK} from '@constants'
-import {PostWithAuthor} from '@types'
-
-import CollectionTagList from '@components/collection-tag-list'
-import Container from '@components/container'
-import Layout from '@components/layout'
-import PostList from '@components/post-list'
-import SocialMeta from '@components/social-meta'
-import Title from '@components/title'
-import {toTitleCase} from '@utils/string'
+import {getCollections, getCollection} from 'api/collection'
+import CollectionTagList from 'components/collection-tag-list'
+import Container from 'components/container'
+import Layout from 'components/layout'
+import PostList from 'components/post-list'
+import SocialMeta from 'components/social-meta'
+import Title from 'components/title'
+import {Post} from 'types'
+import {getPostBySlug} from 'utils/fs'
+import {toTitleCase} from 'utils/string'
 
 type Props = {
   collection: Collection
-  posts: Array<PostWithAuthor>
+  posts: Array<Post>
 }
 
 const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
@@ -43,7 +42,7 @@ const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
       <SocialMeta
         title={`${toTitleCase(collection.title)} | Code Templates`}
         description={collection.excerpt ?? collection.title}
-        cardImage={collection.coverImage ?? COLLECTION_IMAGE_FALLBACK}
+        cardImage={collection.image}
       />
       <Layout>
         <Container>
@@ -73,14 +72,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   })
 
   const posts = collection
-    ? await Promise.all(
-        collection.slugs.map((slug) =>
-          getPost({
-            where: {slug},
-            include: {author: true}
-          })
-        )
-      )
+    ? collection.slugs.map((slug) => getPostBySlug(slug))
     : []
 
   return {

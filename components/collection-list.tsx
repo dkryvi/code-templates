@@ -2,9 +2,7 @@ import {Collection} from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import {COLLECTION_IMAGE_FALLBACK} from '@constants'
-
-import {toTitleCase} from '@utils/string'
+import {toTitleCase} from 'utils/string'
 
 type Props = {
   title?: string
@@ -26,7 +24,7 @@ const CollectionList: React.FC<Props> = ({title, collections}) => (
               <div className="col-span-3 relative h-16 w-16">
                 <Image
                   className="rounded"
-                  src={collection.coverImage ?? COLLECTION_IMAGE_FALLBACK}
+                  src={collection.image}
                   alt={collection.title}
                   layout="fill"
                 />

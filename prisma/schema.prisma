@@ -10,57 +10,22 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Author {
+model Collection {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name      String
-  email     String   @unique
-  picture   String
-  Post      Post[]
-}
-
-model Collection {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  title      String   @unique
-  excerpt    String?
-  coverImage String?
-  tags       String[]
-  slugs      String[]
+  title     String   @unique
+  excerpt   String?
+  image     String
+  tags      String[]
+  slugs     String[]
 }
 
 model CollectionDictionary {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  title      String   @unique
-  excerpt    String
-  coverImage String
-}
-
-model OgImage {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  url       String   @unique
-  Post      Post[]
-}
-
-model Post {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  slug       String   @unique
-  title      String
-  tags       String[]
-  coverImage String?
-  author     Author   @relation(fields: [authorId], references: [id])
-  authorId   Int
-  excerpt    String
-  ogImage    OgImage  @relation(fields: [ogImageId], references: [id])
-  content    String
-  ogImageId  Int
-  isDraft    Boolean? @default(true)
+  title     String   @unique
+  excerpt   String
+  image     String
 }
