@@ -26,7 +26,7 @@ const HomePage: React.FC<Props> = ({collections, posts}) => {
               Best place to store your templates
             </span>
           </h1>
-          <Link href="/create-post">
+          <Link href="/get-started">
             <a
               className="mt-8 btn btn-primary text-2xl text-center"
               aria-label="get-started"
