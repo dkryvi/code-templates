@@ -32,7 +32,6 @@ const HitComponent: React.FC<HitPropsT> = ({hit, href, components}) => {
             highlightProperty="_highlightResult"
             attribute="title"
             hit={hit}
-            tagName="b"
           />
           <div className="mt-2">
             <TagList tags={hit.tags} />
@@ -72,7 +71,9 @@ const Autocomplete: React.FC = () => {
             },
             templates: {
               header: () => (
-                <p className="prose text-indigo-600 font-bold">Collections</p>
+                <p className="prose prose-xl text-indigo-600 font-bold">
+                  Collections
+                </p>
               ),
               item({item, components}) {
                 return (
@@ -103,7 +104,9 @@ const Autocomplete: React.FC = () => {
             },
             templates: {
               header: () => (
-                <p className="prose text-indigo-600 font-bold">Posts</p>
+                <h4 className="prose prose-xl text-indigo-600 font-bold">
+                  Posts
+                </h4>
               ),
               item({item, components}) {
                 return (
