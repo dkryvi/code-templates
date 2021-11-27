@@ -23,6 +23,15 @@ export type AlgoliaPost = BaseItem & {
   excerpt: string
 }
 
+export type AlgoliaCollection = BaseItem & {
+  objectID: string
+  slug: string
+  tags: Array<string>
+  title: string
+  image: string
+  excerpt: string | null
+}
+
 export interface Post {
   author: Author
   date: number
