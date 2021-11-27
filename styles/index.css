@@ -20,6 +20,9 @@
 /* Algolia styles */
 @import './algolia.css';
 
+/* Toastify styles */
+@import 'react-toastify/dist/ReactToastify.css';
+
 html,
 body {
   height: 100%;
