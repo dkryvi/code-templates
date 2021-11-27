@@ -36,3 +36,7 @@
 .aa-Form:focus-within {
   @apply border-gray-900 shadow-none;
 }
+
+.aa-Input[type='search']:focus {
+  @apply ring-opacity-0 ring-transparent;
+}

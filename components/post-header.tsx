@@ -22,24 +22,15 @@ const PostHeader: React.FC<Props> = ({
   tags
 }) => {
   return (
-    <>
+    <div className="space-y-4 mb-12">
       <Title>{title}</Title>
-      <div className="hidden md:block md:mb-12">
-        <Avatar name={author.name} picture={author.image} />
+      <Avatar name={author.name} picture={author.image} />
+      <div className="text-lg">
+        <DateFormatter date={date} />
       </div>
-      <div className="mb-8 md:mb-16 sm:mx-0">
-        <CoverImage title={title} src={coverImage} />
-      </div>
-      <div className="max-w-4xl mx-auto">
-        <div className="block md:hidden mb-6">
-          <Avatar name={author.name} picture={author.image} />
-        </div>
-        <div className="mb-6 text-lg">
-          <DateFormatter date={date} />
-        </div>
-        <TagList tags={tags} />
-      </div>
-    </>
+      <TagList tags={tags} />
+      <CoverImage title={title} src={coverImage} />
+    </div>
   )
 }
 

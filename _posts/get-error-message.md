@@ -1,7 +1,7 @@
 ---
 title: 'Get error message'
 excerpt: 'Utility function to get error message from any erro'
-tags: ['js', 'utils', 'error']
+tags: ['javascript', 'utils', 'error']
 ---
 
 ```js

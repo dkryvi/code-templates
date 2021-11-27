@@ -26,7 +26,6 @@ const PostList: React.FC<Props> = ({title, posts, allLink}) => (
                 title={post.title}
                 tags={post.tags}
                 author={post.author}
-                slug={post.slug}
                 excerpt={post.excerpt}
               />
             </a>

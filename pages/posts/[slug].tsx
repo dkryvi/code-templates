@@ -3,6 +3,7 @@ import {ParsedUrlQuery} from 'querystring'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
+import {toast} from 'react-toastify'
 
 import Container from 'components/container'
 import Layout from 'components/layout'
@@ -28,7 +29,7 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
 
   const copyLink = () => {
     copyToClipboard(window.location.href)
-    alert('Link copied to clipboard')
+    toast.success('Link copied to clipboard')
   }
 
   if (!router.isFallback && !post?.slug) {
@@ -47,7 +48,7 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
           {router.isFallback ? (
             <Title>Loading…</Title>
           ) : (
-            <article className="mb-32">
+            <article className="mb-32 max-w-4xl mx-auto">
               <PostHeader
                 title={post.title}
                 coverImage={post.coverImage}

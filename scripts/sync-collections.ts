@@ -41,6 +41,8 @@ async function sync() {
 
   const collections = createCollections(groupedPosts, collectionDictionary)
 
+  await prisma.collection.deleteMany()
+
   return await Promise.all(
     collections.map(async function (collection) {
       return await updateCollection({
