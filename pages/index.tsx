@@ -2,17 +2,17 @@ import {Collection} from '@prisma/client'
 import {GetStaticProps} from 'next'
 import Link from 'next/link'
 
-import {getPosts, getCollections} from '@api'
-import {PostWithAuthor} from '@types'
-
-import CollectionList from '@components/collection-list'
-import Container from '@components/container'
-import Layout from '@components/layout'
-import PostList from '@components/post-list'
+import {getCollections} from 'api/collection'
+import CollectionList from 'components/collection-list'
+import Container from 'components/container'
+import Layout from 'components/layout'
+import PostList from 'components/post-list'
+import {Post} from 'types'
+import {getPosts} from 'utils/fs'
 
 type Props = {
   collections: Array<Collection>
-  posts: Array<PostWithAuthor>
+  posts: Array<Post>
 }
 
 const HomePage: React.FC<Props> = ({collections, posts}) => {
@@ -26,7 +26,7 @@ const HomePage: React.FC<Props> = ({collections, posts}) => {
               Best place to store your templates
             </span>
           </h1>
-          <Link href="/create-post">
+          <Link href="/get-started">
             <a
               className="mt-8 btn btn-primary text-2xl text-center"
               aria-label="get-started"
@@ -51,10 +51,7 @@ export const getStaticProps: GetStaticProps = async () => {
       slugs: 'desc'
     }
   })
-  const posts = await getPosts({
-    take: 6,
-    include: {author: true}
-  })
+  const posts = getPosts({limit: 6})
 
   return {
     props: {collections, posts}

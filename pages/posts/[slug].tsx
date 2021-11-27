@@ -4,24 +4,23 @@ import {GetStaticPaths, GetStaticProps} from 'next'
 import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
 
-import {getPost, getPosts} from '@api'
-import {ShareIcon} from '@icons'
-import {ExtendedPost, PostWithAuthor} from '@types'
-
-import Container from '@components/container'
-import Layout from '@components/layout'
-import PostBody from '@components/post-body'
-import PostHeader from '@components/post-header'
-import PostList from '@components/post-list'
-import SocialMeta from '@components/social-meta'
-import Title from '@components/title'
-import {copyToClipboard} from '@utils/content'
-import markdownToHtml from '@utils/markdown-to-html'
-import {toTitleCase} from '@utils/string'
+import Container from 'components/container'
+import Layout from 'components/layout'
+import PostBody from 'components/post-body'
+import PostHeader from 'components/post-header'
+import PostList from 'components/post-list'
+import SocialMeta from 'components/social-meta'
+import Title from 'components/title'
+import {ShareIcon} from 'icons'
+import {Post} from 'types'
+import {copyToClipboard} from 'utils/copy'
+import {getPostBySlug, getPosts} from 'utils/fs'
+import markdownToHtml from 'utils/markdown-to-html'
+import {toTitleCase} from 'utils/string'
 
 interface Props {
-  post: ExtendedPost
-  similarPosts: Array<PostWithAuthor>
+  post: Post
+  similarPosts: Array<Post>
 }
 
 const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
@@ -42,7 +41,7 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
         <SocialMeta
           title={`${toTitleCase(post.title)} | Code Templates`}
           description={post.excerpt}
-          cardImage={post.ogImage.url}
+          cardImage={post.ogImage}
         />
         <Container>
           {router.isFallback ? (
@@ -52,7 +51,7 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
               <PostHeader
                 title={post.title}
                 coverImage={post.coverImage}
-                date={post.createdAt.toLocaleString()}
+                date={post.date}
                 author={post.author}
                 tags={post.tags}
               />
@@ -82,19 +81,9 @@ interface IParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const {slug} = context.params as IParams
-  const post = await getPost({
-    where: {slug},
-    include: {author: true, ogImage: true}
-  })
+  const post = getPostBySlug(slug)
   const content = await markdownToHtml(post?.content || '')
-  const similarPosts = await getPosts({
-    take: 4,
-    where: {
-      tags: {hasSome: post?.tags},
-      slug: {notIn: post?.slug ? [post?.slug] : undefined}
-    },
-    include: {author: true}
-  })
+  const similarPosts = getPosts({limit: 4, excludedSlugs: [post.slug]})
 
   return {
     props: {
@@ -107,12 +96,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getPosts({
-    select: {
-      slug: true
-    }
-  })
+export const getStaticPaths: GetStaticPaths = () => {
+  const posts = getPosts()
 
   return {
     paths: posts.map((post) => {

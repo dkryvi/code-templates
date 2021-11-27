@@ -1,5 +1,5 @@
-import {REPOSITORY_URL} from '@constants'
 import Container from 'components/container'
+import {REPOSITORY_URL} from 'config'
 
 const Footer: React.FC = () => {
   return (

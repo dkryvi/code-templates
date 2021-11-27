@@ -1,4 +1,4 @@
-import {Post} from '@prisma/client'
+import {Post} from 'types'
 
 export interface GroupedPosts {
   [key: string]: Array<Post>

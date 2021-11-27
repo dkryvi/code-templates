@@ -1,12 +1,12 @@
 import Link from 'next/link'
 
-import {PostWithAuthor} from '@types'
+import {Post} from 'types'
 
 import PostPreview from './post-preview'
 
 interface Props {
   title?: string
-  posts: PostWithAuthor[]
+  posts: Post[]
   allLink?: string
 }
 

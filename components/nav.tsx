@@ -5,7 +5,6 @@ import Link from 'next/link'
 import {useRouter} from 'next/router'
 import React from 'react'
 
-import AuthButton from 'components/auth-button'
 import Autocomplete from 'components/autocomplete'
 
 const navigation = [
@@ -78,9 +77,6 @@ const Nav: React.FC = () => {
                 </div>
                 <div className="w-12 sm:w-auto sm:max-w-sm lg:max-w-md md:w-96">
                   <Autocomplete />
-                </div>
-                <div className="ml-4">
-                  <AuthButton />
                 </div>
               </div>
             </div>

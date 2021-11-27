@@ -1,6 +1,6 @@
-import Alert from '@components/alert'
-import Footer from '@components/footer'
-import Nav from '@components/nav'
+import Alert from 'components/alert'
+import Footer from 'components/footer'
+import Nav from 'components/nav'
 
 type Props = {
   children: React.ReactNode

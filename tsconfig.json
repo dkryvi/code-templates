@@ -15,13 +15,12 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "@api": ["api/index"],
-      "@components/*": ["components/*"],
-      "@constants": ["constants"],
-      "@icons": ["icons/index"],
-      "@types": ["./types"],
-      "@styles/*": ["styles/*"],
-      "@utils/*": ["utils/*"]
+      "components/*": ["components/*"],
+      "config": ["config"],
+      "icons": ["icons/index"],
+      "types": ["./types"],
+      "styles/*": ["styles/*"],
+      "utils/*": ["utils/*"]
     },
     "incremental": true
   },
