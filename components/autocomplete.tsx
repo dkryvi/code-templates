@@ -5,6 +5,7 @@ import {
 } from '@algolia/autocomplete-js'
 import {Hit} from '@algolia/client-search'
 import {RouterContext} from 'next/dist/shared/lib/router-context'
+import Link from 'next/link'
 import {useRouter} from 'next/router'
 import {useEffect, createElement, Fragment} from 'react'
 import {render} from 'react-dom'
@@ -17,23 +18,28 @@ type PostHitT = Hit<AlgoliaPost>
 
 type HitPropsT = {
   hit: PostHitT
+  href: string
   components: AutocompleteComponents
 }
 
-const HitComponent: React.FC<HitPropsT> = ({hit, components}) => {
+const HitComponent: React.FC<HitPropsT> = ({hit, href, components}) => {
   return (
-    <div>
-      <components.Highlight
-        // @ts-ignore
-        highlightProperty="_highlightResult"
-        attribute="title"
-        hit={hit}
-        tagName="b"
-      />
-      <div className="mt-2">
-        <TagList tags={hit.tags} />
-      </div>
-    </div>
+    <Link href={href}>
+      <a>
+        <div>
+          <components.Highlight
+            // @ts-ignore
+            highlightProperty="_highlightResult"
+            attribute="title"
+            hit={hit}
+            tagName="b"
+          />
+          <div className="mt-2">
+            <TagList tags={hit.tags} />
+          </div>
+        </div>
+      </a>
+    </Link>
   )
 }
 
@@ -71,12 +77,16 @@ const Autocomplete: React.FC = () => {
               item({item, components}) {
                 return (
                   <RouterContext.Provider value={router}>
-                    <HitComponent hit={item} components={components} />
+                    <HitComponent
+                      hit={item}
+                      href={`/collections/${item.slug}`}
+                      components={components}
+                    />
                   </RouterContext.Provider>
                 )
               },
               noResults() {
-                return 'No posts for this query.'
+                return 'No collections for this query.'
               }
             }
           },
@@ -98,7 +108,11 @@ const Autocomplete: React.FC = () => {
               item({item, components}) {
                 return (
                   <RouterContext.Provider value={router}>
-                    <HitComponent hit={item} components={components} />
+                    <HitComponent
+                      hit={item}
+                      href={`/posts/${item.slug}`}
+                      components={components}
+                    />
                   </RouterContext.Provider>
                 )
               },
