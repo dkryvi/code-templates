@@ -1,19 +1,14 @@
 import {Collection} from '@prisma/client'
 import * as Sentry from '@sentry/nextjs'
-import algoliasearch from 'algoliasearch/lite'
 import dotenv from 'dotenv'
 import logger from 'loglevel'
 
 import {getCollections} from '../api/collection'
+import algolia from '../lib/algolia'
 import {AlgoliaPost, AlgoliaCollection, Post} from '../types'
 import {getPosts} from '../utils/fs'
 import {toSlugCase} from '../utils/string'
 import '../sentry.server.config'
-
-const client = algoliasearch(
-  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string,
-  process.env.ALGOLIA_SEARCH_ADMIN_KEY as string
-)
 
 function transformPostsToSearchObjects(posts: Array<Post>) {
   return posts.map((post, index): AlgoliaPost => {
@@ -34,7 +29,7 @@ async function syncPosts() {
   const posts = getPosts()
   const transformed = transformPostsToSearchObjects(posts)
 
-  return await client
+  return await algolia
     .initIndex('posts')
     // @ts-ignore
     .replaceAllObjects(transformed, {safe: true})
@@ -60,7 +55,7 @@ async function syncCollections() {
   const collections = await getCollections()
   const transformed = transformCollectionsToSearchObjects(collections)
 
-  return await client
+  return await algolia
     .initIndex('collections')
     // @ts-ignore
     .replaceAllObjects(transformed, {safe: true})
