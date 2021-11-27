@@ -80,11 +80,11 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-modules-${{ hashFiles('yarn.lock') }}
 
-      - name: Sync Algolia search
-        run: yarn sync:algolia
-
       - name: Sync collections
         run: yarn sync:collections
+
+      - name: Sync Algolia search
+        run: yarn sync:algolia
 
       - name: Deploy DB migrations
         run: npx prisma migrate deploy

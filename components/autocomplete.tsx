@@ -4,18 +4,14 @@ import {
   getAlgoliaResults
 } from '@algolia/autocomplete-js'
 import {Hit} from '@algolia/client-search'
-import algoliasearch from 'algoliasearch'
 import {RouterContext} from 'next/dist/shared/lib/router-context'
 import {useRouter} from 'next/router'
 import {useEffect, createElement, Fragment} from 'react'
 import {render} from 'react-dom'
 
 import TagList from 'components/tag-list'
+import algolia from 'lib/algolia'
 import {AlgoliaPost} from 'types'
-
-const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string
-const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY as string
-const searchClient = algoliasearch(appId, apiKey)
 
 type PostHitT = Hit<AlgoliaPost>
 
@@ -58,22 +54,47 @@ const Autocomplete: React.FC = () => {
 
         return [
           {
+            sourceId: 'collections',
+            getItems() {
+              return getAlgoliaResults({
+                searchClient: algolia,
+                queries: [{indexName: 'collections', query}]
+              })
+            },
+            getItemUrl({item}) {
+              return `/collections/${item.slug}`
+            },
+            templates: {
+              header: () => (
+                <p className="prose text-indigo-600 font-bold">Collections</p>
+              ),
+              item({item, components}) {
+                return (
+                  <RouterContext.Provider value={router}>
+                    <HitComponent hit={item} components={components} />
+                  </RouterContext.Provider>
+                )
+              },
+              noResults() {
+                return 'No posts for this query.'
+              }
+            }
+          },
+          {
             sourceId: 'posts',
             getItems() {
               return getAlgoliaResults({
-                searchClient,
-                queries: [
-                  {
-                    indexName: 'blog_posts',
-                    query
-                  }
-                ]
+                searchClient: algolia,
+                queries: [{indexName: 'posts', query}]
               })
             },
             getItemUrl({item}) {
               return `/posts/${item.slug}`
             },
             templates: {
+              header: () => (
+                <p className="prose text-indigo-600 font-bold">Posts</p>
+              ),
               item({item, components}) {
                 return (
                   <RouterContext.Provider value={router}>

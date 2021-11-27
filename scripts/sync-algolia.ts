@@ -1,10 +1,13 @@
+import {Collection} from '@prisma/client'
 import * as Sentry from '@sentry/nextjs'
-import algoliasearch from 'algoliasearch/lite'
 import dotenv from 'dotenv'
 import logger from 'loglevel'
 
-import {AlgoliaPost, Post} from '../types'
+import {getCollections} from '../api/collection'
+import algolia from '../lib/algolia'
+import {AlgoliaPost, AlgoliaCollection, Post} from '../types'
 import {getPosts} from '../utils/fs'
+import {toSlugCase} from '../utils/string'
 import '../sentry.server.config'
 
 function transformPostsToSearchObjects(posts: Array<Post>) {
@@ -22,32 +25,55 @@ function transformPostsToSearchObjects(posts: Array<Post>) {
   })
 }
 
-async function sync() {
+async function syncPosts() {
   const posts = getPosts()
   const transformed = transformPostsToSearchObjects(posts)
 
-  const client = algoliasearch(
-    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string,
-    process.env.ALGOLIA_SEARCH_ADMIN_KEY as string
-  )
+  return await algolia
+    .initIndex('posts')
+    // @ts-ignore
+    .replaceAllObjects(transformed, {safe: true})
+}
 
-  const index = client.initIndex('blog_posts')
+function transformCollectionsToSearchObjects(collections: Array<Collection>) {
+  return collections.map((collection, index): AlgoliaCollection => {
+    const slug = toSlugCase(collection.title)
 
-  // @ts-ignore
-  return await index.replaceAllObjects(transformed, {
-    safe: true
+    return {
+      objectID: `${slug}-${index}`,
+      slug,
+      tags: collection.tags,
+      title: collection.title,
+      image: collection.image,
+      excerpt: collection.excerpt,
+      slugs: collection.slugs
+    }
   })
+}
+
+async function syncCollections() {
+  const collections = await getCollections()
+  const transformed = transformCollectionsToSearchObjects(collections)
+
+  return await algolia
+    .initIndex('collections')
+    // @ts-ignore
+    .replaceAllObjects(transformed, {safe: true})
 }
 
 dotenv.config()
 logger.setLevel('info')
 
-sync()
-  .then((data) =>
+Promise.all([syncPosts(), syncCollections()])
+  .then(([posts, collections]) => {
     logger.info(
-      `🎉 Sucessfully added ${data.objectIDs.length} records to Algolia search.`
+      `🎉 Sucessfully added ${posts.objectIDs.length} posts to Algolia search.`
     )
-  )
+
+    logger.info(
+      `🎉 Sucessfully added ${collections.objectIDs.length} collections to Algolia search.`
+    )
+  })
   .catch((error) => {
     Sentry.captureException(error)
   })
