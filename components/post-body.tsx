@@ -6,12 +6,10 @@ type Props = {
 
 const PostBody: React.FC<Props> = ({content}) => {
   return (
-    <div className="max-w-4xl mx-auto">
-      <div
-        className={markdownStyles['markdown']}
-        dangerouslySetInnerHTML={{__html: content}}
-      />
-    </div>
+    <div
+      className={markdownStyles['markdown']}
+      dangerouslySetInnerHTML={{__html: content}}
+    />
   )
 }
 

@@ -47,7 +47,7 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
           {router.isFallback ? (
             <Title>Loading…</Title>
           ) : (
-            <article className="mb-32">
+            <article className="mb-32 max-w-4xl mx-auto">
               <PostHeader
                 title={post.title}
                 coverImage={post.coverImage}
