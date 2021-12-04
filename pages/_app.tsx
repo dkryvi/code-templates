@@ -1,17 +1,26 @@
+import {CacheProvider, EmotionCache} from '@emotion/react'
+import CssBaseline from '@mui/material/CssBaseline'
+import {ThemeProvider} from '@mui/material/styles'
 import {DefaultSeo} from 'next-seo'
-import {ThemeProvider} from 'next-themes'
 import {AppProps} from 'next/app'
 import Script from 'next/script'
 import {ToastContainer, Slide} from 'react-toastify'
 
+import {DEFAULT_SEO} from 'config'
+import theme from 'theme'
+import {createEmotionCache} from 'utils/create-emotion-cache'
+
 import 'styles/index.css'
 
-import {DEFAULT_SEO} from 'config'
+const clientSideEmotionCache = createEmotionCache()
 
-export default function MyApp({
-  Component,
-  pageProps
-}: AppProps): React.ReactElement {
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache
+}
+
+export default function MyApp(props: MyAppProps): React.ReactElement {
+  const {Component, emotionCache = clientSideEmotionCache, pageProps} = props
+
   return (
     <>
       <Script
@@ -29,23 +38,26 @@ export default function MyApp({
           });
         `}
       </Script>
+      <DefaultSeo {...DEFAULT_SEO} />
 
-      <ThemeProvider>
-        <ToastContainer
-          position="bottom-center"
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          transition={Slide}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <DefaultSeo {...DEFAULT_SEO} />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <CacheProvider value={emotionCache}>
+        <ThemeProvider theme={theme}>
+          <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            transition={Slide}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </CacheProvider>
     </>
   )
 }

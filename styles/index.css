@@ -1,17 +1,3 @@
-@tailwind base;
-
-/* Write your own custom base styles here */
-
-/* Start purging... */
-@tailwind components;
-/* Stop purging. */
-
-/* Write you own custom component styles here */
-
-/* Start purging... */
-@tailwind utilities;
-/* Stop purging. */
-
 /* Your own custom utilities */
 
 /* Prism styles */
@@ -23,17 +9,17 @@
 /* Toastify styles */
 @import 'react-toastify/dist/ReactToastify.css';
 
-html,
+/* html,
 body {
   height: 100%;
-}
-
+} */
+/* 
 #_next {
   height: 100%;
   overflow: auto;
-}
+} */
 
-@layer base {
+/* @layer base {
   [type='text'],
   [type='email'],
   [type='url'],
@@ -51,9 +37,9 @@ body {
   select {
     @apply mt-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-300 text-gray-900 rounded-md;
   }
-}
+} */
 
-@layer components {
+/* @layer components {
   .btn {
     @apply inline-flex items-center justify-center py-2 px-4 prose font-bold rounded-md border;
   }
@@ -69,4 +55,4 @@ body {
   .label {
     @apply block text-sm font-medium text-gray-800;
   }
-}
+} */
