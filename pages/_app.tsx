@@ -1,5 +1,4 @@
 import {DefaultSeo} from 'next-seo'
-import {ThemeProvider} from 'next-themes'
 import {AppProps} from 'next/app'
 import Script from 'next/script'
 import {ToastContainer, Slide} from 'react-toastify'
@@ -30,22 +29,20 @@ export default function MyApp({
         `}
       </Script>
 
-      <ThemeProvider>
-        <ToastContainer
-          position="bottom-center"
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          transition={Slide}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <DefaultSeo {...DEFAULT_SEO} />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        transition={Slide}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <DefaultSeo {...DEFAULT_SEO} />
+      <Component {...pageProps} />
     </>
   )
 }

@@ -60,7 +60,7 @@ const Nav: React.FC = () => {
           <>
             <div className="px-6 mx-auto xl:max-w-screen-xl 2xl:max-w-screen-2xl">
               <div className="relative flex items-center justify-between h-16">
-                <div className="flex items-center lg:hidden">
+                <div className="flex items-center md:hidden">
                   {/* Mobile menu button*/}
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-gray-900 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span className="sr-only">Open main menu</span>
@@ -71,11 +71,11 @@ const Nav: React.FC = () => {
                   </Disclosure.Button>
                 </div>
                 <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                  <div className="hidden lg:block">
+                  <div className="hidden md:block">
                     <NavMenu className="flex space-x-4" />
                   </div>
                 </div>
-                <div className="w-12 sm:w-auto sm:max-w-sm lg:max-w-md md:w-96">
+                <div className="w-12 sm:w-1/2 lg:max-w-md md:w-1/2">
                   <Autocomplete />
                 </div>
               </div>
@@ -90,7 +90,7 @@ const Nav: React.FC = () => {
               leaveTo="transform scale-95 opacity-0"
             >
               <Disclosure.Panel
-                className="lg:hidden z-50 absolute w-full bg-white px-2 pt-2 pb-3 space-y-1 shadow-md"
+                className="md:hidden z-50 absolute w-full bg-white px-2 pt-2 pb-3 space-y-1 shadow-md"
                 unmount
               >
                 <NavMenu />

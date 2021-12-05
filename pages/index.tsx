@@ -28,7 +28,7 @@ const HomePage: React.FC<Props> = ({collections, posts}) => {
           </h1>
           <Link href="/get-started">
             <a
-              className="mt-8 btn btn-primary text-2xl text-center"
+              className="mt-8 btn btn-primary text-4xl text-center"
               aria-label="get-started"
             >
               Get started
