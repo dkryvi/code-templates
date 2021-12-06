@@ -1,19 +1,44 @@
-import type {Collection, Prisma} from '@prisma/client'
+import type {QueryDatabaseParameters} from '@notionhq/client/build/src/api-endpoints'
+import type {Prisma} from '@prisma/client'
 
+import type {Collection} from 'types'
+
+import notion from '../lib/notion'
 import prisma from '../lib/prisma'
+import {deserializeCollectionPage} from '../utils/notion'
 
-export async function getCollection(
-  args: Prisma.CollectionFindUniqueArgs
-): Promise<Collection | null> {
-  const data = await prisma.collection.findUnique(args)
-  return JSON.parse(JSON.stringify(data))
+const COLLECTION_DB_ID = process.env
+  .NEXT_PUBLIC_COLLECTION_DATABASE_ID as string
+
+export async function getCollection(slug: string): Promise<Collection | null> {
+  const data = await notion.databases.query({
+    database_id: COLLECTION_DB_ID,
+    filter: {
+      property: 'title',
+      text: {
+        equals: slug
+      }
+    }
+  })
+
+  if (data.results?.length === 0) {
+    return null
+  }
+
+  const collection = deserializeCollectionPage(data.results[0])
+
+  return collection
 }
 
 export async function getCollections(
-  args?: Prisma.CollectionFindManyArgs
+  params?: Omit<QueryDatabaseParameters, 'database_id'>
 ): Promise<Array<Collection>> {
-  const data = await prisma.collection.findMany(args)
-  return JSON.parse(JSON.stringify(data))
+  const data = await notion.databases.query({
+    database_id: COLLECTION_DB_ID,
+    ...params
+  })
+
+  return data.results.map(deserializeCollectionPage)
 }
 
 export async function updateCollection(

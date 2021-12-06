@@ -67,9 +67,7 @@ interface IParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const {slug} = context.params as IParams
-  const collection = await getCollection({
-    where: {title: slug}
-  })
+  const collection = await getCollection(slug)
 
   const posts = collection
     ? collection.slugs.map((slug) => getPostBySlug(slug))
@@ -84,7 +82,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const collections = await getCollections({select: {title: true}})
+  const collections = await getCollections()
 
   return {
     paths: collections.map((collection) => {

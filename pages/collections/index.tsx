@@ -44,9 +44,7 @@ export default CollectionsPage
 
 export const getStaticProps: GetStaticProps = async () => {
   const collections = await getCollections({
-    orderBy: {
-      slugs: 'desc'
-    }
+    sorts: [{property: 'slugs', direction: 'descending'}]
   })
 
   return {
