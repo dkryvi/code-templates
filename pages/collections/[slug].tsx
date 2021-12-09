@@ -1,6 +1,5 @@
 import {ParsedUrlQuery} from 'querystring'
 
-import {Collection} from '@prisma/client'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
@@ -13,7 +12,7 @@ import Layout from 'components/layout'
 import PostList from 'components/post-list'
 import SocialMeta from 'components/social-meta'
 import Title from 'components/title'
-import {Post} from 'types'
+import {Collection, Post} from 'types'
 import {getPostBySlug} from 'utils/fs'
 import {toTitleCase} from 'utils/string'
 

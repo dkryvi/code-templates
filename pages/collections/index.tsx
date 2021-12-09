@@ -1,4 +1,3 @@
-import {Collection} from '@prisma/client'
 import {GetStaticProps} from 'next'
 import {NextSeo} from 'next-seo'
 import Link from 'next/link'
@@ -8,6 +7,7 @@ import CollectionPreview from 'components/collection-preview'
 import Container from 'components/container'
 import Layout from 'components/layout'
 import Title from 'components/title'
+import {Collection} from 'types'
 
 type Props = {
   collections: Collection[]
@@ -20,8 +20,8 @@ const CollectionsPage: React.FC<Props> = ({collections}) => {
       <Container>
         <Title>Collections</Title>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-4">
-          {collections.map((collection, index) => (
-            <li key={index}>
+          {collections.map((collection) => (
+            <li key={collection.id}>
               <Link href={`/collections/${collection.title}`}>
                 <a aria-label={collection.title}>
                   <CollectionPreview

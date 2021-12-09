@@ -1,11 +1,10 @@
-import {Collection} from '@prisma/client'
 import * as Sentry from '@sentry/nextjs'
 import dotenv from 'dotenv'
 import logger from 'loglevel'
 
 import {getCollections} from '../api/collection'
 import algolia from '../lib/algolia'
-import {AlgoliaPost, AlgoliaCollection, Post} from '../types'
+import {AlgoliaPost, AlgoliaCollection, Collection, Post} from '../types'
 import {getPosts} from '../utils/fs'
 import {toSlugCase} from '../utils/string'
 import '../sentry.server.config'
@@ -31,16 +30,15 @@ async function syncPosts() {
 
   return await algolia
     .initIndex('posts')
-    // @ts-ignore
     .replaceAllObjects(transformed, {safe: true})
 }
 
 function transformCollectionsToSearchObjects(collections: Array<Collection>) {
-  return collections.map((collection, index): AlgoliaCollection => {
+  return collections.map((collection): AlgoliaCollection => {
     const slug = toSlugCase(collection.title)
 
     return {
-      objectID: `${slug}-${index}`,
+      objectID: collection.id,
       slug,
       tags: collection.tags,
       title: collection.title,
@@ -57,7 +55,6 @@ async function syncCollections() {
 
   return await algolia
     .initIndex('collections')
-    // @ts-ignore
     .replaceAllObjects(transformed, {safe: true})
 }
 

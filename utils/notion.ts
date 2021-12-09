@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {GetPageResponse} from '@notionhq/client/build/src/api-endpoints'
 
 import {Collection} from '../types'

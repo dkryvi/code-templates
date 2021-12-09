@@ -1,4 +1,3 @@
-import {Collection} from '@prisma/client'
 import {GetStaticProps} from 'next'
 import Link from 'next/link'
 
@@ -7,7 +6,7 @@ import CollectionList from 'components/collection-list'
 import Container from 'components/container'
 import Layout from 'components/layout'
 import PostList from 'components/post-list'
-import {Post} from 'types'
+import {Collection, Post} from 'types'
 import {getPosts} from 'utils/fs'
 
 type Props = {

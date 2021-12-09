@@ -1,57 +1,50 @@
-import {CollectionDictionary} from '@prisma/client'
 import * as Sentry from '@sentry/nextjs'
 import logger from 'loglevel'
 
-import {updateCollection} from '../api/collection'
-import {getCollectionDictionaries} from '../api/collection-dictionary'
-import {COLLECTION_IMAGE_FALLBACK} from '../config'
-import prisma from '../lib/prisma'
+import {getCollections, updateCollection} from '../api/collection'
 import {getPosts} from '../utils/fs'
-import {
-  groupPostsByPrimaryTag,
-  getUniquePostsTags,
-  GroupedPosts
-} from '../utils/post'
+import {groupPostsByPrimaryTag, getUniquePostsTags} from '../utils/post'
 
 import '../sentry.server.config'
 
-function createCollections(
-  groupedPosts: GroupedPosts,
-  collectionDictionary: Array<CollectionDictionary>
-) {
-  return Object.keys(groupedPosts).map((title) => {
-    const dictionary = collectionDictionary.find(
-      (dictionaryItem) => dictionaryItem.title === title
-    )
+interface CollectionsMap {
+  [key: string]: {
+    tags: Array<string>
+    slugs: Array<string>
+  }
+}
 
+function getCollectionsMap(): CollectionsMap {
+  const posts = getPosts()
+  const groupedPosts = groupPostsByPrimaryTag(posts)
+
+  return Object.keys(groupedPosts).reduce((res, slug) => {
     return {
-      title,
-      excerpt: dictionary?.excerpt,
-      image: dictionary?.image ?? COLLECTION_IMAGE_FALLBACK,
-      tags: getUniquePostsTags(groupedPosts[title]),
-      slugs: groupedPosts[title].map((post) => post.slug)
+      ...res,
+      [slug]: {
+        tags: getUniquePostsTags(groupedPosts[slug]),
+        slugs: groupedPosts[slug].map((post) => post.slug)
+      }
     }
-  })
+  }, {})
 }
 
 async function sync() {
-  const posts = getPosts()
-  const groupedPosts = groupPostsByPrimaryTag(posts)
-  const collectionDictionary = await getCollectionDictionaries()
+  const collectionsMap = getCollectionsMap()
 
-  const collections = createCollections(groupedPosts, collectionDictionary)
+  const collections = await getCollections()
 
-  await prisma.collection.deleteMany()
+  const collectionsToUpdate = collections.filter(
+    (collection) => collectionsMap[collection.title]
+  )
 
   return await Promise.all(
-    collections.map(async function (collection) {
-      return await updateCollection({
-        where: {title: collection.title},
-        create: collection,
-        update: collection
-      })
-    })
+    collectionsToUpdate.map((collection) =>
+      updateCollection(collection.id, collectionsMap[collection.title])
+    )
   )
+
+  return []
 }
 
 logger.setLevel('info')
@@ -61,4 +54,3 @@ sync()
     logger.info(`🎉 Successfully synced ${collections.length} collections`)
   )
   .catch((error) => Sentry.captureException(error))
-  .finally(() => prisma.$disconnect())

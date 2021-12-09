@@ -1,10 +1,8 @@
 import type {QueryDatabaseParameters} from '@notionhq/client/build/src/api-endpoints'
-import type {Prisma} from '@prisma/client'
 
 import type {Collection} from 'types'
 
 import notion from '../lib/notion'
-import prisma from '../lib/prisma'
 import {deserializeCollectionPage} from '../utils/notion'
 
 const COLLECTION_DB_ID = process.env
@@ -41,10 +39,23 @@ export async function getCollections(
   return data.results.map(deserializeCollectionPage)
 }
 
-export async function updateCollection(
-  args: Prisma.CollectionUpsertArgs
-): Promise<Collection> {
-  const data = await prisma.collection.upsert(args)
+interface UpdateCollectionPayload {
+  tags?: Array<string>
+  slug?: Array<string>
+}
 
-  return JSON.parse(JSON.stringify(data))
+export async function updateCollection(
+  id: string,
+  payload: UpdateCollectionPayload
+): Promise<Collection> {
+  return Promise.resolve({
+    id: '1',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    title: 'title',
+    excerpt: 'excerpt',
+    image: '',
+    tags: [],
+    slugs: []
+  })
 }
