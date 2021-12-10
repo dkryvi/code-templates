@@ -46,7 +46,7 @@ export default HomePage
 export const getStaticProps: GetStaticProps = async () => {
   const collections = await getCollections({
     page_size: 6,
-    sorts: [{property: 'last_edited_time', direction: 'descending'}]
+    sorts: [{property: 'updatedAt', direction: 'descending'}]
   })
   const posts = getPosts({limit: 6})
 
