@@ -39,21 +39,20 @@ export async function getCollections(
 
 interface UpdateCollectionPayload {
   tags?: Array<string>
-  slug?: Array<string>
+  slugs?: Array<string>
 }
 
 export async function updateCollection(
   id: string,
   payload: UpdateCollectionPayload
 ): Promise<Collection> {
-  return Promise.resolve({
-    id: '1',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    title: 'title',
-    excerpt: 'excerpt',
-    image: '',
-    tags: [],
-    slugs: []
-  })
+  const data = await notion.pages.update({
+    page_id:id,
+    properties: {
+      tags: (payload.tags ?? []).map(tag => ({name: tag})),
+      slugs: (payload.slugs ?? []).map(slug => ({name: slug})),
+    }
+  });
+
+  return  deserializeCollectionPage(data)
 }

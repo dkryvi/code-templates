@@ -1,5 +1,6 @@
+
+require('dotenv').config()
 import * as Sentry from '@sentry/nextjs'
-import dotenv from 'dotenv'
 import logger from 'loglevel'
 
 import {getCollections} from '../api/collection'
@@ -58,7 +59,6 @@ async function syncCollections() {
     .replaceAllObjects(transformed, {safe: true})
 }
 
-dotenv.config()
 logger.setLevel('info')
 
 Promise.all([syncPosts(), syncCollections()])

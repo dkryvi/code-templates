@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 import * as Sentry from '@sentry/nextjs'
 import logger from 'loglevel'
 
@@ -31,27 +33,23 @@ function getCollectionsMap(): CollectionsMap {
 }
 
 async function sync() {
-  const collectionsMap = getCollectionsMap()
-
   const collections = await getCollections()
+  const collectionsMap = getCollectionsMap()
+  console.log({collections})
 
-  const collectionsToUpdate = collections.filter(
-    (collection) => collectionsMap[collection.title]
-  )
 
   return await Promise.all(
-    collectionsToUpdate.map((collection) =>
+    collections
+    .filter(collection => collectionsMap[collection.title])
+    .map((collection) =>
       updateCollection(collection.id, collectionsMap[collection.title])
     )
   )
-
-  return []
 }
 
 logger.setLevel('info')
 
 sync()
-  .then((collections) =>
-    logger.info(`🎉 Successfully synced ${collections.length} collections`)
+  .then((collections) => logger.info(`🎉 Successfully synced ${collections.length} collections`)
   )
   .catch((error) => Sentry.captureException(error))
