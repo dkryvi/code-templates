@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
           </h3>
           <div className="flex flex-col space-y-6 sm:space-y-0 sm:space-x-6 sm:flex-row justify-center items-center lg:pl-4 lg:w-1/2">
             <a
-              className="btn btn-primary"
+              className="btn"
               href="https://nextjs.org/docs/basic-features/pages"
               target="_blank"
               rel="noreferrer"

@@ -2,25 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Prism styles */
-@import './prism-holi-theme.css';
-
-/* Algolia styles */
-@import './algolia.css';
-
-/* Toastify styles */
-@import 'react-toastify/dist/ReactToastify.css';
-
-html,
-body {
-  height: 100%;
-}
-
-#_next {
-  height: 100%;
-  overflow: auto;
-}
-
 @layer base {
   [type='text'],
   [type='email'],
@@ -43,18 +24,25 @@ body {
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center py-2 px-4 prose font-bold rounded-md border;
+    @apply inline-flex items-center justify-center py-2 px-4 font-bold rounded-md border bg-gray-900 hover:bg-white hover:text-gray-900 border-gray-900 text-white duration-200 transition-colors;
   }
+}
 
-  .btn-primary {
-    @apply bg-gray-900 hover:bg-white hover:text-gray-900 border-gray-900 text-white duration-200 transition-colors;
-  }
+/* Prism styles */
+@import './prism-holi-theme.css';
 
-  .btn-outline {
-    @apply bg-white text-gray-900 border-gray-900 hover:bg-gray-100;
-  }
+/* Algolia styles */
+@import './algolia.css';
 
-  .label {
-    @apply block text-sm font-medium text-gray-800;
-  }
+/* Toastify styles */
+@import 'react-toastify/dist/ReactToastify.css';
+
+html,
+body {
+  height: 100%;
+}
+
+#_next {
+  height: 100%;
+  overflow: auto;
 }

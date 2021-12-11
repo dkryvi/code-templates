@@ -20,3 +20,8 @@
 .markdown pre {
   @apply bg-gray-900 text-gray-50 p-4 my-4 rounded overflow-auto;
 }
+
+.markdown p,
+.markdown span {
+  @apply text-gray-900;
+}

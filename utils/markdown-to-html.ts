@@ -1,5 +1,4 @@
 import rehypeFormat from 'rehype-format'
-import rehypeSanitize from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
 import remarkParse from 'remark-parse'
 import remarkPrism from 'remark-prism'
@@ -27,7 +26,6 @@ export default async function markdownToHtml(
       ]
     })
     .use(remarkRehype)
-    .use(rehypeSanitize)
     .use(rehypeFormat)
     //@ts-ignore
     .use(rehypeStringify)
