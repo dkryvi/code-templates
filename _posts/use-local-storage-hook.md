@@ -1,7 +1,8 @@
 ---
 title: 'Use local storage'
 excerpt: 'React hook to use sync local storage value by key'
-tags: ['react', 'hooks', 'local-storage']
+collection: 'react'
+tags: ['hooks', 'local-storage']
 ---
 
 ```js

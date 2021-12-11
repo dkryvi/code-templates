@@ -1,7 +1,8 @@
 ---
 title: '.prettierrc'
 excerpt: 'Base configuration for prettier'
-tags: ['javascript', 'linting', 'prettier']
+collection: 'javascript'
+tags: ['linting', 'prettier']
 ---
 
 ```json

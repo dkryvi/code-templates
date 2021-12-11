@@ -1,5 +1,3 @@
-
-require('dotenv').config()
 import * as Sentry from '@sentry/nextjs'
 import logger from 'loglevel'
 
