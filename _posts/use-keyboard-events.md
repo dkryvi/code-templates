@@ -1,7 +1,8 @@
 ---
 title: 'Use keyboard events'
 excerpt: 'React hook for listening keyboard events.'
-tags: ['react', 'hooks', 'event']
+collection: 'react'
+tags: ['hooks', 'event']
 ---
 
 ```jsx

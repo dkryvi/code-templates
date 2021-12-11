@@ -1,7 +1,8 @@
 ---
 title: 'Use async'
 excerpt: 'React hook to work with async function call'
-tags: ['react', 'hooks', 'async']
+collection: 'react'
+tags: ['hooks', 'async']
 ---
 
 ```js

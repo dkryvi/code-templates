@@ -1,7 +1,8 @@
 ---
 title: 'Use target event'
 excerpt: 'React hook to listing target event.'
-tags: ['react', 'hooks', 'event']
+collection: 'react'
+tags: ['hooks', 'event']
 ---
 
 ```jsx

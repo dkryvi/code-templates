@@ -1,7 +1,8 @@
 ---
 title: 'Events blocker'
 excerpt: 'Wrapper component to block all events inside'
-tags: ['react', 'components', 'event']
+collection: 'react'
+tags: ['components', 'event']
 ---
 
 ```jsx

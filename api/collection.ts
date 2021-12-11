@@ -37,22 +37,40 @@ export async function getCollections(
   return data.results.map(deserializeCollectionPage)
 }
 
-interface UpdateCollectionPayload {
+interface CollectionPayload {
   tags?: Array<string>
   slugs?: Array<string>
 }
 
 export async function updateCollection(
   id: string,
-  payload: UpdateCollectionPayload
+  payload: CollectionPayload
 ): Promise<Collection> {
-  const data = await notion.pages.update({
-    page_id:id,
+  const updatedCollection = await notion.pages.update({
+    page_id: id,
     properties: {
-      tags: (payload.tags ?? []).map(tag => ({name: tag})),
-      slugs: (payload.slugs ?? []).map(slug => ({name: slug})),
+      tags: (payload.tags ?? []).map((tag) => ({name: tag})),
+      slugs: (payload.slugs ?? []).map((slug) => ({name: slug}))
     }
-  });
+  })
 
-  return  deserializeCollectionPage(data)
+  return deserializeCollectionPage(updatedCollection)
+}
+
+export async function createCollection(
+  title: string,
+  payload: CollectionPayload
+) {
+  const createdCollection = await notion.pages.create({
+    parent: {
+      database_id: COLLECTION_DB_ID
+    },
+    properties: {
+      title: [{text: {content: title}}],
+      tags: (payload.tags ?? []).map((tag) => ({name: tag})),
+      slugs: (payload.slugs ?? []).map((slug) => ({name: slug}))
+    }
+  })
+
+  return deserializeCollectionPage(createdCollection)
 }

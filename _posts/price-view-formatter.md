@@ -1,7 +1,8 @@
 ---
 title: 'Format price'
 excerpt: 'Code snippet to return short version of the price value.'
-tags: ['javascript', 'snippet', 'price-formatter']
+collection: 'javascript'
+tags: ['snippet', 'price-formatter']
 ---
 
 ```js

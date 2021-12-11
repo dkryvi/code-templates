@@ -3,7 +3,8 @@ title: 'Is vertical scroll??'
 excerpt:
   'Helper function to determine is scroll event vertical or horizontal. Useful
   for handling scroll behavior via mouse wheel, trackpad, or mobile swiping.'
-tags: ['javascript', 'snippet', 'event']
+collection: 'javascript'
+tags: ['snippet', 'event']
 ---
 
 ```js

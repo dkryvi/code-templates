@@ -1,11 +1,16 @@
-require('dotenv').config()
-
 import * as Sentry from '@sentry/nextjs'
+import groupBy from 'lodash.groupby'
+import partition from 'lodash.partition'
 import logger from 'loglevel'
 
-import {getCollections, updateCollection} from '../api/collection'
+import {
+  createCollection,
+  getCollections,
+  updateCollection
+} from '../api/collection'
+import {normalize} from '../utils/array'
 import {getPosts} from '../utils/fs'
-import {getPostsMap, getUniquePostsTags} from '../utils/post'
+import {getUniquePostsTags} from '../utils/post'
 
 import '../sentry.server.config'
 
@@ -17,10 +22,11 @@ interface CollectionsMap {
 }
 
 function getCollectionsMap(): CollectionsMap {
-  const postsMap = getPostsMap(getPosts())
+  const posts = getPosts()
+  const groupedPosts = groupBy(posts, 'collection')
 
-  return Object.keys(postsMap).reduce((res, key) => {
-    const posts = postsMap[key];
+  return Object.keys(groupedPosts).reduce((res, key) => {
+    const posts = groupedPosts[key]
 
     return {
       ...res,
@@ -34,22 +40,39 @@ function getCollectionsMap(): CollectionsMap {
 
 async function sync() {
   const collections = await getCollections()
+  const normalizedCollections = normalize(collections, 'title')
   const collectionsMap = getCollectionsMap()
-  console.log({collections})
 
-
-  return await Promise.all(
-    collections
-    .filter(collection => collectionsMap[collection.title])
-    .map((collection) =>
-      updateCollection(collection.id, collectionsMap[collection.title])
-    )
+  const [existingKeys, newKeys] = partition(
+    Object.keys(collectionsMap),
+    (key) => normalizedCollections[key]
   )
+
+  const updatePromises = existingKeys.map((key) => {
+    const collection = normalizedCollections[key]
+
+    return updateCollection(collection.id, collectionsMap[key])
+  })
+
+  const createPromises = newKeys.map((key) =>
+    createCollection(key, collectionsMap[key])
+  )
+
+  return Promise.all([Promise.all(updatePromises), Promise.all(createPromises)])
 }
 
 logger.setLevel('info')
 
 sync()
-  .then((collections) => logger.info(`🎉 Successfully synced ${collections.length} collections`)
-  )
+  .then(([updatedCollections, newCollections]) => {
+    logger.info(
+      `🎉 Successfully synced ${updatedCollections.length} collections`
+    )
+
+    if (newCollections.length > 0) {
+      logger.info(
+        `🎉 Successfully created ${newCollections.length} collections`
+      )
+    }
+  })
   .catch((error) => Sentry.captureException(error))

@@ -1,7 +1,8 @@
 ---
 title: 'Tiled list'
 excerpt: 'Component to slice big list and show by page'
-tags: ['react', 'components', 'list', 'children']
+collection: 'react'
+tags: ['components', 'list', 'children']
 coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1627307206/Code%20Templates/covers/cover_mkiayd.jpg'
 ---
 

@@ -8,10 +8,10 @@
     "start": "next start",
     "check:types": "tsc --noEmit",
     "check:format": "prettier .",
-    "check:lint": "next lint",
+    "check:lint": "eslint . --fix",
     "update-deps": "npx npm-check-updates -u",
-    "sync:algolia": "ts-node ./scripts/sync-algolia",
-    "sync:collections": "ts-node ./scripts/sync-collections"
+    "sync:algolia": "ts-node --require dotenv/config ./scripts/sync-algolia",
+    "sync:collections": "ts-node --require dotenv/config ./scripts/sync-collections"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.5.0",
@@ -29,6 +29,8 @@
     "date-fns": "2.27.0",
     "dotenv": "^10.0.0",
     "gray-matter": "4.0.3",
+    "lodash.groupby": "^4.6.0",
+    "lodash.partition": "^4.6.0",
     "loglevel": "^1.8.0",
     "next": "12.0.7",
     "next-seo": "^4.28.1",
@@ -46,6 +48,8 @@
   "devDependencies": {
     "@types/glob": "^7.2.0",
     "@types/jest": "^27.0.3",
+    "@types/lodash.groupby": "^4.6.6",
+    "@types/lodash.partition": "^4.6.6",
     "@types/node": "^16.11.12",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
@@ -53,7 +57,7 @@
     "@typescript-eslint/parser": "^5.6.0",
     "autoprefixer": "^10.4.0",
     "cssnano": "^5.0.12",
-    "eslint": "^8.4.1",
+    "eslint": "^7.32.0",
     "eslint-config-next": "^12.0.7",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",

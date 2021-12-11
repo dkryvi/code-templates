@@ -35,6 +35,7 @@ export type AlgoliaCollection = BaseItem & {
 export interface Post {
   author: Author
   date: number
+  collection: string
   content: string
   coverImage: string
   excerpt: string

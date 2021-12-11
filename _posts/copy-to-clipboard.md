@@ -1,7 +1,8 @@
 ---
 title: 'Copy to clipboard'
 excerpt: 'Code snippet to copy some value into the buffer'
-tags: ['javascript', 'snippet', 'copy-to-clipboard']
+collection: 'javascript'
+tags: ['snippet', 'copy-to-clipboard']
 ---
 
 ```js
