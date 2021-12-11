@@ -4,7 +4,7 @@ export interface GroupedPosts {
   [key: string]: Array<Post>
 }
 
-export function groupPostsByPrimaryTag(posts: Array<Post>): GroupedPosts {
+export function getPostsMap(posts: Array<Post>): GroupedPosts {
   return posts.reduce((res: GroupedPosts, post: Post) => {
     const primaryTag = post.tags[0]
 

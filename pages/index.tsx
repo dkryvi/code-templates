@@ -1,4 +1,3 @@
-import {Collection} from '@prisma/client'
 import {GetStaticProps} from 'next'
 import Link from 'next/link'
 
@@ -7,7 +6,7 @@ import CollectionList from 'components/collection-list'
 import Container from 'components/container'
 import Layout from 'components/layout'
 import PostList from 'components/post-list'
-import {Post} from 'types'
+import {Collection, Post} from 'types'
 import {getPosts} from 'utils/fs'
 
 type Props = {
@@ -28,7 +27,7 @@ const HomePage: React.FC<Props> = ({collections, posts}) => {
           </h1>
           <Link href="/get-started">
             <a
-              className="mt-8 btn btn-primary text-2xl text-center"
+              className="mt-8 btn text-2xl text-center"
               aria-label="get-started"
             >
               Get started
@@ -46,10 +45,8 @@ export default HomePage
 
 export const getStaticProps: GetStaticProps = async () => {
   const collections = await getCollections({
-    take: 6,
-    orderBy: {
-      slugs: 'desc'
-    }
+    page_size: 6,
+    sorts: [{property: 'slugs', direction: 'descending'}]
   })
   const posts = getPosts({limit: 6})
 

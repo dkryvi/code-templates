@@ -1,25 +1,58 @@
-import type {Collection, Prisma} from '@prisma/client'
+import type {QueryDatabaseParameters} from '@notionhq/client/build/src/api-endpoints'
 
-import prisma from '../lib/prisma'
+import type {Collection} from 'types'
 
-export async function getCollection(
-  args: Prisma.CollectionFindUniqueArgs
-): Promise<Collection | null> {
-  const data = await prisma.collection.findUnique(args)
-  return JSON.parse(JSON.stringify(data))
+import notion from '../lib/notion'
+import {deserializeCollectionPage} from '../utils/notion'
+
+const COLLECTION_DB_ID = process.env
+  .NEXT_PUBLIC_COLLECTION_DATABASE_ID as string
+
+export async function getCollection(slug: string): Promise<Collection | null> {
+  const data = await notion.databases.query({
+    database_id: COLLECTION_DB_ID,
+    filter: {
+      property: 'title',
+      text: {
+        equals: slug
+      }
+    }
+  })
+
+  if (data.results?.length === 0) {
+    return null
+  }
+
+  return deserializeCollectionPage(data.results[0])
 }
 
 export async function getCollections(
-  args?: Prisma.CollectionFindManyArgs
+  params?: Omit<QueryDatabaseParameters, 'database_id'>
 ): Promise<Array<Collection>> {
-  const data = await prisma.collection.findMany(args)
-  return JSON.parse(JSON.stringify(data))
+  const data = await notion.databases.query({
+    database_id: COLLECTION_DB_ID,
+    ...params
+  })
+
+  return data.results.map(deserializeCollectionPage)
+}
+
+interface UpdateCollectionPayload {
+  tags?: Array<string>
+  slugs?: Array<string>
 }
 
 export async function updateCollection(
-  args: Prisma.CollectionUpsertArgs
+  id: string,
+  payload: UpdateCollectionPayload
 ): Promise<Collection> {
-  const data = await prisma.collection.upsert(args)
+  const data = await notion.pages.update({
+    page_id:id,
+    properties: {
+      tags: (payload.tags ?? []).map(tag => ({name: tag})),
+      slugs: (payload.slugs ?? []).map(slug => ({name: slug})),
+    }
+  });
 
-  return JSON.parse(JSON.stringify(data))
+  return  deserializeCollectionPage(data)
 }

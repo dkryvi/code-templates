@@ -1,6 +1,5 @@
 import {ParsedUrlQuery} from 'querystring'
 
-import {Collection} from '@prisma/client'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
@@ -13,7 +12,7 @@ import Layout from 'components/layout'
 import PostList from 'components/post-list'
 import SocialMeta from 'components/social-meta'
 import Title from 'components/title'
-import {Post} from 'types'
+import {Collection, Post} from 'types'
 import {getPostBySlug} from 'utils/fs'
 import {toTitleCase} from 'utils/string'
 
@@ -67,9 +66,7 @@ interface IParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const {slug} = context.params as IParams
-  const collection = await getCollection({
-    where: {title: slug}
-  })
+  const collection = await getCollection(slug)
 
   const posts = collection
     ? collection.slugs.map((slug) => getPostBySlug(slug))
@@ -84,7 +81,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const collections = await getCollections({select: {title: true}})
+  const collections = await getCollections()
 
   return {
     paths: collections.map((collection) => {

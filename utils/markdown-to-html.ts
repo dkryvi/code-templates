@@ -1,16 +1,17 @@
-import format from 'rehype-format'
-import stringify from 'rehype-stringify'
-import parse from 'remark-parse'
-import prism from 'remark-prism'
-import rehype from 'remark-rehype'
+import rehypeFormat from 'rehype-format'
+import rehypeStringify from 'rehype-stringify'
+import remarkParse from 'remark-parse'
+import remarkPrism from 'remark-prism'
+import remarkRehype from 'remark-rehype'
 import {unified} from 'unified'
 
 export default async function markdownToHtml(
   markdown: string
 ): Promise<string> {
   const result = await unified()
-    .use(parse)
-    .use(prism, {
+    //@ts-ignore
+    .use(remarkParse)
+    .use(remarkPrism, {
       transformInlineCode: true,
       plugins: [
         'autolinker',
@@ -24,9 +25,10 @@ export default async function markdownToHtml(
         'treeview'
       ]
     })
-    .use(rehype)
-    .use(format)
-    .use(stringify)
+    .use(remarkRehype)
+    .use(rehypeFormat)
+    //@ts-ignore
+    .use(rehypeStringify)
     .process(markdown)
 
   return result.toString()

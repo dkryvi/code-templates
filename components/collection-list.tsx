@@ -1,7 +1,7 @@
-import {Collection} from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import {Collection} from 'types'
 import {toTitleCase} from 'utils/string'
 
 type Props = {

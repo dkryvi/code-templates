@@ -62,7 +62,6 @@ jobs:
     env:
       NEXT_PUBLIC_ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
       ALGOLIA_SEARCH_ADMIN_KEY: ${{ secrets.ALGOLIA_SEARCH_ADMIN_KEY }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     steps:
       - name: Check out repository code
@@ -85,6 +84,3 @@ jobs:
 
       - name: Sync Algolia search
         run: yarn sync:algolia
-
-      - name: Deploy DB migrations
-        run: npx prisma migrate deploy

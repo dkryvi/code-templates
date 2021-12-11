@@ -1,12 +1,8 @@
 module.exports = {
-  darkMode: 'class',
-  purge: {
-    enabled: true,
-    content: ['./components/**/*.tsx', './pages/**/*.tsx'],
-    options: {
-      safelist: ['dark'] //specific classes
-    }
-  },
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}'
+  ],
   plugins: [
     require('@tailwindcss/line-clamp'),
     require('@tailwindcss/typography'),

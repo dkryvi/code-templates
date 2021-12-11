@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  [type='text'],
+  [type='email'],
+  [type='url'],
+  [type='password'],
+  [type='number'],
+  [type='date'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='search'],
+  [type='tel'],
+  [type='time'],
+  [type='week'],
+  [multiple],
+  textarea,
+  select {
+    @apply mt-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-300 text-gray-900 rounded-md;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center py-2 px-4 font-bold rounded-md border bg-gray-900 hover:bg-white hover:text-gray-900 border-gray-900 text-white duration-200 transition-colors;
+  }
+}
+
+/* Prism styles */
+@import './prism-holi-theme.css';
+
+/* Algolia styles */
+@import './algolia.css';
+
+/* Toastify styles */
+@import 'react-toastify/dist/ReactToastify.css';
+
+html,
+body {
+  height: 100%;
+}
+
+#_next {
+  height: 100%;
+  overflow: auto;
+}

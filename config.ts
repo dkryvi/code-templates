@@ -4,8 +4,7 @@ export const AUTHOR_FALLBACK = {
   image:
     'https://res.cloudinary.com/dkryvi/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1627306839/Code%20Templates/authors/dkryvi_sfy4ur.jpg'
 }
-export const COLLECTION_IMAGE_FALLBACK =
-  'https://res.cloudinary.com/dkryvi/image/upload/v1627327454/Code%20Templates/logos/box_usldlb.png'
+
 export const POST_IMAGE_FALLBACK =
   'https://res.cloudinary.com/dkryvi/image/upload/v1627307206/Code%20Templates/covers/cover_wyom8x.jpg'
 export const REPOSITORY_URL = 'https://github.com/dkryvi/code-templates'
