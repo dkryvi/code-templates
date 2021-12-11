@@ -23,9 +23,7 @@ export async function getCollection(slug: string): Promise<Collection | null> {
     return null
   }
 
-  const collection = deserializeCollectionPage(data.results[0])
-
-  return collection
+  return deserializeCollectionPage(data.results[0])
 }
 
 export async function getCollections(

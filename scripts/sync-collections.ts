@@ -3,7 +3,7 @@ import logger from 'loglevel'
 
 import {getCollections, updateCollection} from '../api/collection'
 import {getPosts} from '../utils/fs'
-import {groupPostsByPrimaryTag, getUniquePostsTags} from '../utils/post'
+import {getPostsMap, getUniquePostsTags} from '../utils/post'
 
 import '../sentry.server.config'
 
@@ -15,15 +15,16 @@ interface CollectionsMap {
 }
 
 function getCollectionsMap(): CollectionsMap {
-  const posts = getPosts()
-  const groupedPosts = groupPostsByPrimaryTag(posts)
+  const postsMap = getPostsMap(getPosts())
 
-  return Object.keys(groupedPosts).reduce((res, slug) => {
+  return Object.keys(postsMap).reduce((res, key) => {
+    const posts = postsMap[key];
+
     return {
       ...res,
-      [slug]: {
-        tags: getUniquePostsTags(groupedPosts[slug]),
-        slugs: groupedPosts[slug].map((post) => post.slug)
+      [key]: {
+        tags: getUniquePostsTags(posts),
+        slugs: posts.map((post) => post.slug)
       }
     }
   }, {})
