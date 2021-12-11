@@ -4,7 +4,7 @@ import {AppProps} from 'next/app'
 import Script from 'next/script'
 import {ToastContainer, Slide} from 'react-toastify'
 
-import 'styles/index.css'
+import '../styles/globals.css'
 
 import {DEFAULT_SEO} from 'config'
 
