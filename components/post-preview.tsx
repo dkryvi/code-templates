@@ -15,14 +15,14 @@ const PostPreview: React.FC<Props> = ({title, excerpt, author, tags}) => {
     excerpt.length > 100 ? `${excerpt.slice(0, 100)}...` : excerpt
 
   return (
-    <article className="h-full rounded border-black border-2 hover:shadow-xl">
+    <article className="h-full rounded border-2 border-black hover:shadow-xl">
       <div className="p-4">
         <Avatar name={author.name} picture={author.image} />
-        <h3 className="prose text-3xl leading-snug my-4 font-semibold">
+        <h3 className="prose my-4 text-3xl font-semibold leading-snug">
           {title}
         </h3>
         <TagList tags={tags} />
-        <p className="prose text-lg leading-relaxed mt-4">{slicedExcerpt}</p>
+        <p className="prose mt-4 text-lg leading-relaxed">{slicedExcerpt}</p>
       </div>
     </article>
   )

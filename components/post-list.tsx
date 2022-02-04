@@ -13,11 +13,11 @@ interface Props {
 const PostList: React.FC<Props> = ({title, posts, allLink}) => (
   <section className="mb-16">
     {title && (
-      <h2 className="prose mb-8 text-6xl lg:text-7xl font-bold tracking-tighter leading-tight">
+      <h2 className="prose mb-8 text-6xl font-bold leading-tight tracking-tighter lg:text-7xl">
         {title}
       </h2>
     )}
-    <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10 ">
+    <ul className="grid grid-cols-1 gap-10 sm:grid-cols-2 xl:grid-cols-3 ">
       {posts.map((post) => (
         <li key={post.slug}>
           <Link href={`/posts/${post.slug}`}>
@@ -36,7 +36,7 @@ const PostList: React.FC<Props> = ({title, posts, allLink}) => (
     {allLink && (
       <Link href={allLink}>
         <a
-          className="block mt-4 text-right text-lg text-gray-900 font-bold hover:underline"
+          className="mt-4 block text-right text-lg font-bold text-gray-900 hover:underline"
           aria-label="View All"
         >
           View All

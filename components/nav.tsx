@@ -34,7 +34,7 @@ const NavMenu: React.FC<{className?: string}> = ({className = ''}) => {
                 router.pathname === item.href
                   ? 'bg-gray-900 text-white'
                   : 'text-gray-900 hover:bg-gray-900 hover:text-white',
-                'block px-3 py-2 rounded-md text-base font-medium'
+                'block rounded-md px-3 py-2 text-base font-medium'
               ])}
               aria-current={router.pathname === item.href ? 'page' : undefined}
             >
@@ -51,15 +51,15 @@ const Nav: React.FC = () => {
   return (
     <Disclosure
       as="nav"
-      className="bg-white sticky top-0 z-50 border-b border-accent-2"
+      className="sticky top-0 z-50 border-b border-accent-2 bg-white"
     >
       {({open}) => {
         const Icon = open ? XIcon : MenuIcon
 
         return (
           <>
-            <div className="px-6 mx-auto xl:max-w-screen-xl 2xl:max-w-screen-2xl">
-              <div className="relative flex items-center justify-between h-16">
+            <div className="mx-auto px-6 xl:max-w-screen-xl 2xl:max-w-screen-2xl">
+              <div className="relative flex h-16 items-center justify-between">
                 <div className="flex items-center lg:hidden">
                   {/* Mobile menu button*/}
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-gray-900 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -70,12 +70,12 @@ const Nav: React.FC = () => {
                     />
                   </Disclosure.Button>
                 </div>
-                <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="hidden lg:block">
                     <NavMenu className="flex space-x-4" />
                   </div>
                 </div>
-                <div className="w-12 sm:w-auto sm:max-w-sm lg:max-w-md md:w-96">
+                <div className="w-12 sm:w-auto sm:max-w-sm md:w-96 lg:max-w-md">
                   <Autocomplete />
                 </div>
               </div>
@@ -90,7 +90,7 @@ const Nav: React.FC = () => {
               leaveTo="scale-95 opacity-0"
             >
               <Disclosure.Panel
-                className="lg:hidden z-50 absolute w-full bg-white px-2 pt-2 pb-3 space-y-1 shadow-md"
+                className="absolute z-50 w-full space-y-1 bg-white px-2 pt-2 pb-3 shadow-md lg:hidden"
                 unmount
               >
                 <NavMenu />

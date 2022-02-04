@@ -19,7 +19,7 @@ const CollectionsPage: React.FC<Props> = ({collections}) => {
       <NextSeo title="Collections | Code Templates" />
       <Container>
         <Title>Collections</Title>
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-4">
+        <ul className="mb-4 grid grid-cols-1 gap-10 md:grid-cols-2">
           {collections.map((collection) => (
             <li key={collection.id}>
               <Link href={`/collections/${collection.title}`}>
