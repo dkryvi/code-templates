@@ -71,7 +71,7 @@ const Autocomplete: React.FC = () => {
             },
             templates: {
               header: () => (
-                <p className="prose prose-xl text-indigo-600 font-bold">
+                <p className="prose prose-xl font-bold text-indigo-600">
                   Collections
                 </p>
               ),
@@ -104,7 +104,7 @@ const Autocomplete: React.FC = () => {
             },
             templates: {
               header: () => (
-                <h4 className="prose prose-xl text-indigo-600 font-bold">
+                <h4 className="prose prose-xl font-bold text-indigo-600">
                   Posts
                 </h4>
               ),

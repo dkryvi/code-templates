@@ -22,7 +22,7 @@ const PostHeader: React.FC<Props> = ({
   tags
 }) => {
   return (
-    <div className="space-y-4 mb-12">
+    <div className="mb-12 space-y-4">
       <Title>{title}</Title>
       <Avatar name={author.name} picture={author.image} />
       <div className="text-lg">

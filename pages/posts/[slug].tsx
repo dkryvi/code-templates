@@ -48,7 +48,7 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
           {router.isFallback ? (
             <Title>Loading…</Title>
           ) : (
-            <article className="mb-32 max-w-4xl mx-auto">
+            <article className="mx-auto mb-32 max-w-4xl">
               <PostHeader
                 title={post.title}
                 coverImage={post.coverImage}
@@ -65,7 +65,7 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
         </Container>
       </Layout>
       <button
-        className="fixed right-8 bottom-8 p-4 rounded-full bg-black text-white"
+        className="fixed right-8 bottom-8 rounded-full bg-black p-4 text-white"
         onClick={copyLink}
       >
         <ShareIcon className="fill-current text-white" />

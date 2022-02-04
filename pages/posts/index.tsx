@@ -35,7 +35,7 @@ const PostsPage: React.FC<Props> = ({posts}) => {
         {queryTag && (
           <Link href="/posts">
             <a
-              className="prose inline-block text-lg font-bold mb-4 hover:underline"
+              className="prose mb-4 inline-block text-lg font-bold hover:underline"
               aria-label="View All"
             >
               View All

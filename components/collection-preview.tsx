@@ -13,9 +13,9 @@ type Props = {
 
 const CollectionPreview: React.FC<Props> = ({title, excerpt, image, tags}) => {
   return (
-    <article className="h-full rounded border-black border-2 p-4 hover:shadow-xl">
-      <div className="flex mb-4">
-        <div className="h-12 mr-4">
+    <article className="h-full rounded border-2 border-black p-4 hover:shadow-xl">
+      <div className="mb-4 flex">
+        <div className="mr-4 h-12">
           <Image
             src={image}
             className="rounded-full"
@@ -24,12 +24,12 @@ const CollectionPreview: React.FC<Props> = ({title, excerpt, image, tags}) => {
             height={48}
           />
         </div>
-        <h3 className="prose text-3xl leading-snug font-semibold">
+        <h3 className="prose text-3xl font-semibold leading-snug">
           {toTitleCase(title)}
         </h3>
       </div>
       <TagList tags={tags.slice(0, 8)} />
-      <p className="prose text-lg leading-relaxed mt-4 line-clamp-3">
+      <p className="prose mt-4 text-lg leading-relaxed line-clamp-3">
         {excerpt}
       </p>
     </article>
