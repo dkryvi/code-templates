@@ -2,11 +2,11 @@ export const AUTHOR_FALLBACK = {
   name: 'dkryvi',
   email: 'krivichaninds@gmail.com',
   image:
-    'https://res.cloudinary.com/dkryvi/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1627306839/Code%20Templates/authors/dkryvi_sfy4ur.jpg'
+    'https://res.cloudinary.com/dkryvi/image/upload/v1654327888/1574449729792_gphphs.jpg'
 }
 
 export const POST_IMAGE_FALLBACK =
-  'https://res.cloudinary.com/dkryvi/image/upload/v1627307206/Code%20Templates/covers/cover_wyom8x.jpg'
+  'https://res.cloudinary.com/dkryvi/image/upload/v1654328105/hanson-lu-q36bvlgdoag-unsplash_gycujh.jpg'
 export const REPOSITORY_URL = 'https://github.com/dkryvi/code-templates'
 
 export const DEFAULT_SEO = {

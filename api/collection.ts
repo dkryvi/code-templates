@@ -13,7 +13,7 @@ export async function getCollection(slug: string): Promise<Collection | null> {
     database_id: COLLECTION_DB_ID,
     filter: {
       property: 'title',
-      text: {
+      title: {
         equals: slug
       }
     }
