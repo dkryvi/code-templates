@@ -39,26 +39,28 @@ const PostDetail: React.FC<Props> = ({post, morePosts}) => {
   return (
     <>
       <Layout>
-        <SocialMeta
-          title={`${toTitleCase(post.title)} | Code Templates`}
-          description={post.excerpt}
-          cardImage={post.ogImage}
-        />
         <Container>
           {router.isFallback ? (
             <Title>Loading…</Title>
           ) : (
-            <article className="mx-auto mb-32 max-w-4xl">
-              <PostHeader
-                title={post.title}
-                coverImage={post.coverImage}
-                date={post.date}
+            <>
+              <SocialMeta
+                title={`${toTitleCase(post.title)} | Code Templates`}
+                description={post.excerpt}
+                cardImage={post.ogImage}
               />
-              <PostBody content={post.content} />
-            </article>
-          )}
-          {morePosts.length > 0 && (
-            <PostList title="Similar Posts" posts={morePosts} />
+              <article className="mx-auto mb-32 max-w-4xl">
+                <PostHeader
+                  title={post.title}
+                  coverImage={post.coverImage}
+                  date={post.date}
+                />
+                <PostBody content={post.content} />
+              </article>
+              {morePosts.length > 0 && (
+                <PostList title="Similar Posts" posts={morePosts} />
+              )}
+            </>
           )}
         </Container>
       </Layout>

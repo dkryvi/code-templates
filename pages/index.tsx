@@ -1,5 +1,4 @@
 import {GetStaticProps} from 'next'
-import Link from 'next/link'
 
 import {getCollections} from 'api/collection'
 import CollectionList from 'components/collection-list'
