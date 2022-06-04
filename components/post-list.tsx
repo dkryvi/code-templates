@@ -24,9 +24,11 @@ const PostList: React.FC<Props> = ({title, posts, allLink}) => (
             <a>
               <PostPreview
                 title={post.title}
-                tags={post.tags}
-                author={post.author}
+                coverImage={post.coverImage}
+                date={post.date}
                 excerpt={post.excerpt}
+                author={post.author}
+                slug={post.slug}
               />
             </a>
           </Link>

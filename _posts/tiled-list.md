@@ -3,7 +3,7 @@ title: 'Tiled list'
 excerpt: 'Component to slice big list and show by page'
 collection: 'react'
 tags: ['components', 'list', 'children']
-coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1627307206/Code%20Templates/covers/cover_mkiayd.jpg'
+coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1654328080/ferran-feixas-ubflzcoxst8-unsplash_zkjorx.jpg'
 ---
 
 ```jsx

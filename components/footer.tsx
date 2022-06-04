@@ -1,34 +1,31 @@
-import Container from 'components/container'
-import {REPOSITORY_URL} from 'config'
+import Link from 'next/link'
+
+import Container from './container'
+import {TwitterIcon, GithubIcon, LinkedInIcon} from './icons'
+
+const LINKS = [
+  {label: 'Twitter', icon: TwitterIcon, href: 'https://twitter.com/dkryvi_'},
+  {label: 'Github', icon: GithubIcon, href: 'https://github.com/dkryvi'},
+  {
+    label: 'LinkedIn',
+    icon: LinkedInIcon,
+    href: 'https://www.linkedin.com/in/dzianis-kryvichanin-4b7a15148/'
+  }
+]
 
 const Footer: React.FC = () => {
   return (
-    <footer className="border-t border-accent-2 bg-white">
+    <footer className="w-full border-t border-accent-2 bg-white py-8 ">
       <Container>
-        <div className="flex flex-col items-center py-28 lg:flex-row">
-          <h3 className="lg-text-5xl prose mb-10 text-center text-4xl font-bold leading-tight tracking-tighter lg:mb-0 lg:w-1/2 lg:pr-4 lg:text-left">
-            Statically Generated with Next.js.
-          </h3>
-          <div className="flex flex-col items-center justify-center space-y-6 sm:flex-row sm:space-y-0 sm:space-x-6 lg:w-1/2 lg:pl-4">
-            <a
-              className="btn"
-              href="https://nextjs.org/docs/basic-features/pages"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="read-documentation"
-            >
-              Read Documentation
-            </a>
-            <a
-              href={REPOSITORY_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="prose mx-3 font-bold"
-              aria-label="view-on-github"
-            >
-              View on GitHub
-            </a>
-          </div>
+        <div className="mx-auto flex max-w-xs items-center justify-between pt-8">
+          {LINKS.map(({label, href, icon: Icon}) => (
+            <Link key={label} href={href}>
+              <a className="flex items-center text-gray-400 transition-colors duration-200 hover:text-gray-800">
+                <p className="mr-1 text-lg font-light">{label}</p>
+                <Icon />
+              </a>
+            </Link>
+          ))}
         </div>
       </Container>
     </footer>

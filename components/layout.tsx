@@ -1,4 +1,3 @@
-import Alert from 'components/alert'
 import Footer from 'components/footer'
 import Nav from 'components/nav'
 
@@ -12,7 +11,6 @@ const Layout: React.FC<Props> = ({children}) => {
       <Nav />
       <main className="min-h-screen pt-8">{children}</main>
       <Footer />
-      <Alert />
     </>
   )
 }

@@ -18,22 +18,9 @@ const HomePage: React.FC<Props> = ({collections, posts}) => {
   return (
     <Layout>
       <Container>
-        <div className="mb-16 flex flex-col items-center">
-          <h1 className="prose text-center text-6xl font-extrabold tracking-tight text-gray-900 lg:text-7xl">
-            <span className="block">Ready to dive in?</span>
-            <span className="block text-indigo-600">
-              Best place to store your templates
-            </span>
-          </h1>
-          <Link href="/get-started">
-            <a
-              className="btn mt-8 text-center text-2xl"
-              aria-label="get-started"
-            >
-              Get started
-            </a>
-          </Link>
-        </div>
+        <h1 className="mb-16 text-6xl font-bold leading-tight tracking-tighter text-gray-900 md:pr-8 md:text-8xl">
+          Code Templates.
+        </h1>
         <CollectionList title="Popular collections" collections={collections} />
         <PostList title="Latest Posts" posts={posts} allLink="/posts" />
       </Container>

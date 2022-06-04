@@ -1,17 +1,18 @@
 import format from 'date-fns/format'
 
 type Props = {
+  className?: string
   date: number | Date
 }
 
-const DateFormatter: React.FC<Props> = ({date}) => {
+const Date: React.FC<Props> = ({className, date}) => {
   const formattedDate = format(date, 'LLLL d, yyyy')
 
   return (
-    <time className="prose" dateTime={formattedDate}>
+    <time className={className} dateTime={formattedDate}>
       {formattedDate}
     </time>
   )
 }
 
-export default DateFormatter
+export default Date

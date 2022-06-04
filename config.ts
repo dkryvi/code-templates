@@ -7,7 +7,6 @@ export const AUTHOR_FALLBACK = {
 
 export const POST_IMAGE_FALLBACK =
   'https://res.cloudinary.com/dkryvi/image/upload/v1654328105/hanson-lu-q36bvlgdoag-unsplash_gycujh.jpg'
-export const REPOSITORY_URL = 'https://github.com/dkryvi/code-templates'
 
 export const DEFAULT_SEO = {
   title: 'Code Templates',

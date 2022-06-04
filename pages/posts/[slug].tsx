@@ -21,10 +21,10 @@ import {toTitleCase} from 'utils/string'
 
 interface Props {
   post: Post
-  similarPosts: Array<Post>
+  morePosts: Array<Post>
 }
 
-const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
+const PostDetail: React.FC<Props> = ({post, morePosts}) => {
   const router = useRouter()
 
   const copyLink = () => {
@@ -53,14 +53,12 @@ const PostDetail: React.FC<Props> = ({post, similarPosts}) => {
                 title={post.title}
                 coverImage={post.coverImage}
                 date={post.date}
-                author={post.author}
-                tags={post.tags}
               />
               <PostBody content={post.content} />
             </article>
           )}
-          {similarPosts.length > 0 && (
-            <PostList title="Similar Posts" posts={similarPosts} />
+          {morePosts.length > 0 && (
+            <PostList title="Similar Posts" posts={morePosts} />
           )}
         </Container>
       </Layout>
@@ -84,7 +82,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const {slug} = context.params as IParams
   const post = getPostBySlug(slug)
   const content = await markdownToHtml(post?.content || '')
-  const similarPosts = getPosts({limit: 4, excludedSlugs: [post.slug]})
+  const morePosts = getPosts({limit: 4, excludedSlugs: [post.slug]})
 
   return {
     props: {
@@ -92,7 +90,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         ...post,
         content
       },
-      similarPosts
+      morePosts
     }
   }
 }
@@ -101,13 +99,7 @@ export const getStaticPaths: GetStaticPaths = () => {
   const posts = getPosts()
 
   return {
-    paths: posts.map((post) => {
-      return {
-        params: {
-          slug: post.slug
-        }
-      }
-    }),
-    fallback: false
+    paths: posts.map((post) => `/posts/${post.slug}`),
+    fallback: true
   }
 }

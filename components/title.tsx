@@ -1,7 +1,5 @@
-import {ReactNode} from 'react'
-
 type Props = {
-  children?: ReactNode
+  children?: React.ReactNode
 }
 
 const Title: React.FC<Props> = ({children}) => {

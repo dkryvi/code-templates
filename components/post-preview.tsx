@@ -1,29 +1,54 @@
+import Image from 'next/image'
+import Link from 'next/link'
+
 import {Author} from 'types'
 
-import Avatar from './avatar'
-import TagList from './tag-list'
+import CoverImage from './cover-image'
+import Date from './date'
 
 type Props = {
   title: string
+  coverImage: string
+  date: number
   excerpt: string
   author: Author
-  tags: Array<string>
+  slug: string
 }
 
-const PostPreview: React.FC<Props> = ({title, excerpt, author, tags}) => {
-  const slicedExcerpt =
-    excerpt.length > 100 ? `${excerpt.slice(0, 100)}...` : excerpt
-
+const PostPreview: React.FC<Props> = ({
+  title,
+  coverImage,
+  date,
+  excerpt,
+  author,
+  slug
+}) => {
   return (
-    <article className="h-full rounded border-2 border-black hover:shadow-xl">
-      <div className="p-4">
-        <Avatar name={author.name} picture={author.image} />
-        <h3 className="prose my-4 text-3xl font-semibold leading-snug">
-          {title}
-        </h3>
-        <TagList tags={tags} />
-        <p className="prose mt-4 text-lg leading-relaxed">{slicedExcerpt}</p>
-      </div>
+    <article className="m-auto h-full w-full cursor-pointer overflow-hidden rounded-lg shadow-lg ">
+      <Link as={`/posts/${slug}`} href="/posts/[slug]">
+        <div className="block h-full w-full">
+          <CoverImage src={coverImage} title={title} />
+          <div className="w-full bg-white p-4">
+            <p className="mb-2 text-xl font-medium">{title}</p>
+            <p className="text-md font-light text-gray-400">
+              {excerpt.length > 70 ? `${excerpt.slice(0, 70)}...` : excerpt}
+            </p>
+            <div className="mt-4 flex items-center">
+              <Image
+                className="rounded-full object-cover"
+                width={40}
+                height={40}
+                src={author.image}
+                alt="profile"
+              />
+              <div className="ml-4 flex flex-col justify-between text-sm">
+                <p className="text-gray-800">{author.name}</p>
+                <Date className="text-gray-400" date={date} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </Link>
     </article>
   )
 }
