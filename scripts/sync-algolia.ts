@@ -3,72 +3,73 @@ import logger from 'loglevel'
 
 import {getCollections} from '../api/collection'
 import algolia from '../lib/algolia'
-import {AlgoliaPost, AlgoliaCollection, Collection, Post} from '../types'
+import {AlgoliaPost, AlgoliaCollection} from '../types'
 import {getPosts} from '../utils/fs'
 import {toSlugCase} from '../utils/string'
 import '../sentry.server.config'
 
-function transformPostsToSearchObjects(posts: Array<Post>) {
-  return posts.map((post, index): AlgoliaPost => {
-    return {
-      objectID: `${post.slug}-${index}`,
-      slug: post.slug,
-      title: post.title,
-      tags: post.tags,
-      image: post.coverImage,
-      author_name: post.author.name,
-      author_image: post.author.image,
-      excerpt: post.excerpt
-    }
-  })
-}
-
 async function syncPosts() {
   const posts = getPosts()
-  const transformed = transformPostsToSearchObjects(posts)
 
-  return await algolia
+  const algoliaPosts: Array<AlgoliaPost> = posts.map((post) => ({
+    objectID: post.slug,
+    slug: post.slug,
+    title: post.title,
+    tags: post.tags,
+    image: post.coverImage,
+    author_name: post.author.name,
+    author_image: post.author.image,
+    excerpt: post.excerpt
+  }))
+
+  console.log({algoliaPosts})
+
+  const result = await algolia
     .initIndex('posts')
-    .replaceAllObjects(transformed, {safe: true})
+    .partialUpdateObjects(algoliaPosts, {
+      createIfNotExists: true
+    })
+
+  console.log({result})
+
+  logger.info(
+    `🎉 Sucessfully synced ${result.objectIDs.length} posts to Algolia search.`
+  )
 }
 
-function transformCollectionsToSearchObjects(collections: Array<Collection>) {
-  return collections.map((collection): AlgoliaCollection => {
-    const slug = toSlugCase(collection.title)
+async function syncCollections() {
+  const collections = await getCollections()
 
-    return {
+  const algoliaCollections: Array<AlgoliaCollection> = collections.map(
+    (collection) => ({
       objectID: collection.id,
-      slug,
+      slug: toSlugCase(collection.title),
       tags: collection.tags,
       title: collection.title,
       image: collection.image,
       excerpt: collection.excerpt,
       slugs: collection.slugs
-    }
-  })
-}
+    })
+  )
 
-async function syncCollections() {
-  const collections = await getCollections()
-  const transformed = transformCollectionsToSearchObjects(collections)
-
-  return await algolia
+  const result = await algolia
     .initIndex('collections')
-    .replaceAllObjects(transformed, {safe: true})
+    .partialUpdateObjects(algoliaCollections, {
+      createIfNotExists: true
+    })
+
+  logger.info(
+    `🎉 Sucessfully synced ${result.objectIDs.length} collections to Algolia search.`
+  )
 }
 
-logger.setLevel('info')
+async function sync() {
+  logger.setLevel('info')
 
-Promise.all([syncPosts(), syncCollections()])
-  .then(([posts, collections]) => {
-    logger.info(
-      `🎉 Sucessfully added ${posts.objectIDs.length} posts to Algolia search.`
-    )
-
-    logger.info(
-      `🎉 Sucessfully added ${collections.objectIDs.length} collections to Algolia search.`
-    )
-  })
-  .catch((error) => {
+  try {
+    await Promise.all([syncPosts(), syncCollections()])
+  } catch (error) {
     Sentry.captureException(error)
-  })
+  }
+}
+sync()
