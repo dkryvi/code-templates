@@ -13,7 +13,7 @@ interface Props {
 const PostList: React.FC<Props> = ({title, posts, allLink}) => (
   <section className="mb-16">
     {title && (
-      <h2 className="prose mb-8 text-6xl font-bold leading-tight tracking-tighter lg:text-7xl">
+      <h2 className="prose mb-8 text-6xl font-bold leading-tight tracking-tighter">
         {title}
       </h2>
     )}
