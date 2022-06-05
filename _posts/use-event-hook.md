@@ -3,6 +3,7 @@ title: 'Use target event'
 excerpt: 'React hook to listing target event.'
 collection: 'react'
 tags: ['hooks', 'event']
+coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1654328096/image-30-copyright_jps9ty.jpg'
 ---
 
 ```jsx

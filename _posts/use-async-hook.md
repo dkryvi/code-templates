@@ -3,6 +3,7 @@ title: 'Use async'
 excerpt: 'React hook to work with async function call'
 collection: 'react'
 tags: ['hooks', 'async']
+coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1654328079/image-33-copyright_fsx32w.jpg'
 ---
 
 ```js

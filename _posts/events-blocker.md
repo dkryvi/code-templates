@@ -3,6 +3,7 @@ title: 'Events blocker'
 excerpt: 'Wrapper component to block all events inside'
 collection: 'react'
 tags: ['components', 'event']
+coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1654328079/image-33-copyright_fsx32w.jpg'
 ---
 
 ```jsx

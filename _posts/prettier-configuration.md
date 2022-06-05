@@ -3,6 +3,7 @@ title: '.prettierrc'
 excerpt: 'Base configuration for prettier'
 collection: 'javascript'
 tags: ['linting', 'prettier']
+coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1654328078/mayur-gala-2podhmrvlik-unsplash_u6bm1x.jpg'
 ---
 
 ```json

@@ -3,6 +3,7 @@ title: 'Format price'
 excerpt: 'Code snippet to return short version of the price value.'
 collection: 'javascript'
 tags: ['snippet', 'price-formatter']
+coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1654328079/image-26-copyright_uh3k8l.jpg'
 ---
 
 ```js

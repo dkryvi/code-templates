@@ -3,6 +3,7 @@ title: 'Use local storage'
 excerpt: 'React hook to use sync local storage value by key'
 collection: 'react'
 tags: ['hooks', 'local-storage']
+coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1654328099/alice-triquet-eq4opdugn7w-unsplash_rjcole.jpg'
 ---
 
 ```js

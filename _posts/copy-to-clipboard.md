@@ -3,6 +3,7 @@ title: 'Copy to clipboard'
 excerpt: 'Code snippet to copy some value into the buffer'
 collection: 'javascript'
 tags: ['snippet', 'copy-to-clipboard']
+coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1654328077/clay-banks-hwlai5lrhdm-unsplash_jfflcb.jpg'
 ---
 
 ```js

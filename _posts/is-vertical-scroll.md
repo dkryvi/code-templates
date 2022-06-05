@@ -5,6 +5,7 @@ excerpt:
   for handling scroll behavior via mouse wheel, trackpad, or mobile swiping.'
 collection: 'javascript'
 tags: ['snippet', 'event']
+coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1654328077/clay-banks-hwlai5lrhdm-unsplash_jfflcb.jpg'
 ---
 
 ```js

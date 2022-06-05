@@ -3,6 +3,7 @@ title: 'Use keyboard events'
 excerpt: 'React hook for listening keyboard events.'
 collection: 'react'
 tags: ['hooks', 'event']
+coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1654328099/alice-triquet-eq4opdugn7w-unsplash_rjcole.jpg'
 ---
 
 ```jsx

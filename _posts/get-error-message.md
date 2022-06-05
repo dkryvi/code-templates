@@ -3,9 +3,10 @@ title: 'Get error message'
 excerpt: 'Utility function to get error message from any error'
 collection: 'javascript'
 tags: ['utils', 'error']
+coverImage: 'https://res.cloudinary.com/dkryvi/image/upload/v1654328080/ferran-feixas-ubflzcoxst8-unsplash_zkjorx.jpg'
 ---
 
-```js
+```tsx
 type ErrorWithMessage = {
   message: string
 }
