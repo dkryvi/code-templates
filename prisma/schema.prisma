@@ -19,7 +19,7 @@ model Tag {
 model Collection {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now()) @db.Timestamp(6)
-  updatedAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
   excerpt   String   @db.VarChar(255)
   imageUrl  String   @db.VarChar(255)
@@ -30,13 +30,16 @@ model Collection {
 model Post {
   id           Int        @id @default(autoincrement())
   createdAt    DateTime   @default(now()) @db.Timestamp(6)
-  updatedAt    DateTime   @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime   @updatedAt
   title        String     @db.VarChar(255)
   content      String?
   authorId     Int
   Author       User       @relation(fields: [authorId], references: [id])
   collectionId Int
   Collection   Collection @relation(fields: [collectionId], references: [id])
+
+  @@index([authorId])
+  @@index([collectionId])
 }
 
 model User {
