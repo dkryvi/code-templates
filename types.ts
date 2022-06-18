@@ -55,12 +55,3 @@ export interface Collection {
   tags: string[]
   slugs: string[]
 }
-
-export interface CollectionDictionary {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  title: string
-  excerpt: string
-  image: string
-}
