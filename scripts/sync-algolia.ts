@@ -22,15 +22,11 @@ async function syncPosts() {
     excerpt: post.excerpt
   }))
 
-  console.log({algoliaPosts})
-
   const result = await algolia
     .initIndex('posts')
     .partialUpdateObjects(algoliaPosts, {
       createIfNotExists: true
     })
-
-  console.log({result})
 
   logger.info(
     `🎉 Sucessfully synced ${result.objectIDs.length} posts to Algolia search.`

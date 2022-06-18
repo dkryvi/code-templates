@@ -1,0 +1,48 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Tag {
+  id           Int         @id @default(autoincrement())
+  title        String      @db.VarChar(255)
+  Collection   Collection? @relation(fields: [collectionId], references: [id])
+  collectionId Int?
+}
+
+model Collection {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @default(now()) @db.Timestamp(6)
+  title     String   @db.VarChar(255)
+  excerpt   String   @db.VarChar(255)
+  imageUrl  String   @db.VarChar(255)
+  tags      Tag[]
+  Posts     Post[]
+}
+
+model Post {
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime   @default(now()) @db.Timestamp(6)
+  title        String     @db.VarChar(255)
+  content      String?
+  authorId     Int
+  Author       User       @relation(fields: [authorId], references: [id])
+  collectionId Int
+  Collection   Collection @relation(fields: [collectionId], references: [id])
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String? @db.VarChar(255)
+  email    String  @unique @db.VarChar(255)
+  imageUrl String  @db.VarChar(255)
+  Post     Post[]
+}
