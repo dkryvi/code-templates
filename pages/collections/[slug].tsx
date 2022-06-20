@@ -1,39 +1,42 @@
 import {ParsedUrlQuery} from 'querystring'
 
+import type {Tag} from '@prisma/client'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
 import {useState} from 'react'
 
-import {getCollections, getCollection} from 'api/collection'
+import {getCollections, getCollectionWithTags} from 'api/collection'
+import {getPostsWithAllRelative} from 'api/post'
 import CollectionTagList from 'components/collection-tag-list'
 import Container from 'components/container'
 import Layout from 'components/layout'
 import PostList from 'components/post-list'
 import SocialMeta from 'components/social-meta'
 import Title from 'components/title'
-import {Collection, Post} from 'types'
-import {getPostBySlug} from 'utils/fs'
+import type {CollectionWithTags, PostsWithAllRelative} from 'domain/types'
 import {toTitleCase} from 'utils/string'
 
 type Props = {
-  collection: Collection
-  posts: Array<Post>
+  collection: CollectionWithTags
+  posts: PostsWithAllRelative
 }
 
 const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
   const router = useRouter()
-  const [activeTag, setActiveTag] = useState<string | undefined>()
+  const [activeTag, setActiveTag] = useState<Tag | undefined>()
 
-  const handleTagClick = (tag: string) =>
-    setActiveTag(activeTag === tag ? undefined : tag)
+  const handleTagClick = (tag: Tag) =>
+    setActiveTag(activeTag?.slug === tag.slug ? undefined : tag)
 
-  if (!router.isFallback && !collection?.title) {
+  if (!router.isFallback || !collection?.title) {
     return <ErrorPage statusCode={404} />
   }
 
   const filteredPosts = activeTag
-    ? posts.filter((post) => post.tags.includes(activeTag))
+    ? posts.filter((post) =>
+        post.tags?.some((tag) => tag.slug === activeTag?.slug)
+      )
     : posts
 
   return (
@@ -41,7 +44,7 @@ const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
       <SocialMeta
         title={`${toTitleCase(collection.title)} | Code Templates`}
         description={collection.excerpt ?? collection.title}
-        cardImage={collection.image}
+        cardImage={collection.imageUrl}
       />
       <Layout>
         <Container>
@@ -66,11 +69,11 @@ interface IParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const {slug} = context.params as IParams
-  const collection = await getCollection(slug)
 
-  const posts = collection
-    ? collection.slugs.map((slug) => getPostBySlug(slug))
-    : []
+  const collection = await getCollectionWithTags({where: {slug}})
+  const posts = getPostsWithAllRelative({
+    where: {collectionId: {equals: collection?.id}}
+  })
 
   return {
     props: {
@@ -81,16 +84,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const collections = await getCollections()
+  const collections = await getCollections({select: {slug: true}})
 
   return {
-    paths: collections.map((collection) => {
-      return {
-        params: {
-          slug: collection.title
-        }
-      }
-    }),
+    paths: collections.map(({slug}) => ({
+      params: {slug}
+    })),
     fallback: false
   }
 }

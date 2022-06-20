@@ -1,13 +1,3 @@
-export const AUTHOR_FALLBACK = {
-  name: 'dkryvi',
-  email: 'krivichaninds@gmail.com',
-  image:
-    'https://res.cloudinary.com/dkryvi/image/upload/v1654327888/1574449729792_gphphs.jpg'
-}
-
-export const POST_IMAGE_FALLBACK =
-  'https://res.cloudinary.com/dkryvi/image/upload/v1654328105/hanson-lu-q36bvlgdoag-unsplash_gycujh.jpg'
-
 export const DEFAULT_SEO = {
   title: 'Code Templates',
   description: 'Browse code templates for all your development needs.',

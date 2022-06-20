@@ -1,3 +1,4 @@
+import type {Tag} from '@prisma/client'
 import Image from 'next/image'
 
 import {toTitleCase} from 'utils/string'
@@ -8,10 +9,12 @@ type Props = {
   title: string
   excerpt?: string | null
   image: string
-  tags: Array<string>
+  tags: Array<Tag>
 }
 
 const CollectionPreview: React.FC<Props> = ({title, excerpt, image, tags}) => {
+  const tagList = tags.slice(0, 8).map((tag) => tag.slug)
+
   return (
     <article className="h-full rounded border-2 border-black p-4 hover:shadow-xl">
       <div className="mb-4 flex">
@@ -28,7 +31,7 @@ const CollectionPreview: React.FC<Props> = ({title, excerpt, image, tags}) => {
           {toTitleCase(title)}
         </h3>
       </div>
-      <TagList tags={tags.slice(0, 8)} />
+      <TagList tags={tagList} />
       <p className="prose mt-4 text-lg leading-relaxed line-clamp-3">
         {excerpt}
       </p>

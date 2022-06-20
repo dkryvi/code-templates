@@ -5,7 +5,7 @@ import Title from './title'
 type Props = {
   title: string
   coverImage: string
-  date: number
+  date: Date
 }
 
 const PostHeader: React.FC<Props> = ({title, coverImage, date}) => {

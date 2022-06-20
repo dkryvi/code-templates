@@ -1,24 +1,24 @@
 import * as Sentry from '@sentry/nextjs'
 import logger from 'loglevel'
 
-import {getCollections} from '../api/collection'
+import {getCollectionsWithAllRelative} from '../api/collection'
+import {getPostsWithAllRelative} from '../api/post'
+import {AlgoliaPost, AlgoliaCollection} from '../domain/types'
 import algolia from '../lib/algolia'
-import {AlgoliaPost, AlgoliaCollection} from '../types'
-import {getPosts} from '../utils/fs'
 import {toSlugCase} from '../utils/string'
 import '../sentry.server.config'
 
 async function syncPosts() {
-  const posts = getPosts()
+  const posts = await getPostsWithAllRelative()
 
   const algoliaPosts: Array<AlgoliaPost> = posts.map((post) => ({
     objectID: post.slug,
     slug: post.slug,
+    tags: post.tags?.map((tag) => tag.slug),
     title: post.title,
-    tags: post.tags,
-    image: post.coverImage,
+    image: post.imageUrl,
     author_name: post.author.name,
-    author_image: post.author.image,
+    author_image: post.author.imageUrl,
     excerpt: post.excerpt
   }))
 
@@ -34,17 +34,17 @@ async function syncPosts() {
 }
 
 async function syncCollections() {
-  const collections = await getCollections()
+  const collections = await getCollectionsWithAllRelative()
 
   const algoliaCollections: Array<AlgoliaCollection> = collections.map(
     (collection) => ({
-      objectID: collection.id,
+      objectID: collection.slug,
       slug: toSlugCase(collection.title),
-      tags: collection.tags,
+      tags: collection.tags?.map((tag) => tag.slug),
       title: collection.title,
-      image: collection.image,
+      image: collection.imageUrl,
       excerpt: collection.excerpt,
-      slugs: collection.slugs
+      slugs: collection.posts?.map((post) => post.slug)
     })
   )
 

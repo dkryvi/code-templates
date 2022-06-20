@@ -1,32 +1,20 @@
-import {GetStaticProps} from 'next'
+import {GetServerSideProps} from 'next'
 import {NextSeo} from 'next-seo'
 import Link from 'next/link'
-import {useRouter} from 'next/router'
 
+import {getPostsWithAuthor} from 'api/post'
 import Container from 'components/container'
 import Layout from 'components/layout'
 import PostList from 'components/post-list'
 import Title from 'components/title'
-import {Post} from 'types'
-import {getPosts} from 'utils/fs'
+import type {PostsWithAuthor} from 'domain/types'
 
 type Props = {
-  posts: Array<Post>
+  posts: PostsWithAuthor
+  queryTag?: string
 }
 
-type RouterQuery = {
-  [key: string]: string
-}
-
-const PostsPage: React.FC<Props> = ({posts}) => {
-  const {query = {}} = useRouter()
-
-  const {tag: queryTag} = query as RouterQuery
-
-  const filteredPosts = queryTag
-    ? posts.filter((post) => post.tags.includes(queryTag))
-    : posts
-
+const PostsPage: React.FC<Props> = ({posts, queryTag}) => {
   return (
     <Layout>
       <NextSeo title="Posts | Code Templates" />
@@ -42,7 +30,7 @@ const PostsPage: React.FC<Props> = ({posts}) => {
             </a>
           </Link>
         )}
-        <PostList posts={filteredPosts} />
+        <PostList posts={posts} />
       </Container>
     </Layout>
   )
@@ -50,10 +38,20 @@ const PostsPage: React.FC<Props> = ({posts}) => {
 
 export default PostsPage
 
-export const getStaticProps: GetStaticProps = () => {
-  const posts = getPosts()
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const queryTag = context.query?.tag as string
+
+  const posts = await getPostsWithAuthor({
+    where: {
+      tags: {
+        some: {
+          slug: queryTag
+        }
+      }
+    }
+  })
 
   return {
-    props: {posts}
+    props: {posts, queryTag}
   }
 }

@@ -11,8 +11,8 @@ import {useEffect, createElement, Fragment} from 'react'
 import {render} from 'react-dom'
 
 import TagList from 'components/tag-list'
+import {AlgoliaPost} from 'domain/types'
 import algolia from 'lib/algolia'
-import {AlgoliaPost} from 'types'
 
 type PostHitT = Hit<AlgoliaPost>
 

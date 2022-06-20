@@ -1,12 +1,12 @@
 import Link from 'next/link'
 
-import {Post} from 'types'
+import type {PostsWithAuthor} from 'domain/types'
 
 import PostPreview from './post-preview'
 
 interface Props {
   title?: string
-  posts: Post[]
+  posts: PostsWithAuthor
   allLink?: string
 }
 
@@ -24,8 +24,8 @@ const PostList: React.FC<Props> = ({title, posts, allLink}) => (
             <a>
               <PostPreview
                 title={post.title}
-                coverImage={post.coverImage}
-                date={post.date}
+                coverImage={post.imageUrl}
+                date={post.createdAt}
                 excerpt={post.excerpt}
                 author={post.author}
                 slug={post.slug}

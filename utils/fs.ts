@@ -3,12 +3,9 @@ import {join} from 'path'
 
 import matter from 'gray-matter'
 
-import {AUTHOR_FALLBACK, POST_IMAGE_FALLBACK} from '../config'
-import {Post} from '../types'
-
 const postsDirectory = join(process.cwd(), '_posts')
 
-export function getPostBySlug(slug: string): Post {
+export function getPostBySlug(slug: string) {
   const realSlug = slug.replace(/\.md$/, '')
   const fullPath = join(postsDirectory, `${realSlug}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
@@ -16,13 +13,13 @@ export function getPostBySlug(slug: string): Post {
   const {data, content} = matter(fileContents)
 
   return {
-    ...(data as Omit<Post, 'author' | 'content' | 'coverImage' | 'ogImage'>),
-    author: data.author ?? AUTHOR_FALLBACK,
+    ...data,
+    author: data.author,
     date: data.date ?? new Date().getTime(),
     content,
-    coverImage: data.coverImage ?? POST_IMAGE_FALLBACK,
+    coverImage: data.coverImage,
     slug: realSlug,
-    ogImage: data.ogImage?.url ?? POST_IMAGE_FALLBACK
+    ogImage: data.ogImage?.url
   }
 }
 
@@ -31,7 +28,7 @@ interface GetPostsOptions {
   excludedSlugs?: Array<string>
 }
 
-export function getPosts(options?: GetPostsOptions): Array<Post> {
+export function getPosts(options?: GetPostsOptions) {
   const {limit = Infinity, excludedSlugs = []} = options ?? {}
   const slugs = fs.readdirSync(postsDirectory)
 
