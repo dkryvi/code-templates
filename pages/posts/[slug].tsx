@@ -1,7 +1,7 @@
 import {ParsedUrlQuery} from 'querystring'
 
 import {Post} from '@prisma/client'
-import {GetStaticProps} from 'next'
+import {GetServerSideProps} from 'next'
 import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
 import {toast} from 'react-toastify'
@@ -84,7 +84,7 @@ interface IParams extends ParsedUrlQuery {
   slug: string
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const {slug} = context.params as IParams
   const post = await getPostBySlug(slug)
   const content = await markdownToHtml(post?.content || '')
