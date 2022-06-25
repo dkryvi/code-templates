@@ -1,12 +1,11 @@
 import {ParsedUrlQuery} from 'querystring'
 
 import type {Tag} from '@prisma/client'
-import {GetStaticPaths, GetStaticProps} from 'next'
+import {GetServerSideProps} from 'next'
 import ErrorPage from 'next/error'
-import {useRouter} from 'next/router'
 import {useState} from 'react'
 
-import {getCollections, getCollectionWithTags} from 'api/collection'
+import {getCollectionWithTags} from 'api/collection'
 import {getPostsWithAllRelative} from 'api/post'
 import CollectionTagList from 'components/collection-tag-list'
 import Container from 'components/container'
@@ -22,15 +21,10 @@ type Props = {
 }
 
 const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
-  const router = useRouter()
   const [activeTag, setActiveTag] = useState<Tag | undefined>()
 
   const handleTagClick = (tag: Tag) =>
     setActiveTag(activeTag?.slug === tag.slug ? undefined : tag)
-
-  if (router.isFallback) {
-    return <div>Loading...</div>
-  }
 
   if (!collection) {
     return <ErrorPage statusCode={404} />
@@ -70,7 +64,7 @@ interface IParams extends ParsedUrlQuery {
   slug: string
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const {slug} = context.params as IParams
 
   const collection = await getCollectionWithTags({where: {slug}})
@@ -83,16 +77,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
       collection,
       posts
     }
-  }
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const collections = await getCollections({select: {slug: true}})
-
-  return {
-    paths: collections.map(({slug}) => ({
-      params: {slug}
-    })),
-    fallback: true
   }
 }
