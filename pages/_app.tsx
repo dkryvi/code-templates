@@ -6,7 +6,7 @@ import {ToastContainer, Slide} from 'react-toastify'
 
 import '../styles/globals.css'
 
-import {DEFAULT_SEO} from 'config'
+import {DEFAULT_SEO} from 'domain/config'
 
 export default function MyApp({
   Component,

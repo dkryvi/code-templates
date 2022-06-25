@@ -1,10 +1,12 @@
 import {ParsedUrlQuery} from 'querystring'
 
-import {GetStaticPaths, GetStaticProps} from 'next'
+import {Post} from '@prisma/client'
+import {GetStaticProps} from 'next'
 import ErrorPage from 'next/error'
 import {useRouter} from 'next/router'
 import {toast} from 'react-toastify'
 
+import {getPostBySlug, getPosts, getPostsWithAuthor} from 'api/post'
 import Container from 'components/container'
 import Layout from 'components/layout'
 import PostBody from 'components/post-body'
@@ -12,16 +14,14 @@ import PostHeader from 'components/post-header'
 import PostList from 'components/post-list'
 import SocialMeta from 'components/social-meta'
 import Title from 'components/title'
+import type {PostsWithAuthor} from 'domain/types'
 import {ShareIcon} from 'icons'
-import {Post} from 'types'
 import {copyToClipboard} from 'utils/copy'
-import {getPostBySlug, getPosts} from 'utils/fs'
 import markdownToHtml from 'utils/markdown-to-html'
-import {toTitleCase} from 'utils/string'
 
 interface Props {
   post: Post
-  morePosts: Array<Post>
+  morePosts: PostsWithAuthor
 }
 
 const PostDetail: React.FC<Props> = ({post, morePosts}) => {
@@ -32,7 +32,11 @@ const PostDetail: React.FC<Props> = ({post, morePosts}) => {
     toast.success('Link copied to clipboard')
   }
 
-  if (!router.isFallback && !post?.slug) {
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
+
+  if (!post) {
     return <ErrorPage statusCode={404} />
   }
 
@@ -45,15 +49,15 @@ const PostDetail: React.FC<Props> = ({post, morePosts}) => {
           ) : (
             <>
               <SocialMeta
-                title={`${toTitleCase(post.title)} | Code Templates`}
+                title={`${post.title} | Code Templates`}
                 description={post.excerpt}
-                cardImage={post.ogImage}
+                cardImage={post.imageUrl}
               />
               <article className="mx-auto mb-32 max-w-4xl">
                 <PostHeader
                   title={post.title}
-                  coverImage={post.coverImage}
-                  date={post.date}
+                  coverImage={post.imageUrl}
+                  date={post.createdAt}
                 />
                 <PostBody content={post.content} />
               </article>
@@ -82,9 +86,16 @@ interface IParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const {slug} = context.params as IParams
-  const post = getPostBySlug(slug)
+  const post = await getPostBySlug(slug)
   const content = await markdownToHtml(post?.content || '')
-  const morePosts = getPosts({limit: 4, excludedSlugs: [post.slug]})
+  const morePosts = await getPostsWithAuthor({
+    take: 4,
+    where: {
+      slug: {
+        not: post?.slug
+      }
+    }
+  })
 
   return {
     props: {
@@ -97,8 +108,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-export const getStaticPaths: GetStaticPaths = () => {
-  const posts = getPosts()
+export async function getStaticPaths() {
+  const posts = await getPosts({select: {slug: true}})
 
   return {
     paths: posts.map((post) => `/posts/${post.slug}`),

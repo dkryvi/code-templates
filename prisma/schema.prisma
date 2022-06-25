@@ -11,41 +11,51 @@ datasource db {
 
 model Tag {
   id           Int         @id @default(autoincrement())
-  title        String      @db.VarChar(255)
-  Collection   Collection? @relation(fields: [collectionId], references: [id])
+  slug         String      @db.VarChar(255)
+  collection   Collection? @relation(fields: [collectionId], references: [id])
   collectionId Int?
+  post         Post?       @relation(fields: [postId], references: [id])
+  postId       Int?
+
+  @@index([collectionId])
+  @@index([postId])
 }
 
 model Collection {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
+  slug      String   @unique @db.VarChar(255)
   title     String   @db.VarChar(255)
   excerpt   String   @db.VarChar(255)
   imageUrl  String   @db.VarChar(255)
   tags      Tag[]
-  Posts     Post[]
+  posts     Post[]
 }
 
 model Post {
-  id           Int        @id @default(autoincrement())
-  createdAt    DateTime   @default(now()) @db.Timestamp(6)
-  updatedAt    DateTime   @updatedAt
-  title        String     @db.VarChar(255)
-  content      String?
+  id           Int         @id @default(autoincrement())
+  createdAt    DateTime    @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime    @updatedAt
+  slug         String      @unique @db.VarChar(255)
+  title        String      @db.VarChar(255)
+  excerpt      String      @db.VarChar(255)
+  content      String      @db.VarChar(2000)
+  imageUrl     String      @db.VarChar(255)
   authorId     Int
-  Author       User       @relation(fields: [authorId], references: [id])
-  collectionId Int
-  Collection   Collection @relation(fields: [collectionId], references: [id])
+  author       User        @relation(fields: [authorId], references: [id])
+  tags         Tag[]
+  collection   Collection? @relation(fields: [collectionId], references: [id])
+  collectionId Int?
 
   @@index([authorId])
   @@index([collectionId])
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  name     String? @db.VarChar(255)
-  email    String  @unique @db.VarChar(255)
-  imageUrl String  @db.VarChar(255)
-  Post     Post[]
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(255)
+  email    String @unique @db.VarChar(255)
+  imageUrl String @db.VarChar(255)
+  post     Post[]
 }

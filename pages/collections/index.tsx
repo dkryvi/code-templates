@@ -7,10 +7,10 @@ import CollectionPreview from 'components/collection-preview'
 import Container from 'components/container'
 import Layout from 'components/layout'
 import Title from 'components/title'
-import {Collection} from 'types'
+import type {CollectionsWithTags} from 'domain/types'
 
 type Props = {
-  collections: Collection[]
+  collections: CollectionsWithTags
 }
 
 const CollectionsPage: React.FC<Props> = ({collections}) => {
@@ -22,12 +22,12 @@ const CollectionsPage: React.FC<Props> = ({collections}) => {
         <ul className="mb-4 grid grid-cols-1 gap-10 md:grid-cols-2">
           {collections.map((collection) => (
             <li key={collection.id}>
-              <Link href={`/collections/${collection.title}`}>
+              <Link href={`/collections/${collection.slug}`}>
                 <a aria-label={collection.title}>
                   <CollectionPreview
                     title={collection.title}
                     excerpt={collection.excerpt}
-                    image={collection.image}
+                    image={collection.imageUrl}
                     tags={collection.tags}
                   />
                 </a>
@@ -44,7 +44,11 @@ export default CollectionsPage
 
 export const getStaticProps: GetStaticProps = async () => {
   const collections = await getCollections({
-    sorts: [{property: 'slugs', direction: 'descending'}]
+    orderBy: {
+      tags: {
+        _count: 'desc'
+      }
+    }
   })
 
   return {

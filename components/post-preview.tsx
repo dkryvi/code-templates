@@ -1,7 +1,6 @@
+import {User} from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
-
-import {Author} from 'types'
 
 import CoverImage from './cover-image'
 import Date from './date'
@@ -9,9 +8,9 @@ import Date from './date'
 type Props = {
   title: string
   coverImage: string
-  date: number
+  date: Date
   excerpt: string
-  author: Author
+  author: User
   slug: string
 }
 
@@ -38,7 +37,7 @@ const PostPreview: React.FC<Props> = ({
                 className="rounded-full object-cover"
                 width={40}
                 height={40}
-                src={author.image}
+                src={author.imageUrl}
                 alt="profile"
               />
               <div className="ml-4 flex flex-col justify-between text-sm">

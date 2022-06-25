@@ -6,6 +6,10 @@ type Props = {
 }
 
 const TagList: React.FC<Props> = ({tags}) => {
+  if (!tags || tags?.length === 0) {
+    return null
+  }
+
   return (
     <ul className="-mx-1 -my-1 flex flex-wrap">
       {tags.map((tag, index) => (
