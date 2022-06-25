@@ -3,7 +3,6 @@ import {ParsedUrlQuery} from 'querystring'
 import type {Tag} from '@prisma/client'
 import {GetServerSideProps} from 'next'
 import ErrorPage from 'next/error'
-import {useRouter} from 'next/router'
 import {useState} from 'react'
 
 import {getCollectionWithTags} from 'api/collection'
@@ -22,15 +21,10 @@ type Props = {
 }
 
 const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
-  const router = useRouter()
   const [activeTag, setActiveTag] = useState<Tag | undefined>()
 
   const handleTagClick = (tag: Tag) =>
     setActiveTag(activeTag?.slug === tag.slug ? undefined : tag)
-
-  if (router.isFallback) {
-    return <div>Loading...</div>
-  }
 
   if (!collection) {
     return <ErrorPage statusCode={404} />
