@@ -11,7 +11,7 @@ async function sync() {
   const collections = await getCollectionsWithTags()
   const postsWithTags = await getPostsWithTags()
 
-  // TODO: update collection tags based on similar post tags
+  // TODO: update collection posts based on similar collection and post tags
 
   return []
 }
