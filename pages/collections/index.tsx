@@ -22,7 +22,7 @@ const CollectionsPage: React.FC<Props> = ({collections}) => {
         <ul className="mb-4 grid grid-cols-1 gap-10 md:grid-cols-2">
           {collections.map((collection) => (
             <li key={collection.id}>
-              <Link href={`/collections/${collection.title}`}>
+              <Link href={`/collections/${collection.slug}`}>
                 <a aria-label={collection.title}>
                   <CollectionPreview
                     title={collection.title}

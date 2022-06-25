@@ -45,3 +45,20 @@ export type CollectionWithTags = Prisma.PromiseReturnType<
 export type CollectionsWithTags = Prisma.PromiseReturnType<
   typeof getCollectionsWithTags
 >
+
+interface LegacyAuthor {
+  email: string
+  image: string
+  name: string
+}
+
+export interface LegacyPost {
+  author: LegacyAuthor
+  date: number
+  content: string
+  coverImage: string
+  excerpt: string
+  slug: string
+  tags: Array<string>
+  title: string
+}

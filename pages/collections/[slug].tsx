@@ -15,7 +15,6 @@ import PostList from 'components/post-list'
 import SocialMeta from 'components/social-meta'
 import Title from 'components/title'
 import type {CollectionWithTags, PostsWithAllRelative} from 'domain/types'
-import {toTitleCase} from 'utils/string'
 
 type Props = {
   collection: CollectionWithTags
@@ -29,7 +28,11 @@ const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
   const handleTagClick = (tag: Tag) =>
     setActiveTag(activeTag?.slug === tag.slug ? undefined : tag)
 
-  if (!router.isFallback || !collection?.title) {
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
+
+  if (!collection) {
     return <ErrorPage statusCode={404} />
   }
 
@@ -42,13 +45,13 @@ const CollectionDetail: React.FC<Props> = ({collection, posts}) => {
   return (
     <>
       <SocialMeta
-        title={`${toTitleCase(collection.title)} | Code Templates`}
+        title={`${collection.title} | Code Templates`}
         description={collection.excerpt ?? collection.title}
         cardImage={collection.imageUrl}
       />
       <Layout>
         <Container>
-          <Title>{toTitleCase(collection.title)}</Title>
+          <Title>{collection.title}</Title>
           <CollectionTagList
             tags={collection.tags}
             activeTag={activeTag}
@@ -71,7 +74,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const {slug} = context.params as IParams
 
   const collection = await getCollectionWithTags({where: {slug}})
-  const posts = getPostsWithAllRelative({
+  const posts = await getPostsWithAllRelative({
     where: {collectionId: {equals: collection?.id}}
   })
 
@@ -90,6 +93,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: collections.map(({slug}) => ({
       params: {slug}
     })),
-    fallback: false
+    fallback: true
   }
 }

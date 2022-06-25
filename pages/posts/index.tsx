@@ -41,17 +41,25 @@ export default PostsPage
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const queryTag = context.query?.tag as string
 
-  const posts = await getPostsWithAuthor({
-    where: {
-      tags: {
-        some: {
-          slug: queryTag
+  if (queryTag) {
+    const posts = await getPostsWithAuthor({
+      where: {
+        tags: {
+          some: {
+            slug: queryTag
+          }
         }
       }
+    })
+
+    return {
+      props: {posts, queryTag}
     }
-  })
+  }
+
+  const posts = await getPostsWithAuthor()
 
   return {
-    props: {posts, queryTag}
+    props: {posts}
   }
 }

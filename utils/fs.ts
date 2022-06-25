@@ -3,9 +3,11 @@ import {join} from 'path'
 
 import matter from 'gray-matter'
 
+import {LegacyPost} from '../domain/types'
+
 const postsDirectory = join(process.cwd(), '_posts')
 
-export function getPostBySlug(slug: string) {
+export function getPostBySlug(slug: string): LegacyPost {
   const realSlug = slug.replace(/\.md$/, '')
   const fullPath = join(postsDirectory, `${realSlug}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
@@ -13,13 +15,12 @@ export function getPostBySlug(slug: string) {
   const {data, content} = matter(fileContents)
 
   return {
-    ...data,
+    ...(data as Omit<LegacyPost, 'author' | 'content' | 'coverImage'>),
     author: data.author,
     date: data.date ?? new Date().getTime(),
     content,
     coverImage: data.coverImage,
-    slug: realSlug,
-    ogImage: data.ogImage?.url
+    slug: realSlug
   }
 }
 
@@ -28,7 +29,7 @@ interface GetPostsOptions {
   excludedSlugs?: Array<string>
 }
 
-export function getPosts(options?: GetPostsOptions) {
+export function getPosts(options?: GetPostsOptions): Array<LegacyPost> {
   const {limit = Infinity, excludedSlugs = []} = options ?? {}
   const slugs = fs.readdirSync(postsDirectory)
 

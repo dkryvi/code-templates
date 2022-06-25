@@ -18,7 +18,6 @@ import type {PostsWithAuthor} from 'domain/types'
 import {ShareIcon} from 'icons'
 import {copyToClipboard} from 'utils/copy'
 import markdownToHtml from 'utils/markdown-to-html'
-import {toTitleCase} from 'utils/string'
 
 interface Props {
   post: Post
@@ -33,7 +32,11 @@ const PostDetail: React.FC<Props> = ({post, morePosts}) => {
     toast.success('Link copied to clipboard')
   }
 
-  if (!router.isFallback && !post?.slug) {
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
+
+  if (!post) {
     return <ErrorPage statusCode={404} />
   }
 
@@ -46,7 +49,7 @@ const PostDetail: React.FC<Props> = ({post, morePosts}) => {
           ) : (
             <>
               <SocialMeta
-                title={`${toTitleCase(post.title)} | Code Templates`}
+                title={`${post.title} | Code Templates`}
                 description={post.excerpt}
                 cardImage={post.imageUrl}
               />

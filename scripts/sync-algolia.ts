@@ -5,7 +5,6 @@ import {getCollectionsWithAllRelative} from '../api/collection'
 import {getPostsWithAllRelative} from '../api/post'
 import {AlgoliaPost, AlgoliaCollection} from '../domain/types'
 import algolia from '../lib/algolia'
-import {toSlugCase} from '../utils/string'
 import '../sentry.server.config'
 
 async function syncPosts() {
@@ -17,8 +16,8 @@ async function syncPosts() {
     tags: post.tags?.map((tag) => tag.slug),
     title: post.title,
     image: post.imageUrl,
-    author_name: post.author.name,
-    author_image: post.author.imageUrl,
+    author_name: post?.author?.name,
+    author_image: post?.author?.imageUrl,
     excerpt: post.excerpt
   }))
 
@@ -39,7 +38,7 @@ async function syncCollections() {
   const algoliaCollections: Array<AlgoliaCollection> = collections.map(
     (collection) => ({
       objectID: collection.slug,
-      slug: toSlugCase(collection.title),
+      slug: collection.slug,
       tags: collection.tags?.map((tag) => tag.slug),
       title: collection.title,
       image: collection.imageUrl,
