@@ -1,4 +1,4 @@
-import {GetServerSideProps} from 'next'
+import {GetStaticProps} from 'next'
 import {NextSeo} from 'next-seo'
 import Link from 'next/link'
 
@@ -42,7 +42,7 @@ const CollectionsPage: React.FC<Props> = ({collections}) => {
 
 export default CollectionsPage
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const collections = await getCollections({
     orderBy: {
       tags: {

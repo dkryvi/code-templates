@@ -1,5 +1,5 @@
 import {Collection} from '@prisma/client'
-import {GetServerSideProps} from 'next'
+import {GetStaticProps} from 'next'
 
 import {getCollections} from 'api/collection'
 import {getPostsWithAuthor} from 'api/post'
@@ -30,7 +30,7 @@ const HomePage: React.FC<Props> = ({collections, posts}) => {
 
 export default HomePage
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const collections = await getCollections({
     take: 6,
     orderBy: {
